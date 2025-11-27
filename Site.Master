@@ -1,0 +1,286 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="URP_AADL.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Application URP</title>
+   <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="CSS/global.css?v=1.0" rel="stylesheet" type="text/css" runat="server"  />
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    
+    
+</head>
+<body>
+    <form runat="server">
+        <asp:ContentPlaceHolder ID="NoNavContent" runat="server" Visible="true"  >
+            <!-- Contenu sans navigation (pour les pages de login) -->
+            <div class="login-container">
+                <asp:ContentPlaceHolder ID="LoginContent" runat="server">
+                    <!-- Contenu spécifique au login -->
+                </asp:ContentPlaceHolder>
+            </div>
+        </asp:ContentPlaceHolder>
+
+        <asp:ContentPlaceHolder ID="WithNavContent" runat="server" Visible="true" >
+            <!-- Contenu avec navigation -->
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-dark navbar-urp">
+                    <div class="container-fluid">
+                        <button class="toggle-sidebar" id="sidebarToggle" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="~/">
+                            <img src="<%= ResolveUrl("~/Images/LOGOAADL.png") %>" alt="Logo URP" />
+                            <%--URP SD/Contencieux--%>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav me-auto">
+                                <%--<li class="nav-item">
+                                    <a class="nav-link" href="~/Accueil">Accueil</a>
+                                </li>--%>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="~/../../AFFAIRE/LISTE_AFFAIRE.aspx">Liste Affaires</a>
+                                </li>
+                               <%-- <li class="nav-item">
+                                    <a class="nav-link" href="~/../../AFFAIRE/AJOUT_AFFAIRE.aspx">Affaires</a>
+                                </li>--%>
+                                <%--<li class="nav-item">
+                                    <a class="nav-link" href="~/Publications">Publications</a>
+                                </li>--%>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-user-circle me-1"></i>
+                                        <asp:LoginName ID="LoginName1" runat="server" />
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <%--<li><a class="dropdown-item" href="ADMIN/GESTION_USER.aspx"><i class="fas fa-user me-2"></i>Utilisateurs</a></li>--%>
+                                        <li><hr class="dropdown-divider"></li>
+                                    
+                                        <li>
+                                            <asp:LinkButton ID="btnLogout" runat="server"
+                                                CssClass="dropdown-item"
+                                                OnClick="btnLogout_Click">
+                                                 <i class='fas fa-sign-out-alt me-2'></i>Déconnexion
+                                            </asp:LinkButton>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-content">
+                    <h5 class="text-uppercase text-muted fw-bold fs-6">Menu</h5>
+                    <hr class="mt-2 mb-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item" runat="server" id="liTableauDeBord">
+                            <a class="nav-link" href="~/../../ADMIN/TABLEAU_BORD.aspx"><i class="fas fa-tachometer-alt me-2"></i>Tableau de bord</a>
+                        </li>
+                        <li class="nav-item" runat="server" id="liGestionUser">
+                            <a class="nav-link" href="~/../../ADMIN/GESTION_USER.aspx"><i class="fas fa-users me-2"></i>Gestion Utilisateurs</a>
+                        </li>
+                        <li class="nav-item" runat="server" id="liGestionAvocats">
+                            <a class="nav-link" href="~/../../ADMIN/GESTION_AVOCATS.aspx"><i class="fas fa-gavel"></i>  Gestion des Avocats</a>
+                        </li>
+                        <asp:LoginView runat="server">
+                            <RoleGroups>
+                                <asp:RoleGroup Roles="Admin">
+                                    <ContentTemplate>
+                                        <li class="nav-item mt-3">
+                                            <h6 class="text-uppercase text-muted fw-bold fs-6">Administration</h6>
+                                            <hr class="mt-2 mb-3">
+                                            <a class="nav-link" href="~/Admin/Utilisateurs"><i class="fas fa-user-cog me-2"></i>Utilisateurs</a>
+                                        </li>
+                                    </ContentTemplate>
+                                </asp:RoleGroup>
+                            </RoleGroups>
+                        </asp:LoginView>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="main-content" id="mainContent">
+                <div class="container-fluid">
+                     <%-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <asp:ContentPlaceHolder ID="BreadcrumbContent" runat="server">
+                                    <%--<li class="breadcrumb-item"><a href="~/">Accueil</a></li>
+                                </asp:ContentPlaceHolder>
+                            </ol>
+                        </nav>
+                    </div>--%>
+
+                    <div class="content-container">
+                        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                            <!-- Contenu principal des pages -->
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+
+                <footer class="footer">
+                    <%--<div class="container-fluid">--%>
+                        <div class="row">
+                           <%-- <div class="col-md-6">
+                                <h5><i class="fas fa-university me-2"></i>URP - Unité de Recherche et Projets</h5>
+                            </div>--%>
+                            <div class="col-md-6 text-md-end">
+                                <p class="mb-0">AADL &copy; <%: DateTime.Now.Year %> - Tous droits réservés</p>
+                            </div>
+                        </div>
+                    <%--</div>--%>
+                </footer>
+            </main>
+        </asp:ContentPlaceHolder>
+    </form>
+
+    <!-- jQuery, Bootstrap JS et autres scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <asp:ContentPlaceHolder ID="ScriptsContent" runat="server">
+    </asp:ContentPlaceHolder>
+    
+    <script type="text/javascript">
+        // Toggle sidebar
+        document.getElementById('sidebarToggle').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('sidebar-collapsed');
+            document.getElementById('mainContent').classList.toggle('main-content-collapsed');
+        });
+
+        // Highlight active link
+        $(document).ready(function () {
+            var url = window.location.pathname.toLowerCase();
+
+            $('.navbar-nav .nav-link').each(function () {
+                var link = $(this).attr('href').toLowerCase().replace('~/', '/');
+                if (url.indexOf(link) > -1) {
+                    $(this).addClass('active-link');
+                }
+            });
+
+            $('.sidebar .nav-link').each(function () {
+                var link = $(this).attr('href').toLowerCase().replace('~/', '/');
+                if (url.indexOf(link) > -1) {
+                    $(this).addClass('active');
+                }
+            });
+
+            // Responsive sidebar
+            function handleResponsive() {
+                if (window.innerWidth <= 992) {
+                    document.getElementById('sidebar').classList.add('sidebar-collapsed');
+                    document.getElementById('mainContent').classList.add('main-content-collapsed');
+                } else {
+                    document.getElementById('sidebar').classList.remove('sidebar-collapsed');
+                    document.getElementById('mainContent').classList.remove('main-content-collapsed');
+                }
+            }
+
+            window.addEventListener('resize', handleResponsive);
+            handleResponsive();
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+<%--<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="URP_AADL.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="fr">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Mon ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+               
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+        
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/">Nom de l'application</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a runat="server" href="~/">Accueil</a></li>
+                        <li><a runat="server" href="~/About">À propos de</a></li>
+                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - Mon ASP.NET Application</p>
+            </footer>
+        </div>
+
+    </form>
+</body>
+</html>--%>
