@@ -43,6 +43,14 @@
                     </asp:DropDownList>
                 </div>
 
+                <div class="search-group"  >
+                    <label for="DDL_DR">Direction</label>
+                    <asp:DropDownList ID="DDL_DIREC" runat="server" CssClass="form-control">
+                        <asp:ListItem Value="">Tous</asp:ListItem>
+                        
+                    </asp:DropDownList>
+                </div>
+
                 <div class="search-group">
                     <label for="DDL_SEARCH_CNV">Profil</label>
                     <asp:DropDownList ID="DDL_PROFIL" runat="server" CssClass="form-control">
@@ -52,6 +60,8 @@
                         <asp:ListItem Value="Sous Directeur">Sous Directeur</asp:ListItem>
                         <asp:ListItem Value="Juriste">Juriste</asp:ListItem>
                         <asp:ListItem Value="Agent de saisie">Agent de saisie</asp:ListItem>
+                         <asp:ListItem Value="Avocat">Avocat</asp:ListItem>
+                        <asp:ListItem Value="Direction">Autre Direction</asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 
@@ -104,6 +114,7 @@
                             </label>
                         </th>
                         <th>DR</th>
+                        <th>Direction </th>
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Date de naissance</th>
@@ -169,6 +180,7 @@
              <td><span class="status-dot <%# GetStatusClass_CONNECTER((bool)Eval("FLAG_CONNECTER")) %>">
                 <asp:Label ID="FLAG_CONNECTER" runat="server"  /></span></td>
             <td><asp:Label ID="DR" runat="server" Text='<%# Eval("DR") %>' CssClass="table-data" /></td>
+            <td><asp:Label ID="Label2" runat="server" Text='<%# Eval("DIRECTION") %>' CssClass="table-data" /></td>
             <td><asp:Label ID="USER_NOM" runat="server" Text='<%# Eval("USER_NOM") %>' CssClass="table-data" /></td>
             <td><asp:Label ID="USER_PRENOM" runat="server" Text='<%# Eval("USER_PRENOM") %>' CssClass="table-data" /></td>
             <td><asp:Label ID="USER_DDN" runat="server" Text='<%# Eval("USER_DDN", "{0:d}") %>' CssClass="table-data" /></td>
@@ -275,12 +287,22 @@
                         <asp:ListItem Value="Sous Directeur">Sous Directeur</asp:ListItem>
                         <asp:ListItem Value="Juriste">Juriste</asp:ListItem>
                         <asp:ListItem Value="Agent de saisie">Agent de saisie</asp:ListItem>
+                            <asp:ListItem Value="Avocat">Avocat</asp:ListItem>
+                        <asp:ListItem Value="Direction">Autre Direction</asp:ListItem>
                         </asp:DropDownList>
                     </div>
 
                     <div class="search-group"  >
                     <label for="DDL_DR">DR</label>
                     <asp:DropDownList ID="DDL_DR_INSERT" runat="server" CssClass="form-control">
+                        <asp:ListItem Value="">Tous</asp:ListItem>
+                        
+                    </asp:DropDownList>
+                </div>
+
+                    <div class="search-group"  >
+                    <label for="DDL_DR">Direction</label>
+                    <asp:DropDownList ID="DDL_DIRECTION" runat="server" CssClass="form-control">
                         <asp:ListItem Value="">Tous</asp:ListItem>
                         
                     </asp:DropDownList>

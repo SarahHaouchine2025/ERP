@@ -3,16 +3,22 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
     <div class="modern-container">
         <div class="page-header">
-            <h2 class="page-title"><i class="fas fa-gavel"></i> Liste des affaires / <span class="arabic-title">قائمة القضايا</span></h2>
-            <asp:Button ID="BTN_ADD_AFFAIRE" runat="server" Text="Ajouter affaire"
-                CssClass="btn-add " OnClick="BTN_ADD_AFFAIRE_Click" />
+            <h2 class="page-title"><i class="fas fa-gavel"></i>Liste des affaires / <span class="arabic-title">قائمة القضايا</span></h2>
+
+            <div class="btn-group-inline">
+                <asp:Button ID="BTN_ADD_AFFAIRE" runat="server" Text="Ajouter affaire"
+                    CssClass="btn-add" OnClick="BTN_ADD_AFFAIRE_Click" />
+
+                <asp:Button ID="BTN_ADD_AFFAIRE_DR" runat="server" Text="Ajouter affaire pour Dr"
+                    CssClass="btn-add" OnClick="BTN_ADD_AFFAIRE_DR_Click" />
+            </div>
         </div>
 
         <div class="search-panel">
-    <div class="search-header">
-        <h3><i class="fas fa-search"></i> Critères de recherche / <span class="arabic-title">معايير البحث</span></h3>
-        <button type="button" class="toggle-btn" onclick="toggleSearchPanel()">
-    <i class="fas fa-chevron-down"></i>
+            <div class="search-header">
+                <h3><i class="fas fa-search"></i>Critères de recherche / <span class="arabic-title">معايير البحث</span></h3>
+                <button type="button" class="toggle-btn" onclick="toggleSearchPanel()">
+                    <i class="fas fa-chevron-down"></i>
 </button>
     </div>
 
@@ -172,6 +178,17 @@
                 <asp:ListItem Text="Paiement des situations" Value="Paiement des situations" />--%>
             </asp:DropDownList>
         </div>
+        <div class="search-group">
+                    <label for="DDL_SEARCH_CNV">DR</label>
+                    <asp:DropDownList ID="DDL_DR" runat="server" CssClass="form-control">
+                        <asp:ListItem Value="">Tous</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+        <%--<div class="search-group">
+    <label for="CBL_DR">DR</label>
+    <asp:CheckBoxList ID="CBL_DR" runat="server" CssClass="form-check">
+    </asp:CheckBoxList>
+</div>--%>
     </div>
 
     <div class="modal-footer" id="FooterSearch" style="display: none;">
@@ -190,6 +207,7 @@
                 DataKeyNames="ID_AFFAIRE" 
                 OnSelectedIndexChanging="LIST_AFFAIRE_SelectedIndexChanging"
                 OnItemEditing="LIST_AFFAIRE_ItemEditing" 
+                
                 OnItemUpdating="LIST_AFFAIRE_ItemUpdating" 
                 OnItemCanceling="LIST_AFFAIRE_ItemCanceling" 
                 OnItemDataBound="LV_AFFAIRES_ItemDataBound"
@@ -218,7 +236,9 @@
                                     <th runat="server" id="thmoral" visible="false">DISPOSITIF</th>
                                     <th runat="server" id="thavocat" visible="false">AVOCAT</th>
                                     <th runat="server" id="thjuge" visible="false">NOM JUGE</th>
-                                    <th runat="server" id="thimpact" visible="false">IMPACT FINANCIER</th>
+                                    <th runat="server" id="th13" visible="false">AVOCAT ADVERSAIRE</th>
+                                    <th runat="server" id="th12" visible="false">IMPACT FINANCIER Demander</th>
+                                    <th runat="server" id="thimpact" visible="false">IMPACT FINANCIER Juger</th>
                                     <th runat="server" id="thobjet" visible="false">OBJET</th>
                                     <th runat="server" id="thflagPaye" visible="false">FLAG PAYER</th>
                                     <th runat="server" id="th1" visible="false">FLAG REFERE</th>
@@ -306,7 +326,9 @@
                         <td runat="server" id="td2" visible="false" ><%# Eval("DISPOSITIF") %>'</td>
                         <td runat="server" id="tdAvocat" visible="false"><%# Eval("AVOCAT") %></td>
                         <td runat="server" id="td5" visible="false" ><%# Eval("NOM_JUGE") %>'</td>
-                        <td runat="server" id="td4" visible="false" ><%# Eval("IMPACT_FINACIER") %>'</td>
+                        <td runat="server" id="td21" visible="false" ><%# Eval("AVOCAT_ADVERSAIRE") %>'</td>
+                        <td runat="server" id="td20" visible="false" ><%# Eval("IMPACT_FINACIER_DEMANDER") %>'</td>
+                        <td runat="server" id="td4" visible="false" ><%# Eval("IMPACT_FINACIER_JUGER") %>'</td>
                         <td runat="server" id="td6" visible="false" ><%# Eval("OBJET") %>'</td>
                          <td runat="server" id="td7" visible="false" ><%# Eval("FLAG_PAYE") %>'</td>
                         <td runat="server" id="td11" visible="false" ><%# Eval("FLAG_REFERE") %>'</td>
@@ -340,7 +362,7 @@
                                 <i class="fas fa-bell"  ></i>
                             </asp:LinkButton>
                             <asp:LinkButton ID="btnPayer" runat="server" CssClass="action-btn payy-btn"
-                                CommandName="PAYER" CommandArgument='<%# Eval("ID_AFFAIRE") %>'  >
+                                CommandName="PAYER" CommandArgument='<%# Eval("ID_AFFAIRE") %>' OnClick="btnPayer_Click1">
                                 <i class="fas fa-dollar-sign"  ></i>
                             </asp:LinkButton>
                             <asp:LinkButton ID="btnEdit" runat="server" CssClass="action-btn edit-btn"
@@ -358,7 +380,9 @@
                                                           + (Eval("DISPOSITIF") == DBNull.Value ? "" : Eval("DISPOSITIF")) + "\", \"" 
                                                      + (Eval("AVOCAT") == DBNull.Value ? "" : Eval("AVOCAT")) + "\", \"" 
                                                       + (Eval("NOM_JUGE") == DBNull.Value ? "" : Eval("NOM_JUGE")) + "\", \"" 
-                                                         + (Eval("IMPACT_FINACIER") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("IMPACT_FINACIER").ToString())) + "\", \"" 
+                                                      + (Eval("AVOCAT_ADVERSAIRE") == DBNull.Value ? "" : Eval("AVOCAT_ADVERSAIRE")) + "\", \"" 
+                                                      + (Eval("IMPACT_FINACIER_DEMANDER") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("IMPACT_FINACIER_DEMANDER").ToString())) + "\", \""
+                                                         + (Eval("IMPACT_FINACIER_JUGER") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("IMPACT_FINACIER_JUGER").ToString())) + "\", \"" 
                                                           + (Eval("OBJET") == DBNull.Value ? "" : Eval("OBJET")) 
                                                          + "\"); return false;" %>'>
                                 <i class="fas fa-eye"></i>
@@ -417,62 +441,80 @@
 
         <!-- Body -->
         <div class="modal-body">
-            <!-- Section : Parties -->
-            <div class="modal-grid-2">
-                <div class="modal-grid-2">
-                    <div class="form-group">
-                        <label>Défendeur</label>
-                        <asp:TextBox ID="TB_DEFENDEUR" runat="server" CssClass="form-control"
-                            TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
-                    </div>
-                    <div class="form-group">
-                        <label>Partie mise en cause</label>
-                        <asp:TextBox ID="TB_PARTIE_MISE_CAUSE" runat="server" CssClass="form-control"
-                            TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
-                    </div>
-                </div>
 
-                <div class="form-group impact-financier">
-                    <label>Impact Financier</label>
-                    <asp:TextBox ID="TB_IMPACT" runat="server" CssClass="form-control"
-                     TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
-                </div>
-            </div>
-
-            <!-- Section : Jugement -->
-            <div class="modal-grid-3">
-                <div class="form-group">
-                    <label>Date Dispositif</label>
-                    <asp:TextBox ID="TB_DATE_DIPOSITIF" runat="server" TextMode="Date" CssClass="form-control" Enabled="false"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label>Avocat</label>
-                    <asp:TextBox ID="TB_AVOCAT" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label>Nom Juge</label>
-                    <asp:TextBox ID="TB_NOM_JUGE" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                </div>
-            </div>
-
-            <!-- Section : Dispositifs -->
-            <%--<div class="modal-grid-2">--%>
-                <div class="form-group full-width">
-                    <label>Dispositif</label>
-                    <asp:TextBox ID="TB_DISPOSITIF" runat="server" TextMode="MultiLine" Rows="3" CssClass="wide-form-control" Enabled="false"></asp:TextBox>
-                </div>
-               <%-- <div class="form-group">
-                    <label>Dispositif Finance</label>
-                    <asp:TextBox ID="TB_DISPOSITIF_FINANCE" runat="server" TextMode="MultiLine" Rows="3" CssClass="wide-form-control" Enabled="false"></asp:TextBox>
-                </div>--%>
-            <%--</div>--%>
-
-            <!-- Section : Objet -->
-            <div class="form-group full-width">
-                <label>Objet</label>
-                <asp:TextBox ID="TB_OBJET" runat="server" TextMode="MultiLine" Rows="4" CssClass="wide-form-control" Enabled="false"></asp:TextBox>
-            </div>
+    <!-- Ligne 1 : Défendeur / Partie mise en cause / Avocat / Impact Financier Demandé -->
+    <div class="modal-grid-2">
+        <div class="form-group">
+            <label>Défendeur</label>
+            <asp:TextBox ID="TB_DEFENDEUR" runat="server" CssClass="form-control"
+                TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
         </div>
+
+        <div class="form-group">
+            <label>Partie mise en cause</label>
+            <asp:TextBox ID="TB_PARTIE_MISE_CAUSE" runat="server" CssClass="form-control"
+                TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
+        </div>
+        </div>
+            <div class="modal-grid-2">
+        <div class="form-group">
+            <label>Avocat</label>
+            <asp:TextBox ID="TB_AVOCAT" runat="server" CssClass="form-control"
+                TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
+        </div>
+
+        <div class="form-group impact-financier">
+            <label>Impact Financier Demandé</label>
+            <asp:TextBox ID="TB_IMPACT_DEMANDER" runat="server" CssClass="form-control"
+                TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
+        </div>
+    </div>
+
+    <!-- Ligne 2 : Objet -->
+    <div class="form-group full-width">
+        <label>Demandes de fond</label>
+        <asp:TextBox ID="TB_OBJET" runat="server" TextMode="MultiLine" Rows="4"
+            CssClass="wide-form-control" Enabled="false"></asp:TextBox>
+    </div>
+
+    <!-- Ligne 3 : Date dispositif / Nom juge -->
+    <div class="modal-grid-2">
+        <div class="form-group">
+            <label>Date Dispositif</label>
+            <asp:TextBox ID="TB_DATE_DIPOSITIF" runat="server" TextMode="Date"
+                CssClass="form-control" Enabled="false"></asp:TextBox>
+        </div>
+
+        <div class="form-group">
+            <label>Nom Juge</label>
+            <asp:TextBox ID="TB_NOM_JUGE" runat="server" CssClass="form-control"
+                Enabled="false"></asp:TextBox>
+        </div>
+    </div>
+
+    <!-- Ligne 4 : Avocat adversaire / Impact Financier Jugé -->
+    <div class="modal-grid-2">
+        <div class="form-group">
+            <label>Avocat Adversaire</label>
+            <asp:TextBox ID="TB_AVOCAT_ADVERSAIRE" runat="server"
+                CssClass="form-control" TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
+        </div>
+
+        <div class="form-group impact-financier">
+            <label>Impact Financier Jugé</label>
+            <asp:TextBox ID="TB_IMPACT_JUGER" runat="server" CssClass="form-control"
+                TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
+        </div>
+    </div>
+
+    <!-- Ligne 5 : Dispositif (full width) -->
+    <div class="form-group full-width">
+        <label>Dispositif</label>
+        <asp:TextBox ID="TB_DISPOSITIF" runat="server" TextMode="MultiLine"
+            Rows="3" CssClass="wide-form-control" Enabled="false"></asp:TextBox>
+    </div>
+
+</div>
 
         <!-- Footer -->
         <div class="modal-footer">
@@ -495,37 +537,189 @@
         </div>
 
         <!-- Body -->
-        <div class="modal-body">
-           
-            <!-- Section : Jugement -->
-            <div class="modal-grid-2">
-                <div class="modal-grid-2">
-                <div class="form-group">
-                    <label>Date Payement</label>
-                    <asp:TextBox ID="TB_DATE_PAYEMENT" runat="server" TextMode="Date" CssClass="form-control" ></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label>N° Facturation</label>
-                    <asp:TextBox ID="TB_NUM_FACTURATION" runat="server" CssClass="form-control" ></asp:TextBox>
-                </div>
-                    </div> 
+         <div class="tab-container">
 
-                <div class="form-group">
-                    <label>Scan Facturation</label>
-                     <asp:FileUpload ID="FU_FAC_PAYEMENT" runat="server" CssClass="form-control form-control-sm w-75"  />
-                </div>
+            <!-- Onglets -->
+            <div class="tabs">
+                <div id="tab_1" class="tab active" onclick="openTab(1)">Paiement Avocat</div>
+                <div id="tab_2" class="tab" onclick="openTab(2)">Paiement Affaire</div>
             </div>
+             <div id="content_1" class="tab-content active">
+                 <div class="modal-body">
 
-            
-        <!-- Footer -->
-        <div class="modal-footer">
-            <asp:Button ID="btnPayerAffaire" runat="server" CssClass="btn btn-primary btn-sm" Text="Enregistrer"  OnClick="btnPayer_Click" />
-            <button type="button" class="btn btn-cancel" onclick="closePAYAffaireModal()">Fermer</button>
-            <asp:HiddenField ID="HiddenField2" runat="server" />
-        </div>
+                     <%--<div class="modal-grid-3" runat="server" id="PAYEMENT_EFFACTUER">
+                         <h2>
+                            
+                             <asp:Label runat="server" ID="LB_PAYEMENT_EFFACTUER" Text=""></asp:Label>
+                         </h2>
+                     </div>--%>
+                     <div class="modal-grid-3" runat="server" id="partiePaiement">
+                         <div class="form-group">
+                             <label>Cause d'absence de paiement</label>
+                             <asp:DropDownList ID="DDL_CND_NON_PAYER" runat="server" CssClass="form-control" ClientIDMode="Static">
+                                 <asp:ListItem Value="">Aucun / لا شيء</asp:ListItem>
+                                 <asp:ListItem Value="Radier">Radier / الشطب</asp:ListItem>
+                                     <asp:ListItem Value="Gratuit">Gratuit / مجانية</asp:ListItem>
+                                     <asp:ListItem Value="Non Suivie">Non Suivie / غير متابَعة</asp:ListItem>
+                                </asp:DropDownList>
+                             </div>
+                         <div class="modal-grid-2">
+                             <div class="form-group">
+                                 <label>Date Payement</label>
+                                 <asp:TextBox ID="TB_DATE_PAYEMENT" runat="server" TextMode="Date" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                             </div>
+                             <div class="form-group">
+                                 <label>N° Facturation</label>
+                                 <asp:TextBox ID="TB_NUM_FACTURATION" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             <label>Scan Facturation</label>
+                             <asp:FileUpload ID="FU_FAC_PAYEMENT" runat="server" CssClass="form-control form-control-sm w-75" ClientIDMode="Static" />
+                         </div>
+                     </div>
+
+
+                     <!-- Footer -->
+                     <div class="modal-footer">
+                         <asp:Button ID="btnPayerAffaire" runat="server" CssClass="btn btn-primary btn-sm" Text="Enregistrer" OnClick="btnPayer_Click" />
+                         <button type="button" class="btn btn-cancel" onclick="closePAYAffaireModal()">Fermer</button>
+                         <asp:HiddenField ID="HiddenField2" runat="server" />
+                     </div>
+                 </div>
+             </div>
+             <div id="content_2" class="tab-content">
+                 <div class="data-section">
+                <asp:ListView ID="LV_MNT" runat="server"
+                            DataKeyNames="ID_AFFAIRE"
+                            GroupPlaceholderID="groupPlaceHolder1"
+                            ItemPlaceholderID="itemPlaceHolder1"
+                            AllowPaging="True"
+                            OnPagePropertiesChanging="LV_MNT_PagePropertiesChanging">
+                    <LayoutTemplate>
+                        <div class="table-responsive">
+                            <table class="modern-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Type Paiement</th>
+                                        <th>Nature Montant</th>
+                                        <th>Montant</th>
+                                        <th>Précision</th>
+                                        <th runat="server" id="th14" visible="false">NUM_AFFAIRE</th>
+                                        <th runat="server" id="th1" visible="false">ID</th>
+                                        <%--<th width="120">Actions</th>--%>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <asp:PlaceHolder runat="server" ID="groupPlaceHolder1" />
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pagination-container">
+                            <asp:DataPager ID="DataPager1" runat="server"
+                                PagedControlID="LV_MNT"
+                                PageSize="5"
+                                QueryStringField="page">
+                                <Fields>
+                                    <asp:NextPreviousPagerField
+                                        ButtonType="Link"
+                                        
+                                        ShowPreviousPageButton="True"
+                                        PreviousPageText="‹ "
+                                        ShowNextPageButton="False"
+                                        ShowLastPageButton="False"
+                                        RenderDisabledButtonsAsLabels="true"
+                                        ButtonCssClass="pager-button" />
+
+                                    <asp:NumericPagerField
+                                        ButtonCount="5"
+                                        ButtonType="Link"
+                                        CurrentPageLabelCssClass="current-page"
+                                        NumericButtonCssClass="page-number"
+                                        NextPreviousButtonCssClass="pager-button" />
+
+                                    <asp:NextPreviousPagerField
+                                        ButtonType="Link"
+                                        ShowFirstPageButton="False"
+                                        ShowPreviousPageButton="False"
+                                        ShowNextPageButton="True"
+                                        NextPageText=" ›"
+                                       
+                                        RenderDisabledButtonsAsLabels="true"
+                                        ButtonCssClass="pager-button" />
+                                </Fields>
+                            </asp:DataPager>
+                        </div>
+                    </LayoutTemplate>
+
+                    <GroupTemplate>
+                        <asp:PlaceHolder runat="server" ID="itemPlaceHolder1" />
+                    </GroupTemplate>
+
+                    <ItemTemplate>
+                        <tr class="table-row" id="trAffaire" runat="server">
+                            <td>
+                                <asp:Label ID="NOM_AVOCAT" runat="server" Text='<%# Eval("TYPE_PAIEMENT") %> ' CssClass="table-data" /></td>
+                            <td>
+                                <asp:Label ID="PRENOM_AVOCAT" runat="server" Text='<%# Eval("NATURE_MNT") %>' CssClass="table-data" /></td>
+                            <td>
+                                <asp:Label ID="NOM_DR" runat="server" Text='<%# Eval("MONTANT") %> ' CssClass="table-data" /></td>
+                            
+                            <td>
+                                <asp:Label ID="Label8" runat="server" Text='<%# Eval("PRECISION_MNT") %>' CssClass="table-data" /></td>
+                            
+                            <td runat="server" id="td22" visible="false">
+                                <asp:Label ID="Label1" runat="server" Text='<%# Eval("ID_AFFAIRE") %>' CssClass="table-data" /></td>
+                            <td runat="server" id="td23" visible="false">
+                                <asp:Label ID="Label2" runat="server" Text='<%# Eval("NUMERO_AFFAIRE") %>' CssClass="table-data" /></td>
+                            
+                           
+                        </tr>
+                    </ItemTemplate>
+
+                    <EmptyDataTemplate>
+                        <div class="empty-message">
+                            Aucune donnée disponible.
+                        </div>
+                    </EmptyDataTemplate>
+                </asp:ListView>
+                
+                <div class="modal-grid-3" runat="server" id="Div1">
+                         
+                         <div class="modal-grid-2">
+                             <div class="form-group">
+                                 <label>Date Payement</label>
+                                 <asp:TextBox ID="DATE_PAIEMENT_AFF" runat="server" TextMode="Date" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                             </div>
+                             <div class="form-group">
+                                 <label>N° Facturation</label>
+                                 <asp:TextBox ID="NUM_FACTURATION_AFF" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             <label>Scan Facturation</label>
+                             <asp:FileUpload ID="FU_PAIEMENT_AFF" runat="server" CssClass="form-control form-control-sm w-75" ClientIDMode="Static" />
+                         </div>
+                     </div>
+
+
+                     <!-- Footer -->
+                     <div class="modal-footer">
+                         <asp:Button ID="BTN_PAYER_AFF" runat="server" CssClass="btn btn-primary btn-sm" Text="Payer" OnClick="BTN_PAYER_AFF_Click" />
+                         <button type="button" class="btn btn-cancel" onclick="closePAYAffaireModal()">Fermer</button>
+                         <asp:HiddenField ID="HiddenField3" runat="server" />
+                     </div>
+            </div>
+             </div>
+
+         </div>
+        <asp:HiddenField ID="HF_ACTIVE_TAB" runat="server" />
+
     </div>
-</div>
-        </div> 
+    </div>
 
     <div id="DOCAffaireModal" class="modal">
     <div class="modal-content-affaire">
@@ -703,6 +897,40 @@
 
 <script>
 
+    function togglePayementFields() {
+        var ddl = document.getElementById("DDL_CND_NON_PAYER");
+        var datePay = document.getElementById("TB_DATE_PAYEMENT");
+        var numFact = document.getElementById("TB_NUM_FACTURATION");
+        var filePay = document.getElementById("FU_FAC_PAYEMENT");
+
+        if (ddl.value === "") {
+            datePay.disabled = false;
+            numFact.disabled = false;
+            filePay.disabled = false;
+        } else {
+            datePay.disabled = true;
+            numFact.disabled = true;
+            filePay.disabled = true;
+        }
+    }
+
+    function openTab(tabId) {
+
+        // mémoriser l'onglet actif
+        document.getElementById('<%= HF_ACTIVE_TAB.ClientID %>').value = tabId;
+
+        var tabs = document.getElementsByClassName("tab");
+        var contents = document.getElementsByClassName("tab-content");
+
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove("active");
+            contents[i].classList.remove("active");
+        }
+
+        document.getElementById("tab_" + tabId).classList.add("active");
+        document.getElementById("content_" + tabId).classList.add("active");
+    }
+
     function enableSaveBtn(fileInput) {
         // On trouve le bouton dans la même cellule
         var parentDiv = fileInput.closest("div");
@@ -734,7 +962,7 @@
         }
     }
 
-    function openDetailAFFAIREModalWithData(id, num_affaire, defendeur, miseencause, date_dispositif, dispo_morale,  avocat, non_juge, impact_finance, object) {
+    function openDetailAFFAIREModalWithData(id, num_affaire, defendeur, miseencause, date_dispositif, dispo_morale, avocat, non_juge, avocat_adversaire, impact_finance_demander, impact_finance_juger, object) {
         // Remplir le formulaire avec les données existantes
         document.getElementById('<%= HF_ID_AFFAIRE.ClientID %>').value = id;
         document.getElementById('<%= TB_DEFENDEUR.ClientID %>').value = defendeur;
@@ -743,7 +971,9 @@
         document.getElementById('<%= TB_DISPOSITIF.ClientID %>').value = dispo_morale;
         document.getElementById('<%= TB_AVOCAT.ClientID %>').value = avocat;
         document.getElementById('<%= TB_NOM_JUGE.ClientID %>').value = non_juge;
-        document.getElementById('<%= TB_IMPACT.ClientID %>').value = impact_finance;
+        document.getElementById('<%= TB_AVOCAT_ADVERSAIRE.ClientID %>').value = avocat_adversaire;
+        document.getElementById('<%= TB_IMPACT_DEMANDER.ClientID %>').value = impact_finance_demander;
+        document.getElementById('<%= TB_IMPACT_JUGER.ClientID %>').value = impact_finance_juger;
         document.getElementById('<%= TB_OBJET.ClientID %>').value = object;
         document.getElementById('<%= LB_NUM_AFFAIRE.ClientID %>').innerText = num_affaire;
 
@@ -798,6 +1028,12 @@
         if (event.target == modal) {
             closeDOCAffaireModal();
         }
+
+        var ddl = document.getElementById("DDL_CND_NON_PAYER");
+        ddl.addEventListener("change", togglePayementFields);
+
+        // Initialiser l'état au chargement
+        togglePayementFields();
     }
 
 </script>

@@ -196,6 +196,8 @@ body {
     margin: 20px 0 15px 0;
 }
 
+
+
 .dropdown-menu {
     border: none;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -2033,5 +2035,159 @@ a {
         color: white;
     }
 
+.btn-group-inline {
+    display: flex;
+    gap: 10px; /* espace entre les boutons */
+    align-items: center;
+}
+
+.btn-add {
+    display: inline-block;
+}
 
 
+/*TAB Onglets */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background: #f1f1f1;
+    margin-right: 5px;
+    border-radius: 6px 6px 0 0;
+    font-weight: bold;
+}
+
+    .tab.active {
+        background: #fff;
+        color: #007bff;
+        border-bottom: 2px solid #fff;
+    }
+
+.tab-content {
+    display: none;
+    padding: 15px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+    .tab-content.active {
+        display: block;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.multi-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.multi-dropdown-btn {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    color: #495057;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .multi-dropdown-btn::after {
+        content: "▼";
+        float: right;
+        font-size: 12px;
+        margin-top: 3px;
+    }
+
+/* Dropdown panel */
+.multi-dropdown-menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    max-height: 220px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    margin-top: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+/* Show on hover */
+.multi-dropdown:hover .multi-dropdown-menu {
+    display: block;
+}
+
+/* Checkbox list */
+.multi-dropdown-list label {
+    display: block;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+    .multi-dropdown-list label:hover {
+        background: #f1f3f5;
+    }
+
+/* Checkbox */
+.multi-dropdown-list input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+/* Scroll */
+.multi-dropdown-menu::-webkit-scrollbar {
+    width: 7px;
+}
+
+.multi-dropdown-menu::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.search-panel,
+.search-filter-panel,
+.search-grid {
+    overflow: visible !important;
+}
+.multi-dropdown-list span:hover {
+    background: #f1f3f5;
+    border-radius: 4px;
+    padding: 4px 6px;
+}
+
+
+.status-complet {
+    color: white;
+    background-color: green;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.status-partiel {
+    color: white;
+    background-color: orange;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.status-non-paye {
+    color: white;
+    background-color: red;
+    padding: 3px 8px;
+    border-radius: 4px;
+}

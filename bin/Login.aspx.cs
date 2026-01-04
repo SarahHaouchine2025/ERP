@@ -63,7 +63,19 @@ namespace URP_AADL
                         }
                         
                         Session["Profil"] = utilisateur.PROFIL;
-                        Response.Redirect("~/CONTENSIEUX/AFFAIRE/LISTE_AFFAIRE.aspx");
+                        if (utilisateur.PROFIL == "Avocat")
+                        {
+                            Response.Redirect("~/CONTENSIEUX/AFFAIRE/LISTE_AFFAIRE_AVOCAT.aspx");
+                        }
+                        else if (utilisateur.PROFIL == "Direction")
+                        {
+                            Response.Redirect("~/CONTENSIEUX/AFFAIRE/LISTE_COURIERS.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("~/CONTENSIEUX/AFFAIRE/LISTE_AFFAIRE.aspx");
+                        }
+                            
 
                         
                         

@@ -54,15 +54,18 @@
                                 <%--<li class="nav-item">
                                     <a class="nav-link" href="~/Accueil">Accueil</a>
                                 </li>--%>
-                                <li class="nav-item">
+                                <li class="nav-item" runat="server" id="ListeAffaire">
                                     <a class="nav-link" href="~/../../AFFAIRE/LISTE_AFFAIRE.aspx">Liste Affaires</a>
                                 </li>
-                               <%-- <li class="nav-item">
-                                    <a class="nav-link" href="~/../../AFFAIRE/AJOUT_AFFAIRE.aspx">Affaires</a>
-                                </li>--%>
-                                <%--<li class="nav-item">
-                                    <a class="nav-link" href="~/Publications">Publications</a>
-                                </li>--%>
+                                <li class="nav-item"  runat="server" id="ListeAffaireAppel">
+                                    <a class="nav-link" href="~/../../AFFAIRE/LISTE_AFFAIRE_EnAppel.aspx">Liste Affaires en Appel</a>
+                                </li>
+                                <li class="nav-item"  runat="server" id="EspaceAvocat">
+                                    <a class="nav-link" href="~/../../AFFAIRE/LISTE_AFFAIRE_AVOCAT.aspx">Espace Avocat</a>
+                                </li>
+                                <li class="nav-item"  runat="server" id="EspaceDirection">
+                                    <a class="nav-link" href="~/../../AFFAIRE/LISTE_COURIERS.aspx">Espace Direction</a>
+                                </li>
                             </ul>
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown">
@@ -102,7 +105,7 @@
                             <a class="nav-link" href="~/../../ADMIN/GESTION_USER.aspx"><i class="fas fa-users me-2"></i>Gestion Utilisateurs</a>
                         </li>
                         <li class="nav-item" runat="server" id="liGestionAvocats">
-                            <a class="nav-link" href="~/../../ADMIN/GESTION_AVOCATS.aspx"><i class="fas fa-gavel"></i>  Gestion des Avocats</a>
+                            <a class="nav-link" href="~/../../ADMIN/GESTION_AVOCATS_V2.aspx"><i class="fas fa-gavel"></i>  Gestion des Avocats</a>
                         </li>
                         <asp:LoginView runat="server">
                             <RoleGroups>
