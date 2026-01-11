@@ -1,4 +1,157 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Mobile.master.cs" Inherits="URP_AADL.Site_Mobile" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true"
+    CodeBehind="Site.mobile.master.cs"
+    Inherits="URP_AADL.SiteMobileMaster" %>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%: Page.Title %> - URP Mobile</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Mobile CSS -->
+    <style>
+        body {
+            background: #f4f6f9;
+            padding-top: 56px;
+        }
+
+        .mobile-navbar {
+            background-color: #0d6efd;
+        }
+
+        .mobile-navbar img {
+            height: 32px;
+        }
+
+        .offcanvas {
+            width: 260px;
+        }
+
+        .offcanvas a {
+            padding: 12px 16px;
+            font-size: 15px;
+        }
+
+        .main-mobile {
+            padding: 15px;
+        }
+
+        footer {
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+
+<body>
+<form runat="server">
+
+    <!-- 🔹 Header mobile -->
+    <nav class="navbar navbar-dark fixed-top mobile-navbar">
+        <div class="container-fluid">
+            <button class="btn btn-outline-light"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#mobileMenu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <span class="navbar-brand mx-auto">
+                <img src="<%= ResolveUrl("~/Images/LOGOAADL.png") %>" />
+            </span>
+
+            <asp:LinkButton runat="server" ID="btnLogout"
+                CssClass="btn btn-outline-light"
+                OnClick="btnLogout_Click">
+                <i class="fas fa-sign-out-alt"></i>
+            </asp:LinkButton>
+        </div>
+    </nav>
+
+    <!-- 🔹 Menu mobile -->
+    <div class="offcanvas offcanvas-start" id="mobileMenu">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">
+                <i class="fas fa-bars me-2"></i> Menu
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body p-0">
+            <div class="list-group list-group-flush">
+
+                <a href="~/AFFAIRE/LISTE_AFFAIRE.aspx"
+                   class="list-group-item list-group-item-action">
+                    <i class="fas fa-folder-open me-2"></i> Affaires
+                </a>
+
+                <a href="~/AFFAIRE/LISTE_AFFAIRE_EnAppel.aspx"
+                   class="list-group-item list-group-item-action">
+                    <i class="fas fa-scale-balanced me-2"></i> Appel
+                </a>
+
+                <a href="~/AFFAIRE/LISTE_AFFAIRE_AVOCAT.aspx"
+                   class="list-group-item list-group-item-action">
+                    <i class="fas fa-user-tie me-2"></i> Avocats
+                </a>
+
+                <a href="~/AFFAIRE/LISTE_COURIER.aspx"
+                   class="list-group-item list-group-item-action">
+                    <i class="fas fa-envelope me-2"></i> Direction
+                </a>
+
+                <hr class="my-1">
+
+                <asp:LoginView runat="server">
+                    <RoleGroups>
+                        <asp:RoleGroup Roles="Admin">
+                            <ContentTemplate>
+                                <a href="~/ADMIN/GESTION_USER.aspx"
+                                   class="list-group-item list-group-item-action text-danger">
+                                    <i class="fas fa-users-cog me-2"></i> Administration
+                                </a>
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                    </RoleGroups>
+                </asp:LoginView>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔹 Contenu -->
+    <main class="main-mobile">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </main>
+
+    <!-- 🔹 Footer -->
+    <footer>
+        AADL © <%: DateTime.Now.Year %>
+    </footer>
+
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
+</body>
+</html>
+
+
+
+
+<%--<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Mobile.master.cs" Inherits="URP_AADL.Site_Mobile" %>
 <%@ Register Src="~/ViewSwitcher.ascx" TagPrefix="friendlyUrls" TagName="ViewSwitcher" %>
 
 <!DOCTYPE html>
@@ -20,4 +173,4 @@
     </div>
     </form>
 </body>
-</html>
+</html>--%>

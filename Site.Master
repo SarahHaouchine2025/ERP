@@ -64,7 +64,7 @@
                                     <a class="nav-link" href="~/../../AFFAIRE/LISTE_AFFAIRE_AVOCAT.aspx">Espace Avocat</a>
                                 </li>
                                 <li class="nav-item"  runat="server" id="EspaceDirection">
-                                    <a class="nav-link" href="~/../../AFFAIRE/LISTE_COURIERS.aspx">Espace Direction</a>
+                                    <a class="nav-link" href="~/../../AFFAIRE/LISTE_COURIER.aspx">Espace Direction</a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav">

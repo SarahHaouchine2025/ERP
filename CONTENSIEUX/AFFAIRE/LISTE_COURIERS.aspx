@@ -325,6 +325,7 @@
                          <asp:ListItem Text="Réponse" Value="Réponse" />
                         <asp:ListItem Text="Documents Adversaire" Value="Documents Adversaire" />
                          <asp:ListItem Text="Jugement" Value="Jugement" />
+                         <asp:ListItem Text="Jugement final" Value="Jugement" />
                          <asp:ListItem Text="Notification" Value="Notification" />
                          <asp:ListItem Text="Autres Documents" Value="Autres Documents" />
                     </asp:DropDownList>

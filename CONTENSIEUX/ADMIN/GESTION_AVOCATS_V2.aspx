@@ -272,7 +272,7 @@
                             </div>
                             <div class="search-group">
                                 <label for="chkObservations">Observation :</label>
-                                <div class="multi-dropdown">
+                                <%--<div class="multi-dropdown">
 
                                     <!-- Bouton -->
                                     <asp:LinkButton ID="btnObsDropdown" runat="server"
@@ -291,7 +291,30 @@
                                         </asp:CheckBoxList>
 
                                     </div>
+                                </div>--%>
+
+                                <div class="dropdown-checkbox">
+
+                                    <!-- Bouton dropdown -->
+                                    <asp:LinkButton ID="btnObservation" runat="server"
+                                        CssClass="ddl-checkbox-btn"
+                                        OnClientClick="toggleObsDDL(); return false;">
+                                        ---/---
+                                    </asp:LinkButton>
+
+                                    <!-- Contenu dropdown -->
+                                    <asp:Panel ID="pnlObservation" runat="server"
+                                        CssClass="ddl-checkbox-panel">
+
+                                        <asp:CheckBoxList ID="chkObservations" runat="server"
+                                            CssClass="ddl-checkbox-list"
+                                            RepeatDirection="Vertical"
+                                            onchange="updateObsText()">
+                                        </asp:CheckBoxList>
+
+                                    </asp:Panel>
                                 </div>
+
 
                                 <%--<asp:CheckBoxList ID="chkObservations" runat="server"
                                     RepeatDirection="Horizontal"
@@ -329,6 +352,7 @@
                                     <thead>
                                         <tr>
                                             <th>Avocat</th>
+                                            <th>DR</th>
                                             <th>A. Tribunal</th>
                                             <th>A. Cours</th>
                                             <th>A. Cours Sup.</th>
@@ -353,6 +377,8 @@
                             <tr class="table-row" id="trAffaire" runat="server">
                                 <td>
                                     <asp:Label ID="NOM_AVOCAT" runat="server" Text='<%# Eval("AVOCAT") %> ' CssClass="table-data" /></td>
+                                <td>
+                                    <asp:Label ID="Label16" runat="server" Text='<%# Eval("NOM_DR") %> ' CssClass="table-data" /></td>
 
                                 <td>
                                     <asp:Label ID="Label2" runat="server" Text='<%# Eval("NBR_AFFAIRE_TRIBUNAL") %>' CssClass="table-data" /></td>
@@ -842,6 +868,37 @@
             closeAvocatModal();
         }
     }
+
+    function toggleObsDDL() {
+        const panel = document.getElementById('<%= pnlObservation.ClientID %>');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function updateObsText() {
+        const checks = document.querySelectorAll(
+        '#<%= chkObservations.ClientID %> input:checked'
+    );
+
+    const btn = document.getElementById('<%= btnObservation.ClientID %>');
+
+    if (checks.length === 0) {
+        btn.innerText = "--- / ----";
+    } else if (checks.length <= 2) {
+        let txt = [];
+        checks.forEach(c => txt.push(c.nextSibling.textContent.trim()));
+        btn.innerText = txt.join(", ");
+    } else {
+        btn.innerText = checks.length + " observations sélectionnées";
+    }
+    }
+
+    // Fermer si clic extérieur
+    document.addEventListener("click", function (e) {
+        if (!e.target.closest(".dropdown-checkbox")) {
+            document.getElementById('<%= pnlObservation.ClientID %>').style.display = "none";
+        }
+    });
+
 </script>
 
 </asp:Content>

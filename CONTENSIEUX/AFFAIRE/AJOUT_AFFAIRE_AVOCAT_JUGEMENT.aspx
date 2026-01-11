@@ -4,7 +4,7 @@
 
      <div class="btn-group-inline">
                 <asp:Button ID="BTN_RETOUR" runat="server" Text="Retour a la liste"
-                    CssClass="btn-add" OnClick="BTN_RETOUR_Click"/>
+                    CssClass="btn-add" OnClick="BTN_RETOUR_Click"  />
 
                
             </div>
@@ -133,7 +133,7 @@
 
                         </div>
                     </div>
-                     <%--<div class="wide-form-row" runat="server" id="RowScanNotification">
+                     <div class="wide-form-row" runat="server" id="RowScanNotification">
                         <div class="wide-form-group">
                             <div class="dual-label-container">
                                 <span class="label-fr">Titre notification</span>
@@ -149,7 +149,7 @@
                             <asp:FileUpload ID="FU_NOTIFICATION" runat="server" CssClass="wide-form-control" />
 
                         </div>
-                    </div>--%>
+                    </div>
                 </div>
             </div>
 

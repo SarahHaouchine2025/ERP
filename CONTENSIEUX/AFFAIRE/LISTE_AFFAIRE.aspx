@@ -9,11 +9,11 @@
                 <asp:Button ID="BTN_ADD_AFFAIRE" runat="server" Text="Ajouter affaire"
                     CssClass="btn-add" OnClick="BTN_ADD_AFFAIRE_Click" />
 
-                <asp:Button ID="BTN_ADD_AFFAIRE_DR" runat="server" Text="Ajouter affaire pour Dr"
-                    CssClass="btn-add" OnClick="BTN_ADD_AFFAIRE_DR_Click" />
+                <asp:Button ID="BTN_ADD_AFFAIRE_DR" runat="server" Text="Ajouter affaire DR"
+                    CssClass="btn-add" OnClick="BTN_ADD_AFFAIRE_DR_Click" Visible="false" />
             </div>
         </div>
-
+        
         <div class="search-panel">
             <div class="search-header">
                 <h3><i class="fas fa-search"></i>Critères de recherche / <span class="arabic-title">معايير البحث</span></h3>
@@ -179,8 +179,41 @@
             </asp:DropDownList>
         </div>
         <div class="search-group">
-                    <label for="DDL_SEARCH_CNV">DR</label>
-                    <asp:DropDownList ID="DDL_DR" runat="server" CssClass="form-control">
+                    <div class="dual-label-container">
+                <span class="label-fr">D.Régionale </span><span class="label-ar">مديرية جهوية</span>
+            </div>
+            <div class="dropdown-checkbox">
+
+                                    <!-- Bouton dropdown -->
+                                    <asp:LinkButton ID="btnDr" runat="server"
+                                        CssClass="ddl-checkbox-btn"
+                                        OnClientClick="toggleObsDDL(); return false;">
+                                        ---/---
+                                    </asp:LinkButton>
+
+                                    <!-- Contenu dropdown -->
+                                    <asp:Panel ID="pnlDR" runat="server"
+                                        CssClass="ddl-checkbox-panel">
+
+                                        <asp:CheckBoxList ID="chkDr" runat="server"
+                                            CssClass="ddl-checkbox-list"
+                                            RepeatDirection="Vertical"
+                                            onchange="updateObsText()">
+                                        </asp:CheckBoxList>
+
+                                    </asp:Panel>
+                                </div>
+                    <%--<asp:DropDownList ID="DDL_DR" runat="server" CssClass="form-control">
+                        <asp:ListItem Value="">Tous</asp:ListItem>
+                    </asp:DropDownList>--%>
+                </div>
+
+
+        <div class="search-group" runat="server" visible="false" id="div_User">
+                    <div class="dual-label-container">
+                <span class="label-fr">Utilisateur </span><span class="label-ar">مستخدم</span>
+            </div>
+                    <asp:DropDownList ID="DDL_USER" runat="server" CssClass="form-control">
                         <asp:ListItem Value="">Tous</asp:ListItem>
                     </asp:DropDownList>
                 </div>
@@ -248,8 +281,8 @@
                                     <th runat="server" id="th6" visible="false">ID_TRIBUNAL_APPEL</th>
                                     <th runat="server" id="th3" visible="false">ID_COURS_SUP</th>
                                     <th runat="server" id="th7" visible="false">ID_CONSIEL_ETAT</th>
-                                    <th runat="server" id="th8" visible="false">ID_COURIER</th>
-                                    <th runat="server" id="th11" visible="false">PATH_COURIER</th>
+                                    <%--<th runat="server" id="th8" visible="false">ID_COURIER</th>
+                                    <th runat="server" id="th11" visible="false">PATH_COURIER</th>--%>
                                     <th runat="server" id="th9" visible="false">ID_JUGEMENT</th>
                                     <th runat="server" id="th10" visible="false">PATH_JUGEMENT</th>
                                     <th runat="server" id="thflagNOTIF" visible="false">FLAG NOTIF</th>
@@ -271,10 +304,10 @@
                             <Fields>
                                 <asp:NextPreviousPagerField 
                                     ButtonType="Link"
-                                    ShowFirstPageButton="True"
-                                    FirstPageText="« Première"
+                                    ShowFirstPageButton="false"
+                                    FirstPageText=""
                                     ShowPreviousPageButton="True"
-                                    PreviousPageText="‹ Précédente"
+                                    PreviousPageText="‹"
                                     ShowNextPageButton="False"
                                     ShowLastPageButton="False"
                                     RenderDisabledButtonsAsLabels="true"
@@ -290,11 +323,11 @@
                                 <asp:NextPreviousPagerField 
                                     ButtonType="Link"
                                     ShowFirstPageButton="False"
-                                    ShowPreviousPageButton="False"
+                                   ShowPreviousPageButton="False"
                                     ShowNextPageButton="True"
-                                    NextPageText="Suivante ›"
-                                    ShowLastPageButton="True"
-                                    LastPageText="Dernière »"
+                                    NextPageText="›"
+                                    ShowLastPageButton="False"
+                                    LastPageText=""
                                     RenderDisabledButtonsAsLabels="true"
                                     ButtonCssClass="pager-button" />
                             </Fields>
@@ -338,8 +371,8 @@
                         <td runat="server" id="td14" visible="false" ><%# Eval("ID_TRIBUNAL_APPEL") %>'</td>
                         <td runat="server" id="td10" visible="false" ><%# Eval("ID_COURS_SUP") %>'</td>
                         <td runat="server" id="td15" visible="false" ><%# Eval("ID_CONSIEL_ETAT") %>'</td>
-                        <td runat="server" id="td16" visible="false" ><%# Eval("ID_COURIER") %>'</td>
-                        <td runat="server" id="td19" visible="false" ><%# Eval("PATH_COURIER") %>'</td>
+                        <%--<td runat="server" id="td16" visible="false" ><%# Eval("ID_COURIER") %>'</td>
+                        <td runat="server" id="td19" visible="false" ><%# Eval("PATH_COURIER") %>'</td>--%>
                         <td runat="server" id="td17" visible="false" ><%# Eval("ID_JUGEMENT") %>'</td>
                         <td runat="server" id="td18" visible="false" ><%# Eval("PATH_JUGEMENT") %>'</td>
                         <td runat="server" id="td8" visible="false" ><%# Eval("FLAG_NOTIFICATION") %>'</td>
@@ -377,12 +410,14 @@
                                                      + (Eval("PARTIE_DEFENDEUR") == DBNull.Value ? "" : Eval("PARTIE_DEFENDEUR")) + "\", \"" 
                                                      + (Eval("PARTIE_MISE_EN_CAUSE") == DBNull.Value ? "" : Eval("PARTIE_MISE_EN_CAUSE")) + "\", \"" 
                                                        + (Eval("DATE_DISPOSITIF") == DBNull.Value ? "" : String.Format("{0:yyyy-MM-dd}", Eval("DATE_DISPOSITIF"))) + "\", \"" 
+                                                        + (Eval("DATE_ENVOI") == DBNull.Value ? "" : String.Format("{0:yyyy-MM-dd}", Eval("DATE_ENVOI"))) + "\", \"" 
                                                           + (Eval("DISPOSITIF") == DBNull.Value ? "" : Eval("DISPOSITIF")) + "\", \"" 
                                                      + (Eval("AVOCAT") == DBNull.Value ? "" : Eval("AVOCAT")) + "\", \"" 
                                                       + (Eval("NOM_JUGE") == DBNull.Value ? "" : Eval("NOM_JUGE")) + "\", \"" 
                                                       + (Eval("AVOCAT_ADVERSAIRE") == DBNull.Value ? "" : Eval("AVOCAT_ADVERSAIRE")) + "\", \"" 
                                                       + (Eval("IMPACT_FINACIER_DEMANDER") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("IMPACT_FINACIER_DEMANDER").ToString())) + "\", \""
                                                          + (Eval("IMPACT_FINACIER_JUGER") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("IMPACT_FINACIER_JUGER").ToString())) + "\", \"" 
+                                                         + (Eval("FRAIS_EXECUTION") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("FRAIS_EXECUTION").ToString())) + "\", \"" 
                                                           + (Eval("OBJET") == DBNull.Value ? "" : Eval("OBJET")) 
                                                          + "\"); return false;" %>'>
                                 <i class="fas fa-eye"></i>
@@ -393,6 +428,19 @@
                                 >
                                 <i class="fas fa-folder-open"></i>
                             </asp:LinkButton>
+
+                            <asp:LinkButton ID="BTN_ENVOYER_COURIER" runat="server" CssClass="action-btn courier-btn"
+                                CommandName="Select" CommandArgument='<%# Eval("ID_AFFAIRE") %>' ToolTip="Envoyer un courier" OnClick="BTN_ENVOYER_COURIER_Click" 
+                                >
+                                <i class="fas fa-envelope"></i>
+                            </asp:LinkButton>
+
+                            <asp:LinkButton ID="BTN_CR_AFFAIRE" runat="server" CssClass="action-btn rapport-btn"
+                                CommandName="Select" CommandArgument='<%# Eval("ID_AFFAIRE") %>' ToolTip="Rapport d'affaire" OnClick="BTN_CR_AFFAIRE_Click"
+                                >
+                                <i class="fas fa-file-contract"></i>
+                            </asp:LinkButton>
+
                             
                         </td>
                     </tr>
@@ -426,7 +474,7 @@
                 </div>
                 
             </div>
-    </div>
+    </div>   
 
     <div id="DetailAffaireModal" class="modal">
     <div class="modal-content-affaire">
@@ -491,6 +539,11 @@
                 Enabled="false"></asp:TextBox>
         </div>
     </div>
+            <div class="form-group full-width">
+        <label>Date Renvoi</label>
+        <asp:TextBox ID="TB_DATE_RENVOIE" runat="server" TextMode="MultiLine"
+            Rows="2" CssClass="wide-form-control" Enabled="false"></asp:TextBox>
+    </div>
 
     <!-- Ligne 4 : Avocat adversaire / Impact Financier Jugé -->
     <div class="modal-grid-2">
@@ -512,6 +565,11 @@
         <label>Dispositif</label>
         <asp:TextBox ID="TB_DISPOSITIF" runat="server" TextMode="MultiLine"
             Rows="3" CssClass="wide-form-control" Enabled="false"></asp:TextBox>
+    </div>
+            <div class="form-group full-width">
+        <label>Frais Execution</label>
+        <asp:TextBox ID="TB_FRAIS_EXECUTION" runat="server" TextMode="MultiLine"
+            Rows="2" CssClass="wide-form-control" Enabled="false"></asp:TextBox>
     </div>
 
 </div>
@@ -748,6 +806,7 @@
                          <asp:ListItem Text="Réponse" Value="Réponse" />
                         <asp:ListItem Text="Documents Adversaire" Value="Documents Adversaire" />
                          <asp:ListItem Text="Jugement" Value="Jugement" />
+                         <asp:ListItem Text="Jugement final" Value="Jugement" />
                          <asp:ListItem Text="Notification" Value="Notification" />
                          <asp:ListItem Text="Autres Documents" Value="Autres Documents" />
                     </asp:DropDownList>
@@ -893,9 +952,321 @@
     </div>
 </div>
 
+    <div id="CourierDirectionModal" class="modal">
+        <div class="modal-content-affaire">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-file-alt"></i>
+                    Courier Direction pour l'affaire : 
+                    <asp:Label runat="server" ID="LB_AFFAIRE_COURIER" Text=""></asp:Label>
+                </h3>
+                <span class="close" onclick="closeCourierDirectionModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <%--<h2 class="wide-form-title">Courier pour Direction <span class="arabic-title">رسالة إلى الإدارة</span></h2>--%>
+
+
+                <!-- Espace Courier Direction  -->
+                <div class="wide-form-section">
+                    <h5 class="wide-section-title">
+                        <span class="title-fr">Détails courier</span>
+                        <span class="title-ar">تفاصيل الرسالة</span>
+                    </h5>
+                    <div class="wide-form-row">
+                        <div class="search-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Direction</span>
+                                <span class="label-ar">الإدارة</span>
+                            </div>
+                            <div class="input-with-add">
+                                <asp:DropDownList ID="DDL_DIRECTION" runat="server" CssClass="wide-form-control">
+                                    <asp:ListItem Text="------" Value="" Selected="True" />
+
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="wide-form-row">
+                        <div class="wide-form-group full-width">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Courier</span>
+                                <span class="label-ar">رسالة</span>
+                            </div>
+                            <asp:TextBox ID="TB_COURIER" runat="server" TextMode="MultiLine" Rows="3" CssClass="wide-form-control"></asp:TextBox>
+                        </div>
+                    </div>
+
+                    <div id="documentsContainer">
+                        <div class="document-item">
+                            <div class="wide-form-row">
+
+                                <div class="wide-form-group">
+                                    <div class="dual-label-container">
+                                        <span class="label-fr">Titre Document</span>
+                                        <span class="label-ar">اسم الوثيقة</span>
+                                    </div>
+                                    <asp:TextBox ID="TB_NOM_DOCUMENT" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                                </div>
+
+                                <div class="wide-form-group">
+                                    <div class="dual-label-container">
+                                        <span class="label-fr">Pièce jointe </span>
+                                        <span class="label-ar">المرفق</span>
+                                    </div>
+                                    <asp:FileUpload ID="FU_AUTRE_DOC_" runat="server" CssClass="wide-form-control" />
+                                </div>
+
+                                <div class="wide-form-group" style="align-self: flex-end;" runat="server" visible="false" >
+                                    <button type="button" class="btn-icon-add" onclick="addOtherDocField()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Boutons -->
+            <div class="wide-form-actions">
+                <asp:Button ID="BTN_ENREG_COURIER" runat="server" Text="Envoyer" CssClass="wide-btn-submit" OnClick="BTN_ENREG_COURIER_Click" />
+                <asp:Label ID="Label2" runat="server" Visible="false" CssClass="wide-status-message"></asp:Label>
+            </div>
+        </div>
+    </div>
+
+    <div id="CRAffaireModal" class="modal">
+        <div class="modal-content-affaire">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-file-alt"></i>
+                    Rapport de l'affaire : 
+                    <asp:Label runat="server" ID="LB_AFFAIRE_CR" Text=""></asp:Label>
+                </h3>
+                <span class="close" onclick="closeCRAffaireModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <%--<h2 class="wide-form-title">Courier pour Direction <span class="arabic-title">رسالة إلى الإدارة</span></h2>--%>
+
+
+                <!-- Espace Courier Direction  -->
+                <div class="wide-form-section">
+                    <h5 class="wide-section-title">
+                        <span class="title-fr">Critères du Rapport</span>
+                        <span class="title-ar">تفاصيل التقرير</span>
+                    </h5>
+                    <div class="wide-form-row">
+    <div class="criteria-card">
+
+
+        <div class="criteria-grid-fixed">
+
+            <!-- Colonne 1 -->
+            <div class="criteria-group">
+                <h5>Affaire</h5>
+                <asp:CheckBox ID="CB_NUM_DOSSIER" runat="server" Text=" Numéro dossier" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CB_NUM_AFFAIRE" runat="server" Text=" Numéro affaire" CssClass="criteria-checkbox" />
+            </div>
+
+            <!-- Colonne 2 -->
+            <div class="criteria-group">
+                <h5>Parties</h5>
+                <asp:CheckBox ID="CR_PARTIE" runat="server" Text=" Demandeur" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_PARTIE_DEFENDEUR" runat="server" Text=" Défendeur" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_PARTIE_MISE_EN_CAUSE" runat="server" Text=" Mise en cause" CssClass="criteria-checkbox" />
+            </div>
+
+            <!-- Colonne 3 -->
+            <div class="criteria-group">
+                <h5>Juridique</h5>
+                <asp:CheckBox ID="CR_JURIDICTION" runat="server" Text=" Juridiction" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_SECTION" runat="server" Text=" Section" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_REFERE_" runat="server" Text=" Référé" CssClass="criteria-checkbox" />
+            </div>
+
+            <!-- Ligne suivante -->
+            <div class="criteria-group">
+                <h5>Dates</h5>
+                <asp:CheckBox ID="CR_DATE_AUDIANCE" runat="server" Text=" Date audience" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_DATE_CONSTITUTION" runat="server" Text=" Date constitution" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_DATE_RENVOIE" runat="server" Text=" Date Renvoi" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_DATE_NOTIFICATION" runat="server" Text=" Date Notification" CssClass="criteria-checkbox" />
+            </div>
+
+            <div class="criteria-group">
+                <h5>Détail Affaires</h5>
+                <asp:CheckBox ID="CR_NATURE" runat="server" Text=" Nature" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_OBS" runat="server" Text=" Observation" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_MOTIF_DATE_RENVOIE" runat="server" Text=" Motif date renvoie" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_DEMANDE_AFFAIRE" runat="server" Text=" Demandes de fond" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_MNT_DEMANDER" runat="server" Text=" Montant demandé" CssClass="criteria-checkbox" />
+            </div>
+
+            <div class="criteria-group">
+                <h5>Jugement</h5>
+                <asp:CheckBox ID="CR_AVOCAT" runat="server" Text=" Avocat" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_AVOCAT_AD" runat="server" Text=" Avocat Adversaire" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_JUGMENT" runat="server" Text=" Jugement" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_JUGMENT_FINAL" runat="server" Text=" Jugement Final" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_MONTANT_JUGER" runat="server" Text=" Montan jugé" CssClass="criteria-checkbox" />
+                <asp:CheckBox ID="CR_FAIRS_EXC" runat="server" Text=" Frais d'execution" CssClass="criteria-checkbox" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+                    </div>
+                
+                <div class="wide-form-actions">
+                <asp:Button ID="BTN_RAPPORT" runat="server" Text="Télécharger" CssClass="wide-btn-submit"  OnClick="BTN_RAPPORT_Click"  />
+                <asp:Label ID="Label4" runat="server" Visible="false" CssClass="wide-status-message"></asp:Label>
+            </div>
+                    
+
+                </div>
+            </div>
+
+            <!-- Boutons -->
+            
+        </div>
+
 
 
 <script>
+    function toggleObsDDL() {
+        const panel = document.getElementById('<%= pnlDR.ClientID %>');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function updateObsText() {
+        const checks = document.querySelectorAll(
+        '#<%= chkDr.ClientID %> input:checked'
+        );
+
+        const btn = document.getElementById('<%= btnDr.ClientID %>');
+
+        if (checks.length === 0) {
+            btn.innerText = "--- / ----";
+        } else if (checks.length <= 2) {
+            let txt = [];
+            checks.forEach(c => txt.push(c.nextSibling.textContent.trim()));
+            btn.innerText = txt.join(", ");
+        } else {
+            btn.innerText = checks.length + " observations sélectionnées";
+        }
+    }
+
+    // Fermer si clic extérieur
+    document.addEventListener("click", function (e) {
+        if (!e.target.closest(".dropdown-checkbox")) {
+            document.getElementById('<%= pnlDR.ClientID %>').style.display = "none";
+        }
+    });
+
+
+    function addOtherDocField() {
+
+        var container = document.getElementById('documentsContainer');
+        var newItem = document.createElement('div');
+        newItem.className = 'document-item';
+
+        newItem.innerHTML = `
+        <div class="wide-form-row">
+
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Nom Document</span>
+                    <span class="label-ar">اسم الوثيقة</span>
+                </div>
+                <input type="text" name="TB_NOM_DOCUMENT[]" class="wide-form-control" />
+            </div>
+
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Pièce jointe</span>
+                    <span class="label-ar">المرفق</span>
+                </div>
+                <input type="file" name="FU_AUTRE_DOC[]" class="wide-form-control" />
+            </div>
+
+            <div class="wide-form-group" style="align-self:flex-end;">
+                <button type="button" class="btn-icon-remove"
+                        onclick="this.closest('.document-item').remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+        </div>
+    `;
+
+        container.appendChild(newItem);
+    }
+
+
+    function addOtherDocFieldM(valueNomDoc = "") {
+        otherDocCountM++;
+        var container = document.getElementById('documentsContainer');
+        var newItem = document.createElement('div');
+        newItem.className = 'document-item';
+        newItem.innerHTML = `
+        <div class="wide-form-row">
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Nom Document</span>
+                    <span class="label-ar">اسم الوتيقة</span>
+                </div>
+                <input type="text" id="TB_NOM_DOCUMENT_${otherDocCountM}" 
+                       name="TB_NOM_DOCUMENT_${otherDocCountM}" 
+                       class="wide-form-control"
+                       value="${valueNomDoc}" />
+            </div>
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Pièce jointe (Max 5 Mo)</span>
+                    <span class="label-ar">المرفق</span>
+                </div>
+                <input type="file" id="fileUpload_${otherDocCountM}" 
+                       name="fileUpload_${otherDocCountM}" 
+                       class="wide-form-control" />
+            </div>
+            <div class="wide-form-group" style="align-self: flex-end;">
+                <button type="button" class="btn-icon-remove" onclick="this.closest('.document-item').remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    `;
+        container.appendChild(newItem);
+    }
+
+
+
+    function openCRAffaireModal() {
+        // Ouvrir le modal
+        document.getElementById('CRAffaireModal').style.display = 'block';
+        return false;
+    }
+
+    function closeCRAffaireModal() {
+        document.getElementById('CRAffaireModal').style.display = 'none';
+    }
+
+    function openCourierDirectionModal() {
+        // Ouvrir le modal
+        document.getElementById('CourierDirectionModal').style.display = 'block';
+        return false;
+    }
+
+    function closeCourierDirectionModal() {
+        document.getElementById('CourierDirectionModal').style.display = 'none';
+    }
 
     function togglePayementFields() {
         var ddl = document.getElementById("DDL_CND_NON_PAYER");
@@ -962,18 +1333,20 @@
         }
     }
 
-    function openDetailAFFAIREModalWithData(id, num_affaire, defendeur, miseencause, date_dispositif, dispo_morale, avocat, non_juge, avocat_adversaire, impact_finance_demander, impact_finance_juger, object) {
+    function openDetailAFFAIREModalWithData(id, num_affaire, defendeur, miseencause, date_dispositif, date_envoi, dispo_morale, avocat, non_juge, avocat_adversaire, impact_finance_demander, impact_finance_juger, frais_execution, object) {
         // Remplir le formulaire avec les données existantes
         document.getElementById('<%= HF_ID_AFFAIRE.ClientID %>').value = id;
         document.getElementById('<%= TB_DEFENDEUR.ClientID %>').value = defendeur;
         document.getElementById('<%= TB_PARTIE_MISE_CAUSE.ClientID %>').value = miseencause;
         document.getElementById('<%= TB_DATE_DIPOSITIF.ClientID %>').value = date_dispositif;
         document.getElementById('<%= TB_DISPOSITIF.ClientID %>').value = dispo_morale;
+        document.getElementById('<%= TB_DATE_RENVOIE.ClientID %>').value = date_envoi;
         document.getElementById('<%= TB_AVOCAT.ClientID %>').value = avocat;
         document.getElementById('<%= TB_NOM_JUGE.ClientID %>').value = non_juge;
         document.getElementById('<%= TB_AVOCAT_ADVERSAIRE.ClientID %>').value = avocat_adversaire;
         document.getElementById('<%= TB_IMPACT_DEMANDER.ClientID %>').value = impact_finance_demander;
         document.getElementById('<%= TB_IMPACT_JUGER.ClientID %>').value = impact_finance_juger;
+        document.getElementById('<%= TB_FRAIS_EXECUTION.ClientID %>').value = frais_execution;
         document.getElementById('<%= TB_OBJET.ClientID %>').value = object;
         document.getElementById('<%= LB_NUM_AFFAIRE.ClientID %>').innerText = num_affaire;
 

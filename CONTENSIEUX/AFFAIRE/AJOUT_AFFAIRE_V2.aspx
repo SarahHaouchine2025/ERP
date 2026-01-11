@@ -100,19 +100,7 @@
             </div>
             <div class="wide-form-row">
                 <!-- Défendeurs - Section dynamique -->
-                <div class="wide-form-group">
-                    <div class="dual-label-container">
-                        <span class="label-fr">Date renvoie</span>
-                        <span class="label-ar">تاريخ الإرسال</span>
-                    </div>
-                    <div class="input-with-add" >
-                    <asp:TextBox ID="TB_DATE_ENVOIE" runat="server" TextMode="Date" CssClass="wide-form-control"></asp:TextBox>
-                        <button type="button" class="btn-icon-add" onclick="addDateEnvoiField()">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        </div> 
-                    <div id="dateEnvoiContainer"></div>
-                </div>
+               
                 <div class="wide-form-group">
                     <div class="dual-label-container">
                         <span class="label-fr">Défendeur(s)</span>
@@ -147,6 +135,37 @@
 
                 
             </div>
+            <div class="DateRenvoie-group">
+            <div class="wide-form-row">
+                 <div class="wide-form-group">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Date renvoie</span>
+                        <span class="label-ar">تاريخ الإرسال</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <asp:TextBox ID="TB_DATE_ENVOIE" runat="server" TextMode="Date" CssClass="wide-form-control"></asp:TextBox>
+                        
+                        </div> 
+                    
+                </div>
+                <div class="wide-form-group"  >
+                    <div class="dual-label-container">
+                        <span class="label-fr">Motif Date Renvoie</span>
+                        <span class="label-ar">سبب التأجيل</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <asp:TextBox ID="TB_MOTIF_DATE_RENVOI" runat="server"  CssClass="wide-form-control"
+                        placeholder="Motif / سبب"></asp:TextBox>
+                    <button type="button" class="btn-icon-add" onclick="addDateEnvoiField()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        </div>
+                    
+                </div>
+                
+                </div> 
+            <div id="dateEnvoiContainer"></div>
+                </div> 
         </div>
 
         <!-- Troisième ligne - Juridiction -->
@@ -771,6 +790,7 @@
         <!-- Footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-cancel" onclick="closeScanRequetteModal()">Fermer</button>
+            <asp:Button ID="BTN_AJOUT_REQ" runat="server" Text="Enregistrer" CssClass="wide-btn-submit" OnClick ="BTN_AJOUT_REQ_Click"  />
             <asp:HiddenField ID="HF_ID_AFFAIRE" runat="server" />
         </div>
     </div>
@@ -840,6 +860,7 @@
         <!-- Footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-cancel" onclick="closeScanJugementeModal()">Fermer</button>
+            <asp:Button ID="BTN_AJOUT_SCAN_JUG" runat="server" Text="Enregistrer" CssClass="wide-btn-submit" OnClick="BTN_AJOUT_SCAN_JUG_Click" />
             <asp:HiddenField ID="HiddenField1" runat="server" />
         </div>
     </div>
@@ -934,21 +955,13 @@
         <!-- Footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-cancel" onclick="closeScanJugementeFinalModal()">Fermer</button>
+            <asp:Button ID="BTN_AJOUT_JUG_FINAL" runat="server" Text="Enregistrer" CssClass="wide-btn-submit" OnClick="BTN_AJOUT_JUG_FINAL_Click" />
             <asp:HiddenField ID="HiddenField2" runat="server" />
         </div>
     </div>
 </div>
 
     <script type="text/javascript">
-        function openScanRequetteModal() {
-            // Ouvrir le modal
-            document.getElementById('ScanRequetteModal').style.display = 'block';
-            return false;
-        }
-
-        function closeScanRequetteModal() {
-            document.getElementById('ScanRequetteModal').style.display = 'none';
-        }
 
         function openScanJugementeModal() {
             // Ouvrir le modal
@@ -958,6 +971,16 @@
 
         function closeScanJugementeModal() {
             document.getElementById('ScanJugementeModal').style.display = 'none';
+        }
+
+        function openScanRequetteModal() {
+            // Ouvrir le modal
+            document.getElementById('ScanRequetteModal').style.display = 'block';
+            return false;
+        }
+
+        function closeScanRequetteModal() {
+            document.getElementById('ScanRequetteModal').style.display = 'none';
         }
 
         function openScanJugementeFinalModal() {
@@ -992,113 +1015,6 @@
 
         var impactCount = 1;
 
-        // Fonction pour ajouter un champ de courrier
-        function addCourierField() {
-            courierDocCount++;
-            var container = document.getElementById('documentsContainer_courier');
-            var newItem = document.createElement('div');
-            newItem.className = 'document-item';
-            newItem.innerHTML = `
-        <div class="wide-form-row">
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Courier trasmis</span>
-                    <span class="label-ar">إرسالية</span>
-                </div>
-                <input type="text" id="TB_COURIER_${courierDocCount}" 
-                       name="TB_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">P.J (Max 5 Mo)</span>
-                    <span class="label-ar">المرفق</span>
-                </div>
-                <input type="file" id="FU_COURIER_${courierDocCount}" 
-                       name="FU_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Réponse</span>
-                    <span class="label-ar">الرد عليها</span>
-                </div>
-                <input type="text" id="TB_REPONSE_COURIER_${courierDocCount}" 
-                       name="TB_REPONSE_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">P.J (Max 5 Mo)</span>
-                    <span class="label-ar">المرفق</span>
-                </div>
-                <div class="input-with-add">
-                <input type="file" id="FU_REPONSE_COURIER_${courierDocCount}" 
-                       name="FU_REPONSE_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-                <button type="button" class="btn-icon-remove" onclick="this.closest('.document-item').remove()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            </div>
-        </div>
-    `;
-            container.appendChild(newItem);
-        }
-
-        function addCourierFieldM(valueReponse = "", valuecourier = "") {
-            courierDocCountM++;
-            var container = document.getElementById('documentsContainer_courier');
-            var newItem = document.createElement('div');
-            newItem.className = 'document-item';
-            newItem.innerHTML = `
-        <div class="wide-form-row">
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Object courier</span>
-                    <span class="label-ar">العنوان</span>
-                </div>
-                <input type="text" id="TB_COURIER_${courierDocCountM}" 
-                       name="TB_COURIER_${courierDocCountM}" 
-                       class="wide-form-control"
-                       value="${valuecourier}" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Pièce jointe (Max 5 Mo)</span>
-                    <span class="label-ar">المرفق</span>
-                </div>
-                <input type="file" id="FU_COURIER_${courierDocCountM}" 
-                       name="FU_COURIER_${courierDocCountM}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Réponse</span>
-                    <span class="label-ar">الرد عليها</span>
-                </div>
-                <input type="text" id="TB_REPONSE_COURIER_${courierDocCount}" 
-                       name="TB_REPONSE_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">P.J (Max 5 Mo)</span>
-                    <span class="label-ar">المرفق</span>
-                </div>
-                <div class="input-with-add">
-                <input type="file" id="FU_REPONSE_COURIER_${courierDocCount}" 
-                       name="FU_REPONSE_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-                <button type="button" class="btn-icon-remove" onclick="this.closest('.document-item').remove()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-        </div>
-    `;
-            container.appendChild(newItem);
-        }
         
         // Fonction pour ajouter un champ de document avocat
         function addAdversaireDocField() {
@@ -1329,28 +1245,72 @@
             DateEnvoi++;
             var container = document.getElementById('dateEnvoiContainer');
             var newField = document.createElement('div');
-            newField.className = 'input-with-add';
+            newField.className = 'DateRenvoie-group';
             newField.innerHTML = `
-            <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_${DateEnvoi}" />
-            <button type="button" class="btn-icon-remove" onclick="this.parentNode.remove()">
+            <div class="wide-form-row">
+                 <div class="wide-form-group">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Date renvoie</span>
+                        <span class="label-ar">تاريخ الإرسال</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_DYNAMIC[]" />
+                        </div> 
+                    
+                </div>
+                <div class="wide-form-group"  >
+                    <div class="dual-label-container">
+                        <span class="label-fr">Motif Date Renvoie</span>
+                        <span class="label-ar">سبب التأجيل</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <input type="text" class="wide-form-control" name="TB_MOTIF_DATE_RENVOI_DYNAMIC[]" />
+                    
+                    <button type="button" class="btn-icon-remove" onclick="this.closest('.DateRenvoie-group').remove()">
                 <i class="fas fa-times"></i>
             </button>
-        `;
+                        </div>
+                    
+                </div>
+                </div> `;
             container.appendChild(newField);
         }
 
-        function addDateEnvoiFieldM( value="") {
+        function addDateEnvoiFieldM( value="",Motif="") {
             DateEnvoiM++;
             var container = document.getElementById('dateEnvoiContainer');
             var newField = document.createElement('div');
-            newField.className = 'input-with-add';
+            
+            newField.className = 'DateRenvoie-group';
             newField.innerHTML = `
-            <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_${DateEnvoiM}" value="${value}" />
-            <button type="button" class="btn-icon-remove" onclick="this.parentNode.remove()">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
+                < div class="wide-form-row" >
+                    <div class="wide-form-group">
+                        <div class="dual-label-container">
+                            <span class="label-fr">Date renvoie</span>
+                            <span class="label-ar">تاريخ الإرسال</span>
+                        </div>
+                        <div class="input-with-add" >
+                            <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_DYNAMIC[]" value="${value}" />
+                        </div>
+
+                    </div>
+                    <div class="wide-form-group"  >
+                        <div class="dual-label-container">
+                            <span class="label-fr">Motif Date Renvoie</span>
+                            <span class="label-ar">سبب التأجيل</span>
+                        </div>
+                        <div class="input-with-add" >
+                            <input type="text" class="wide-form-control" name="TB_MOTIF_DATE_RENVOI_DYNAMIC[]" value="${Motif}" />
+
+                            <button type="button" class="btn-icon-remove" onclick="this.closest('.DateRenvoie-group').remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div >`;
             container.appendChild(newField);
+            
         }
 
         function addPartieMiseEnCauseField() {

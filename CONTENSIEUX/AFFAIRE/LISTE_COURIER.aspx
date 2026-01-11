@@ -1,10 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="LISTE_AFFAIRE_EnAppel.aspx.cs" Inherits="URP_AADL.CONTENSIEUX.AFFAIRE.LISTE_AFFAIRE_EnAppel" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="LISTE_COURIER.aspx.cs" Inherits="URP_AADL.CONTENSIEUX.AFFAIRE.LISTE_COURIER" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
     <div class="modern-container">
         <div class="page-header">
-            <h2 class="page-title"><i class="fas fa-gavel"></i>Liste des affaires En Appel / <span class="arabic-title"> قائمة القضايا المستأنفة</span></h2>
-
+            <h2 class="page-title"><i class="fas fa-gavel"></i>Liste Couriers / <span class="arabic-title"> قائمة المراسلات الرسمية</span></h2>
+           <div class="btn-group-inline">
+                <asp:Button ID="BTN_ADD_COURIER" runat="server" Text="Envoyer courier"
+                    CssClass="btn-add" OnClick="BTN_ADD_COURIER_Click" />
+            </div>
         </div>
 
         <div class="search-panel">
@@ -17,7 +20,7 @@
 
     <div class="search-grid" id="searchGrid" style="display: none;">
         <!-- Ligne 1 -->
-        <div class="search-group">
+        <div class="search-group" runat="server" id="div_numDossier" visible="false" >
             <div class="dual-label-container">
                 <span class="label-fr">N° Dossier</span><span class="label-ar">رقم الملف</span>
             </div>
@@ -48,47 +51,12 @@
             <asp:TextBox ID="TB_PARTIE" runat="server" CssClass="form-control tb-medium"
                 placeholder="Nom de la partie"></asp:TextBox>
         </div>
-
         <div class="search-group">
-            <div class="dual-label-container">
-                <span class="label-fr">Tribunal</span><span class="label-ar">المحكمة</span>
-            </div>
-            <asp:DropDownList ID="DDL_TRIBUNAL" runat="server" CssClass="form-control"
-                onchange="handleTribunalChange()">
-                <asp:ListItem Text="------" Value="" Selected="True" />
-            </asp:DropDownList>
-        </div>
-
-        <div class="search-group">
-            <div class="dual-label-container">
-                <span class="label-fr">Section</span><span class="label-ar">قسم</span>
-            </div>
-            <asp:DropDownList ID="DDL_SECTION_TRIBUNAL" runat="server" CssClass="form-control" onchange="showCB_REFERE_Fields()">
-                <asp:ListItem Text="------" Value="" Selected="True" />
-            </asp:DropDownList>
-        </div>
-
-        <!-- Ligne 2 -->
-        
-
-        <div class="search-group">
-            <div class="dual-label-container">
-                <span class="label-fr">Avocat</span><span class="label-ar">المحامي</span>
-            </div>
-            <asp:DropDownList ID="DDL_AVOCAT" runat="server" CssClass="form-control">
-                <asp:ListItem Text="------" Value="" Selected="True" />
-                <asp:ListItem Text="Avocat 1" Value="1" />
-                <asp:ListItem Text="Avocat 2" Value="2" />
-            </asp:DropDownList>
-        </div>
-
-       
-        
-
-        
-       
-
-        
+                    <label for="DDL_DIRECTION_SEARCH">Direction</label>
+                    <asp:DropDownList ID="DDL_DIRECTION_SEARCH" runat="server" CssClass="form-control">
+                        <asp:ListItem Value="">Tous</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
         <div class="search-group">
                     <label for="DDL_SEARCH_CNV">DR</label>
                     <asp:DropDownList ID="DDL_DR" runat="server" CssClass="form-control">
@@ -111,35 +79,25 @@
 </div>
 
         <div class="data-section">
-               <div class="dual-label-container">
-                        <span class="label-fr" >Nombre d'affaire : <asp:label runat="server" id="NBR_AFFAIRE" Text=""></asp:label></span>
-                    </div>
-            <asp:ListView ID="LIST_AFFAIRE" runat="server" 
-                DataKeyNames="ID_AFFAIRE" 
-                OnSelectedIndexChanging="LIST_AFFAIRE_SelectedIndexChanging"
-                OnItemEditing="LIST_AFFAIRE_ItemEditing" 
+               
+            <asp:ListView ID="LISTE_COURIER_" runat="server" 
+                DataKeyNames="ID_SCAN_COURIER" 
                 
-                OnItemUpdating="LIST_AFFAIRE_ItemUpdating" 
-                OnItemCanceling="LIST_AFFAIRE_ItemCanceling" 
-                OnItemDataBound="LV_AFFAIRES_ItemDataBound"
                 GroupPlaceholderID="groupPlaceHolder1"  
                 ItemPlaceholderID="itemPlaceHolder1" 
                 AllowPaging="True"  
-                OnPagePropertiesChanging="LIST_AFFAIRE_PagePropertiesChanging">
+                OnPagePropertiesChanging="LISTE_COURIER__PagePropertiesChanging">
 
                 <LayoutTemplate>
                     <div class="table-responsive">
                         <table class="modern-data-table">
                             <thead>
                                 <tr>
-                                    <th>N°Dossier</th>
-                                    <th>Partie</th>
-                                    <th>Juridiction</th>
-                                    <th>Section</th>
-                                    <th>N°Affaire</th>
+                                    <th>N° Affaire</th>
+                                    <th>Direction</th>
+                                    <th>Courier</th>
+                                    <th>Action</th>
                                     
-                                    
-                                    <th class="actions">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -150,7 +108,7 @@
                     
                     <div class="pagination-container">
                         <asp:DataPager ID="DataPager1" runat="server"
-                            PagedControlID="LIST_AFFAIRE"
+                            PagedControlID="LISTE_COURIER_"
                             PageSize="10"
                             QueryStringField="page">
                             <Fields>
@@ -190,43 +148,38 @@
                 <GroupTemplate>
                     <asp:PlaceHolder runat="server" ID="itemPlaceHolder1" />
                 </GroupTemplate>
-                
+
                 <ItemTemplate>
-                    <tr id="trAffaire" runat="server">
-                        
-                        <td><span class="badge badge-primary"><%# Eval("NUM_DOSSIER") %></span></td>
-                        <td><%# Eval("PARTIE") %></td>
-                        <td><%# Eval("JURIDICTION") %></td>
-                        <td><%# Eval("SECTION") %></td>
-                        
-                        <td><span class="badge badge-primary"><%# Eval("NUMERO_AFFAIRE") %></span></td>
-                       
+    <tr>
+        <td><asp:Label ID="NUMERO_AFFAIRE" runat="server" Text='<%# Eval("NUMERO_AFFAIRE") %>' /></td>
+        <td><asp:Label ID="DIRECTION" runat="server" Text='<%# Eval("DIRECTION") %>' /></td>
+        <td><asp:Label ID="DESCRIPTION_COURIER" runat="server" Text='<%# Eval("DESCRIPTION_COURIER") %>' /></td>
+        <td>
+            <asp:LinkButton ID="BTN_DOC_COURIER"
+                runat="server"
+                CssClass="action-btn doc-btn"
+                 OnClick="BTN_DOC_COURIER_Click"
+                CommandArgument='<%# Eval("ID_SCAN_COURIER") %>'>
+               <i class="fas fa-folder-open"></i>
+            </asp:LinkButton>
 
-                        <td class="actions">
-                            
-                            <asp:LinkButton ID="btnEdit" runat="server" CssClass="action-btn edit-btn"
-                                CommandName="Edit" CommandArgument='<%# Eval("ID_AFFAIRE") %>' ToolTip="Modifier cette affaire" >  <%--OnClick="btnEdit_Click"--%>
-                                <i class="fas fa-edit"></i>
-                            </asp:LinkButton>
-                            
-
-                            <asp:LinkButton ID="BTN_DOC_SCANER" runat="server" CssClass="action-btn doc-btn"
-                                CommandName="Select" CommandArgument='<%# Eval("ID_AFFAIRE") %>' ToolTip="Document Scanner" OnClick="BTN_DOC_SCANER_Click" 
+            <asp:LinkButton ID="BTN_ENVOYER_REPONSE" runat="server" CssClass="action-btn courier-btn"
+                                CommandName="Repondre" CommandArgument='<%# Eval("ID_SCAN_COURIER") %>' ToolTip="Envoyer un courier" OnClick="BTN_ENVOYER_REPONSE_Click"  
                                 >
-                                <i class="fas fa-folder-open"></i>
+                                <i class="fas fa-envelope"></i>
                             </asp:LinkButton>
-                            
-                        </td>
-                    </tr>
-                </ItemTemplate>
-                
+        </td>
+      
+    </tr>
+</ItemTemplate>
+
                 <EditItemTemplate>
                     <!-- Add your edit template here if needed -->
                 </EditItemTemplate>
 
                 <EmptyDataTemplate>
                     <div class="empty-data-message">
-                        <i class="fas fa-info-circle"></i> Aucune affaire trouvée avec ces critères de recherche.
+                        <i class="fas fa-info-circle"></i> Aucune couriers trouvée avec ces critères de recherche.
                     </div>
                 </EmptyDataTemplate>
             </asp:ListView>
@@ -234,6 +187,7 @@
 
     </div>
 
+    
 
     <div id="DOCAffaireModal" class="modal">
     <div class="modal-content-affaire">
@@ -408,23 +362,195 @@
     </div>
 </div>
 
+    <div id="CourierDirectionModal" class="modal">
+    <div class="modal-content-affaire">
+        <div class="modal-header">
+            <h3>
+                <i class="fas fa-file-alt"></i> 
+                Courier pour Direction <asp:Label runat="server" ID="LB_NUM_AFF_COUR" Text=""></asp:Label>
+            </h3>
+            <span class="close" onclick="closeCourierDirectionModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+        <%--<h2 class="wide-form-title">Courier pour Direction <span class="arabic-title">رسالة إلى الإدارة</span></h2>--%>
+
+
+        <!-- Espace Courier Direction  -->
+        <div class="wide-form-section">
+            <h5 class="wide-section-title">
+                <span class="title-fr">Détails courier</span>
+                <span class="title-ar">تفاصيل الرسالة</span>
+            </h5>
+            <div class="wide-form-row">
+                <div class="search-group">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Direction</span>
+                        <span class="label-ar">الإدارة</span>
+                    </div>
+                    <div class="input-with-add">
+                    <asp:DropDownList ID="DDL_DIRECTION" runat="server" CssClass="wide-form-control">
+                        <asp:ListItem Text="------" Value="" Selected="True" />
+                        
+                    </asp:DropDownList>
+                    </div>
+                </div>
+                
+
+                <div class="wide-form-group">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Numéro Affaire</span>
+                        <span class="label-ar">تاريخ التأسيس</span>
+                    </div>
+                    <asp:TextBox ID="TextBox1" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                </div>
+
+                
+
+            </div>
+            <div class="wide-form-row">
+                <div class="wide-form-group full-width">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Courier</span>
+                        <span class="label-ar">رسالة</span>
+                    </div>
+                    <asp:TextBox ID="TB_COURIER" runat="server" TextMode="MultiLine" Rows="3" CssClass="wide-form-control"></asp:TextBox>
+                </div>
+            </div>
+
+           <div id="documentsContainer">
+    <div class="document-item">
+                            <div class="wide-form-row">
+
+                                <div class="wide-form-group">
+                                    <div class="dual-label-container">
+                                        <span class="label-fr">Titre Document</span>
+                                        <span class="label-ar">اسم الوثيقة</span>
+                                    </div>
+                                    <asp:TextBox ID="TB_NOM_DOCUMENT" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                                </div>
+
+                                <div class="wide-form-group">
+                                    <div class="dual-label-container">
+                                        <span class="label-fr">Pièce jointe </span>
+                                        <span class="label-ar">المرفق</span>
+                                    </div>
+                                    <asp:FileUpload ID="FU_AUTRE_DOC_" runat="server" CssClass="wide-form-control" />
+                                </div>
+
+                                <div class="wide-form-group" style="align-self: flex-end;" runat="server" visible="false" >
+                                    <button type="button" class="btn-icon-add" onclick="addOtherDocField()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+</div>
+
+            
+        </div>
+            </div>
+        
+        <!-- Boutons -->
+        <div class="wide-form-actions">
+            <asp:Button ID="Button1" runat="server" Text="Envoyer" CssClass="wide-btn-submit" OnClick="btnSubmit_Click" />
+            <asp:Label ID="Label2" runat="server" Visible="false" CssClass="wide-status-message"></asp:Label>
+        </div>
+    </div>
+</div>
+
+    <div id="ReponseDirectionModal" class="modal">
+    <div class="modal-content-affaire">
+        <div class="modal-header">
+            <h3>
+                <i class="fas fa-file-alt"></i> 
+                Courier pour Direction <asp:Label runat="server" ID="LB_NUM_AFFAIRE_REP" Text=""></asp:Label>
+            </h3>
+            <span class="close" onclick="closeReponseDirectionModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+        <%--<h2 class="wide-form-title">Courier pour Direction <span class="arabic-title">رسالة إلى الإدارة</span></h2>--%>
+
+
+        <!-- Espace Courier Direction  -->
+        <div class="wide-form-section">
+            <h5 class="wide-section-title">
+                <span class="title-fr">Détails Réponse</span>
+                <span class="title-ar">تفاصيل الرسالة</span>
+            </h5>
+            <div class="wide-form-row">
+                
+
+            </div>
+            <div class="wide-form-row">
+                <div class="wide-form-group full-width">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Réponse Courier</span>
+                        <span class="label-ar">رسالة</span>
+                    </div>
+                    <asp:TextBox ID="TB_REPONSE_COURIER" runat="server" TextMode="MultiLine" Rows="3" CssClass="wide-form-control"></asp:TextBox>
+                </div>
+            </div>
+
+           <div id="documentsReponseContainer">
+    <div class="document-item">
+                            <div class="wide-form-row">
+
+                                <div class="wide-form-group">
+                                    <div class="dual-label-container">
+                                        <span class="label-fr">Titre Document</span>
+                                        <span class="label-ar">اسم الوثيقة</span>
+                                    </div>
+                                    <asp:TextBox ID="TB_NOM_DOCUMENT_REP" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                                </div>
+
+                                <div class="wide-form-group">
+                                    <div class="dual-label-container">
+                                        <span class="label-fr">Pièce jointe </span>
+                                        <span class="label-ar">المرفق</span>
+                                    </div>
+                                    <asp:FileUpload ID="FU_AUTRE_DOC_REP" runat="server" CssClass="wide-form-control" />
+                                </div>
+
+                                
+                            </div>
+                        </div>
+</div>
+
+            
+        </div>
+            </div>
+        
+        <!-- Boutons -->
+        <div class="wide-form-actions">
+            <asp:Button ID="Button2" runat="server" Text="Envoyer" CssClass="wide-btn-submit" OnClick="btnSubmit_Click" />
+            <asp:Label ID="Label4" runat="server" Visible="false" CssClass="wide-status-message"></asp:Label>
+        </div>
+    </div>
+</div>
+
 <script>
 
-    function togglePayementFields() {
-        var ddl = document.getElementById("DDL_CND_NON_PAYER");
-        var datePay = document.getElementById("TB_DATE_PAYEMENT");
-        var numFact = document.getElementById("TB_NUM_FACTURATION");
-        var filePay = document.getElementById("FU_FAC_PAYEMENT");
+   
 
-        if (ddl.value === "") {
-            datePay.disabled = false;
-            numFact.disabled = false;
-            filePay.disabled = false;
-        } else {
-            datePay.disabled = true;
-            numFact.disabled = true;
-            filePay.disabled = true;
-        }
+    function openReponseDirectionModal() {
+        // Ouvrir le modal
+        document.getElementById('ReponseDirectionModal').style.display = 'block';
+        return false;
+    }
+
+    function closeReponseDirectionModal() {
+        document.getElementById('ReponseDirectionModal').style.display = 'none';
+    }
+
+    function openCourierDirectionModal() {
+        // Ouvrir le modal
+        document.getElementById('CourierDirectionModal').style.display = 'block';
+        return false;
+    }
+
+    function closeCourierDirectionModal() {
+        document.getElementById('CourierDirectionModal').style.display = 'none';
     }
 
     
@@ -436,6 +562,82 @@
             btn.disabled = fileInput.files.length === 0;
         }
     }
+
+    function addOtherDocField() {
+
+        var container = document.getElementById('documentsContainer');
+        var newItem = document.createElement('div');
+        newItem.className = 'document-item';
+
+        newItem.innerHTML = `
+        <div class="wide-form-row">
+
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Nom Document</span>
+                    <span class="label-ar">اسم الوثيقة</span>
+                </div>
+                <input type="text" name="TB_NOM_DOCUMENT[]" class="wide-form-control" />
+            </div>
+
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Pièce jointe</span>
+                    <span class="label-ar">المرفق</span>
+                </div>
+                <input type="file" name="FU_AUTRE_DOC[]" class="wide-form-control" />
+            </div>
+
+            <div class="wide-form-group" style="align-self:flex-end;">
+                <button type="button" class="btn-icon-remove"
+                        onclick="this.closest('.document-item').remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+        </div>
+    `;
+
+        container.appendChild(newItem);
+    }
+
+
+    function addOtherDocFieldM(valueNomDoc = "") {
+        otherDocCountM++;
+        var container = document.getElementById('documentsContainer');
+        var newItem = document.createElement('div');
+        newItem.className = 'document-item';
+        newItem.innerHTML = `
+        <div class="wide-form-row">
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Nom Document</span>
+                    <span class="label-ar">اسم الوتيقة</span>
+                </div>
+                <input type="text" id="TB_NOM_DOCUMENT_${otherDocCountM}" 
+                       name="TB_NOM_DOCUMENT_${otherDocCountM}" 
+                       class="wide-form-control"
+                       value="${valueNomDoc}" />
+            </div>
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Pièce jointe (Max 5 Mo)</span>
+                    <span class="label-ar">المرفق</span>
+                </div>
+                <input type="file" id="fileUpload_${otherDocCountM}" 
+                       name="fileUpload_${otherDocCountM}" 
+                       class="wide-form-control" />
+            </div>
+            <div class="wide-form-group" style="align-self: flex-end;">
+                <button type="button" class="btn-icon-remove" onclick="this.closest('.document-item').remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    `;
+        container.appendChild(newItem);
+    }
+
 
     function toggleSearchPanel() {
         const grid = document.getElementById("searchGrid");

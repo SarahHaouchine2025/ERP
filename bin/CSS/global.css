@@ -1405,6 +1405,22 @@ textarea.wide-form-control {
         background-color: #C96D0A;
     }
 
+.courier-btn {
+    background-color: #4FD6D5;
+}
+
+    .courier-btn:hover {
+        background-color: #8EADAC;
+    }
+
+.rapport-btn {
+    background-color: #DE68C2;
+}
+
+    .rapport-btn:hover {
+        background-color: #E394D4;
+    }
+
 .notif-btn {
     background-color: #D91A1A;
 }
@@ -2191,3 +2207,165 @@ a {
     padding: 3px 8px;
     border-radius: 4px;
 }
+
+.criteria-grid-fixed {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 👈 3 groupes par ligne */
+    gap: 40px;
+}
+
+.criteria-group {
+    background: #f9fafb;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    min-height: 160px;
+}
+
+    .criteria-group h5 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #2c3e50;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 6px;
+    }
+
+.criteria-checkbox {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 992px) {
+    .criteria-grid-fixed {
+        grid-template-columns: repeat(2, 1fr); /* tablette */
+    }
+}
+
+@media (max-width: 576px) {
+    .criteria-grid-fixed {
+        grid-template-columns: 1fr; /* mobile */
+    }
+}
+
+
+/* =========================
+   PAGE HEADER
+========================= */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* TITRE */
+.page-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+    .page-title i {
+        color: #0d6efd;
+    }
+
+/* TITRE ARABE */
+.arabic-title {
+    font-family: "Segoe UI", Tahoma, Arial;
+    font-size: 1.2rem;
+    direction: rtl;
+}
+
+/* =========================
+   BOUTONS
+========================= */
+.btn-group-inline {
+    display: flex;
+    gap: 10px;
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .page-title {
+        text-align: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .btn-group-inline {
+        flex-direction: column;
+        width: 100%;
+    }
+
+        .btn-group-inline .btn {
+            width: 100%;
+        }
+}
+
+@media (max-width: 576px) {
+    .page-title span:not(.arabic-title) {
+        display: none;
+    }
+}
+
+.dropdown-checkbox {
+    position: relative;
+    width: 100%;
+}
+
+.ddl-checkbox-btn {
+    display: block;
+    width: 100%;
+    height: 75%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #000;
+}
+
+    .ddl-checkbox-btn:hover {
+        border-color: #007bff;
+    }
+
+.ddl-checkbox-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 3px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+}
+
+.ddl-checkbox-list label {
+    display: block;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+    .ddl-checkbox-list label:hover {
+        background-color: #f1f1f1;
+    }
+
+
+

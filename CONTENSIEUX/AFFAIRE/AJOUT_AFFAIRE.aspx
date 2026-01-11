@@ -106,19 +106,7 @@
             </div>
             <div class="wide-form-row">
                 <!-- Défendeurs - Section dynamique -->
-                <div class="wide-form-group">
-                    <div class="dual-label-container">
-                        <span class="label-fr">Date renvoie</span>
-                        <span class="label-ar">تاريخ الإرسال</span>
-                    </div>
-                    <div class="input-with-add" >
-                    <asp:TextBox ID="TB_DATE_ENVOIE" runat="server" TextMode="Date" CssClass="wide-form-control"></asp:TextBox>
-                        <button type="button" class="btn-icon-add" onclick="addDateEnvoiField()">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        </div> 
-                    <div id="dateEnvoiContainer"></div>
-                </div>
+                
                 <div class="wide-form-group">
                     <div class="dual-label-container">
                         <span class="label-fr">Défendeur(s)</span>
@@ -153,6 +141,38 @@
 
                 
             </div>
+
+            <div class="DateRenvoie-group">
+            <div class="wide-form-row">
+                 <div class="wide-form-group">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Date renvoie</span>
+                        <span class="label-ar">تاريخ الإرسال</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <asp:TextBox ID="TB_DATE_ENVOIE" runat="server" TextMode="Date" CssClass="wide-form-control"></asp:TextBox>
+                        
+                        </div> 
+                    
+                </div>
+                <div class="wide-form-group"  >
+                    <div class="dual-label-container">
+                        <span class="label-fr">Motif Date Renvoie</span>
+                        <span class="label-ar">سبب التأجيل</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <asp:TextBox ID="TB_MOTIF_DATE_RENVOI" runat="server"  CssClass="wide-form-control"
+                        placeholder="Motif / سبب"></asp:TextBox>
+                    <button type="button" class="btn-icon-add" onclick="addDateEnvoiField()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        </div>
+                    
+                </div>
+                
+                </div> 
+            <div id="dateEnvoiContainer"></div>
+                </div>
         </div>
 
 
@@ -361,13 +381,13 @@
 
 
         <!-- Quatrième ligne - Détails affaire -->
-        <div class="wide-form-section">
+        <div class="wide-form-section"  >
             <h5 class="wide-section-title">
                 <%--<span class="title-fr">Détails affaire</span>
                 <span class="title-ar">تفاصيل الصفقة</span>--%>
                 <span class="title-fr"><asp:Label runat="server" ID="Label3" Text="Détails affaire"></asp:Label> / <asp:Label runat="server" class="title-ar" ID="Label4" Text="تفاصيل الصفقة"></asp:Label></span>
                 <div class="btn-group-inline">
-                    <asp:Button ID="SCAN_REQ" runat="server" Text="Scan Requette"
+                    <asp:Button ID="SCAN_REQ" runat="server" Text="Scan Requette" Visible="false" 
                         CssClass="btn-add" OnClick="SCAN_REQ_Click" />
                 </div>
             </h5>
@@ -472,6 +492,91 @@
                 </div>
         </div>
 
+        <!-- Section Requette -->
+        <div class="wide-form-section" id="Scanreq" runat="server">
+            <h5 class="wide-section-title">
+                <span class="title-fr"><asp:Label runat="server" ID="Label5" Text="Scan Requette"></asp:Label> / <asp:Label runat="server" class="title-ar" ID="Label6" Text="العريضة"></asp:Label></span>
+                <%--<span class="title-ar"></span>--%>
+                 
+            </h5>
+            
+            <div id="documentsContainer_requette">
+                <div class="document-item">
+                    <div class="wide-form-row   " runat="server" id="TRI">
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Requête Introductif</span>
+                                <span class="label-ar">العريضة الإفتتاحية</span>
+                            </div>
+                            <asp:TextBox ID="TB_REQUETE" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                        </div>
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Pièce jointe</span>
+                                <span class="label-ar">المرفق </span>
+                            </div>
+                            <asp:FileUpload ID="FU_REQUETE" runat="server" CssClass="wide-form-control" />
+                        </div>
+                    </div>
+                    <div class="wide-form-row hidden" runat="server" id="CRS">
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Requête d'appel</span>
+                                <span class="label-ar">العريضة الاستئناف</span>
+                            </div>
+                            <asp:TextBox ID="TB_REQUETE_APPEL" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                        </div>
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Pièce jointe</span>
+                                <span class="label-ar">المرفق </span>
+                            </div>
+                            <asp:FileUpload ID="FU_REQUETE_APPEL" runat="server" CssClass="wide-form-control" />
+
+                        </div>
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Lettre de Constitution</span>
+                                <span class="label-ar">رسالة التأسيس تكوين للاستئناف</span>
+                            </div>
+                            <asp:FileUpload ID="FU_CONSTITUTION_APPEL" runat="server" CssClass="wide-form-control" />
+                            <%--<asp:CheckBox ID="Ck_CONSTITUTION_APPEL" runat="server" ToolTip="عريضة تكوين للاستئناف" CssClass="custom-checkbox" />--%>
+                        </div>
+
+                    </div>
+                    <div class="wide-form-row hidden" runat="server" id="CRSSUP">
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Requête pour voir en cassation</span>
+                                <span class="label-ar">عريضة الطعن بالنقض</span>
+                            </div>
+                            <asp:TextBox ID="TB_REQ_VOIR_CASSATION" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                        </div>
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Pièce jointe</span>
+                                <span class="label-ar">المرفق </span>
+                            </div>
+                            <asp:FileUpload ID="FU_REQ_VOIR_CASSATION" runat="server" CssClass="wide-form-control" />
+
+                        </div>
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Lettre de Constitution</span>
+                                <span class="label-ar">رسالة التأسيس للطعن بالنقض</span>
+                            </div>
+                            <asp:FileUpload ID="FU_CONSTITUTION_CASSATION" runat="server" CssClass="wide-form-control" />
+                            <%--<asp:CheckBox ID="Ck_CONSTITUTION_CASSATION" runat="server" ToolTip="عريضة تكوين للطعن بالنقض" CssClass="custom-checkbox" />--%>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        
+
         <!-- Cinquième ligne - Jugement -->
         <!-- Section Jugement -->
         <div class="wide-form-section">
@@ -480,7 +585,7 @@
                 <%--<span class="title-ar"></span>--%>
                 <div class="btn-group-inline">
                     <asp:Button ID="BTN_SCAN_JUG" runat="server" Text="Scan Jugement"
-                        CssClass="btn-add" OnClick="BTN_SCAN_JUG_Click" />
+                        CssClass="btn-add" OnClick="BTN_SCAN_JUG_Click"  Visible="false"/>
                     <asp:Button ID="BTN_JUG_FINAL" runat="server" Text="Jugement Final"
                         CssClass="btn-add" OnClick="BTN_SCAN_JUG_Click" />
                 </div>
@@ -590,98 +695,7 @@
 
         </div>
 
-
-        
-
-         <!-- Section dossier fond adversaire -->
-        <div class="wide-form-section" runat="server" id="ScanAdversaire"  >
-            <h5 class="wide-section-title">
-                <span class="title-fr">Scan dossier de fond de l'adversaire</span>
-                <span class="title-ar">مسح ملف موضوع المدعي</span>
-            </h5>
-            <div id="documentsContainer_doc_avocat">
-                <div class="document-item">
-                    <div class="wide-form-row">
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Titre</span>
-                                <span class="label-ar">العنوان</span>
-                            </div>
-                            <asp:TextBox ID="TB_DOC_ADVERSAIRE" runat="server" CssClass="wide-form-control"></asp:TextBox>
-                        </div>
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Pièce jointe</span>
-                                <span class="label-ar">المرفق </span>
-                            </div>
-                            <asp:FileUpload ID="FU_DOC_ADVERSAIRE" runat="server" CssClass="wide-form-control" />
-
-                        </div>
-                        <div class="wide-form-group" style="align-self: flex-end;">
-                            <button type="button" class="btn-icon-add" onclick="addAdversaireDocField()">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section Courier -->
-        <div class="wide-form-section" runat="server" id="ScanCourier" visible="false">
-            <h5 class="wide-section-title">
-                <span class="title-fr">Scan dossier de fond de l'AADL</span>
-                <span class="title-ar">مسح ملف موضوع الوكالة</span>
-            </h5>
-            <div id="documentsContainer_courier">
-                <div class="document-item">
-                    <div class="wide-form-row">
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Courier trasmis </span>
-                                <span class="label-ar">إرسالية</span>
-                            </div>
-                            <asp:TextBox ID="TB_COURIER" runat="server" CssClass="wide-form-control"></asp:TextBox>
-                        </div>
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">P.J</span>
-                                <span class="label-ar">المرفق </span>
-                            </div>
-                            <asp:FileUpload ID="FU_COURIER" runat="server" CssClass="wide-form-control" />
-
-                        </div>
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Réponse  </span>
-                                <span class="label-ar">الرد عليها</span>
-                            </div>
-                            <asp:TextBox ID="TB_REPONSE_COURIER" runat="server" CssClass="wide-form-control"></asp:TextBox>
-                        </div>
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">P.J</span>
-                                <span class="label-ar">المرفق </span>
-                            </div>
-                            <div class="input-with-add ">
-                            <asp:FileUpload ID="FU_REPONSE_COURIER" runat="server" CssClass="wide-form-control" />
-                            <button type="button" class="btn-icon-add" onclick="addCourierField()">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                                </div>
-                        </div>
-
-                       <%-- <div class="wide-form-group" style="align-self: flex-end;">
-                            
-                        </div>--%>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-       
-        <!-- Section Jugement -->
+         <!-- Section Jugement -->
         <div class="wide-form-section" runat="server" id="ScanJugement" visible="false">
             <h5 class="wide-section-title">
                 <span class="title-fr">Scan jugement</span>
@@ -726,6 +740,43 @@
                 </div>
             </div>
         </div>
+        
+
+         <!-- Section dossier fond adversaire -->
+        <div class="wide-form-section" runat="server" id="ScanAdversaire"  >
+            <h5 class="wide-section-title">
+                <span class="title-fr">Scan dossier de fond de l'adversaire</span>
+                <span class="title-ar">مسح ملف موضوع المدعي</span>
+            </h5>
+            <div id="documentsContainer_doc_avocat">
+                <div class="document-item">
+                    <div class="wide-form-row">
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Titre</span>
+                                <span class="label-ar">العنوان</span>
+                            </div>
+                            <asp:TextBox ID="TB_DOC_ADVERSAIRE" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                        </div>
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Pièce jointe</span>
+                                <span class="label-ar">المرفق </span>
+                            </div>
+                            <asp:FileUpload ID="FU_DOC_ADVERSAIRE" runat="server" CssClass="wide-form-control" />
+
+                        </div>
+                        <div class="wide-form-group" style="align-self: flex-end;">
+                            <button type="button" class="btn-icon-add" onclick="addAdversaireDocField()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
         <!-- Section Documents -->
         <div class="wide-form-section" runat="server" id="ScanAutre">
             <h5 class="wide-section-title">
@@ -767,9 +818,102 @@
         </div>
     </div>
 
-    <!-- Section Requete -->
+    <div id="JugementFinalModal" class="modal">
+    <div class="modal-content-affaire">
+        <!-- Header -->
+        <div class="modal-header">
+            <h3>
+                <i class="fas fa-info-circle"></i> 
+                Jugement Finale de l'Affaire N° <asp:Label runat="server" ID="Label7" Text=""></asp:Label>
+            </h3>
+            <span class="close" onclick="closeScanJugementeFinalModal()">&times;</span>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+            <!-- Section Jugement -->
+        <div class="wide-form-section" runat="server" id="Div1" >
+            <h5 class="wide-section-title">
+                <span class="title-fr">Jugement Finale</span>
+                <span class="title-ar">حكم نهائي</span>
+            </h5>
+            <div id="documentsJugementFinaleContainer">
+                <div class="document-item">
+                    <div class="wide-form-row" runat="server" id="Div2">
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Date jugement Finale</span>
+                                <span class="label-ar">تاريخ الحكم النهائي</span>
+                            </div>
+                            <asp:TextBox ID="TB_DATE_JUG_FINAL" TextMode="Date" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                        </div>
+                        <div class="wide-form-group">
+                            <div class="dual-label-container">
+                                <span class="label-fr">Pièce jointe</span>
+                                <span class="label-ar">المرفق </span>
+                            </div>
+                            <asp:FileUpload ID="FU_JUG_FINALE" runat="server" CssClass="wide-form-control" />
+
+                        </div>
+                    </div>
+                    <div class="frais-execution-group">
+                <div class="wide-form-row">
+                    <!-- Colonne 1 : Impact -->
+                    <div class="search-group">
+                        <div class="dual-label-container">
+                            <span class="label-fr">Nature Frais execution</span>
+                            <span class="label-ar">مصاريف التنفيذ</span>
+                        </div>
+                        <div class="input-with-add">
+                        <asp:DropDownList ID="DDL_FRAIS_EXEC" runat="server" CssClass="wide-form-control"></asp:DropDownList>
+                            </div> 
+                    </div>
+                    <div class="wide-form-group" id="precisionFRAISGroup" >
+                    <div class="dual-label-container">
+                        <span class="label-fr">Précision</span>
+                        <span class="label-ar">توضيح </span>
+                    </div>
+                    <asp:TextBox ID="TB_PRECISION_FRAIS" runat="server" CssClass="wide-form-control"
+                        placeholder="Précision / توضيح"></asp:TextBox>
+                </div>
+
+                    <!-- Colonne 2 : Montant -->
+                    <div class="wide-form-group">
+                        <div class="dual-label-container">
+                            <span class="label-fr">Montant (DZD)</span>
+                            <span class="label-ar">المبلغ</span>
+                        </div>
+                        <div class="input-with-add">
+                        <asp:TextBox ID="TB_MNT_FRAIS" runat="server" CssClass="wide-form-control" TextMode="Number"></asp:TextBox>
+                            <button type="button" class="btn-icon-add" onclick="addFRAIS_EXEC_Field()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                            </div>
+                    </div>
+
+                    
+                </div>
+
+                <!-- Conteneur des champs dynamiques -->
+                <div id="FRAIS_EXEC_Container"></div>
+            </div>
+                     
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" onclick="closeScanJugementeFinalModal()">Fermer</button>
+            <asp:Button ID="BTN_AJOUT_JUG_FINAL" runat="server" Text="Enregistrer" CssClass="wide-btn-submit" OnClick="BTN_AJOUT_JUG_FINAL_Click" />
+            <asp:HiddenField ID="HiddenField2" runat="server" />
+        </div>
+    </div>
+</div>
         
-    <div id="ScanRequetteModal" class="modal">
+    <%--<div id="ScanRequetteModal" class="modal">
     <div class="modal-content-affaire">
         <!-- Header -->
         <div class="modal-header">
@@ -787,78 +931,7 @@
                 <span class="title-fr">Scan dossier contentieux</span>
                 <span class="title-ar">مسح ملف النزاع</span>
             </h5>
-            <div id="documentsContainer_requette">
-                <div class="document-item">
-                    <div class="wide-form-row   " runat="server" id="TRI">
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Requête Introductif</span>
-                                <span class="label-ar">العريضة الإفتتاحية</span>
-                            </div>
-                            <asp:TextBox ID="TB_REQUETE" runat="server" CssClass="wide-form-control"></asp:TextBox>
-                        </div>
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Pièce jointe</span>
-                                <span class="label-ar">المرفق </span>
-                            </div>
-                            <asp:FileUpload ID="FU_REQUETE" runat="server" CssClass="wide-form-control" />
-                        </div>
-                    </div>
-                    <div class="wide-form-row hidden" runat="server" id="CRS">
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Requête d'appel</span>
-                                <span class="label-ar">العريضة الاستئناف</span>
-                            </div>
-                            <asp:TextBox ID="TB_REQUETE_APPEL" runat="server" CssClass="wide-form-control"></asp:TextBox>
-                        </div>
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Pièce jointe</span>
-                                <span class="label-ar">المرفق </span>
-                            </div>
-                            <asp:FileUpload ID="FU_REQUETE_APPEL" runat="server" CssClass="wide-form-control" />
-
-                        </div>
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Lettre de Constitution</span>
-                                <span class="label-ar">رسالة التأسيس تكوين للاستئناف</span>
-                            </div>
-                            <asp:FileUpload ID="FU_CONSTITUTION_APPEL" runat="server" CssClass="wide-form-control" />
-                            <%--<asp:CheckBox ID="Ck_CONSTITUTION_APPEL" runat="server" ToolTip="عريضة تكوين للاستئناف" CssClass="custom-checkbox" />--%>
-                        </div>
-
-                    </div>
-                    <div class="wide-form-row hidden" runat="server" id="CRSSUP">
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Requête pour voir en cassation</span>
-                                <span class="label-ar">عريضة الطعن بالنقض</span>
-                            </div>
-                            <asp:TextBox ID="TB_REQ_VOIR_CASSATION" runat="server" CssClass="wide-form-control"></asp:TextBox>
-                        </div>
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Pièce jointe</span>
-                                <span class="label-ar">المرفق </span>
-                            </div>
-                            <asp:FileUpload ID="FU_REQ_VOIR_CASSATION" runat="server" CssClass="wide-form-control" />
-
-                        </div>
-                        <div class="wide-form-group">
-                            <div class="dual-label-container">
-                                <span class="label-fr">Lettre de Constitution</span>
-                                <span class="label-ar">رسالة التأسيس للطعن بالنقض</span>
-                            </div>
-                            <asp:FileUpload ID="FU_CONSTITUTION_CASSATION" runat="server" CssClass="wide-form-control" />
-                            <%--<asp:CheckBox ID="Ck_CONSTITUTION_CASSATION" runat="server" ToolTip="عريضة تكوين للطعن بالنقض" CssClass="custom-checkbox" />--%>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            
         </div>
         </div>
 
@@ -868,7 +941,7 @@
             <asp:HiddenField ID="HF_ID_AFFAIRE" runat="server" />
         </div>
     </div>
-</div>
+</div>--%>
 
     <script type="text/javascript">
         function openScanRequetteModal() {
@@ -879,6 +952,16 @@
 
         function closeScanRequetteModal() {
             document.getElementById('ScanRequetteModal').style.display = 'none';
+        }
+
+        function openScanJugementeFinalModal() {
+            // Ouvrir le modal
+            document.getElementById('JugementFinalModal').style.display = 'block';
+            return false;
+        }
+
+        function closeScanJugementeFinalModal() {
+            document.getElementById('JugementFinalModal').style.display = 'none';
         }
 
         // Compteurs pour les nouveaux champs
@@ -903,113 +986,7 @@
 
         var impactCount = 1;
 
-        // Fonction pour ajouter un champ de courrier
-        function addCourierField() {
-            courierDocCount++;
-            var container = document.getElementById('documentsContainer_courier');
-            var newItem = document.createElement('div');
-            newItem.className = 'document-item';
-            newItem.innerHTML = `
-        <div class="wide-form-row">
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Courier trasmis</span>
-                    <span class="label-ar">إرسالية</span>
-                </div>
-                <input type="text" id="TB_COURIER_${courierDocCount}" 
-                       name="TB_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">P.J (Max 5 Mo)</span>
-                    <span class="label-ar">المرفق</span>
-                </div>
-                <input type="file" id="FU_COURIER_${courierDocCount}" 
-                       name="FU_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Réponse</span>
-                    <span class="label-ar">الرد عليها</span>
-                </div>
-                <input type="text" id="TB_REPONSE_COURIER_${courierDocCount}" 
-                       name="TB_REPONSE_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">P.J (Max 5 Mo)</span>
-                    <span class="label-ar">المرفق</span>
-                </div>
-                <div class="input-with-add">
-                <input type="file" id="FU_REPONSE_COURIER_${courierDocCount}" 
-                       name="FU_REPONSE_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-                <button type="button" class="btn-icon-remove" onclick="this.closest('.document-item').remove()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            </div>
-        </div>
-    `;
-            container.appendChild(newItem);
-        }
-
-        function addCourierFieldM(valueReponse = "", valuecourier = "") {
-            courierDocCountM++;
-            var container = document.getElementById('documentsContainer_courier');
-            var newItem = document.createElement('div');
-            newItem.className = 'document-item';
-            newItem.innerHTML = `
-        <div class="wide-form-row">
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Object courier</span>
-                    <span class="label-ar">العنوان</span>
-                </div>
-                <input type="text" id="TB_COURIER_${courierDocCountM}" 
-                       name="TB_COURIER_${courierDocCountM}" 
-                       class="wide-form-control"
-                       value="${valuecourier}" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Pièce jointe (Max 5 Mo)</span>
-                    <span class="label-ar">المرفق</span>
-                </div>
-                <input type="file" id="FU_COURIER_${courierDocCountM}" 
-                       name="FU_COURIER_${courierDocCountM}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">Réponse</span>
-                    <span class="label-ar">الرد عليها</span>
-                </div>
-                <input type="text" id="TB_REPONSE_COURIER_${courierDocCount}" 
-                       name="TB_REPONSE_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-            </div>
-            <div class="wide-form-group">
-                <div class="dual-label-container">
-                    <span class="label-fr">P.J (Max 5 Mo)</span>
-                    <span class="label-ar">المرفق</span>
-                </div>
-                <div class="input-with-add">
-                <input type="file" id="FU_REPONSE_COURIER_${courierDocCount}" 
-                       name="FU_REPONSE_COURIER_${courierDocCount}" 
-                       class="wide-form-control" />
-                <button type="button" class="btn-icon-remove" onclick="this.closest('.document-item').remove()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-        </div>
-    `;
-            container.appendChild(newItem);
-        }
+        
         
         // Fonction pour ajouter un champ de document avocat
         function addAdversaireDocField() {
@@ -1240,28 +1217,73 @@
             DateEnvoi++;
             var container = document.getElementById('dateEnvoiContainer');
             var newField = document.createElement('div');
-            newField.className = 'input-with-add';
+            newField.className = 'DateRenvoie-group';
             newField.innerHTML = `
-            <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_${DateEnvoi}" />
-            <button type="button" class="btn-icon-remove" onclick="this.parentNode.remove()">
+            <div class="wide-form-row">
+                 <div class="wide-form-group">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Date renvoie</span>
+                        <span class="label-ar">تاريخ الإرسال</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_DYNAMIC[]" />
+                        </div> 
+                    
+                </div>
+                <div class="wide-form-group"  >
+                    <div class="dual-label-container">
+                        <span class="label-fr">Motif Date Renvoie</span>
+                        <span class="label-ar">سبب التأجيل</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <input type="text" class="wide-form-control" name="TB_MOTIF_DATE_RENVOI_DYNAMIC[]" />
+                    
+                    <button type="button" class="btn-icon-remove" onclick="this.closest('.DateRenvoie-group').remove()">
                 <i class="fas fa-times"></i>
             </button>
-        `;
+                        </div>
+                    
+                </div>
+                </div> `;
             container.appendChild(newField);
         }
 
-        function addDateEnvoiFieldM( value="") {
+        function addDateEnvoiFieldM(value = "", Motif = "") {
             DateEnvoiM++;
             var container = document.getElementById('dateEnvoiContainer');
             var newField = document.createElement('div');
-            newField.className = 'input-with-add';
+
+            newField.className = 'DateRenvoie-group';
             newField.innerHTML = `
-            <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_${DateEnvoiM}" value="${value}" />
-            <button type="button" class="btn-icon-remove" onclick="this.parentNode.remove()">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
+                <div class="wide-form-row">
+                    <div class="wide-form-group">
+                        <div class="dual-label-container">
+                            <span class="label-fr">Date renvoie</span>
+                            <span class="label-ar">تاريخ الإرسال</span>
+                        </div>
+                        <div class="input-with-add" >
+                            <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_DYNAMIC[]" value="${value}" />
+                        </div>
+
+                    </div>
+                    <div class="wide-form-group"  >
+                        <div class="dual-label-container">
+                            <span class="label-fr">Motif Date Renvoie</span>
+                            <span class="label-ar">سبب التأجيل</span>
+                        </div>
+                        <div class="input-with-add" >
+                            <input type="text" class="wide-form-control" name="TB_MOTIF_DATE_RENVOI_DYNAMIC[]" value="${Motif}" />
+
+                            <button type="button" class="btn-icon-remove" onclick="this.closest('.DateRenvoie-group').remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                `;
             container.appendChild(newField);
+
         }
 
         function addPartieMiseEnCauseField() {
@@ -1579,6 +1601,132 @@
             container.appendChild(newField);
          }
 
+
+        function addFRAIS_EXEC_Field() {
+            impactCount++
+            var container = document.getElementById('FRAIS_EXEC_Container');
+
+            // Récupérer les options du DDL existant
+            var ddlOriginal = document.getElementById('<%= DDL_FRAIS_EXEC.ClientID %>');
+            var optionsHtml = ddlOriginal.innerHTML;
+
+            // Créer un bloc identique au premier
+            var newField = document.createElement('div');
+            newField.className = 'frais-execution-group';
+
+            newField.innerHTML = `
+            <div class="wide-form-row">
+            <!-- Colonne 1 -->
+            <div class="search-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Nature Frais execution</span>
+                            <span class="label-ar">مصاريف التنفيذ</span>
+                </div>
+            <div class="input-with-add">
+                <select class="wide-form-control" name="DDL_FRAIS_EXEC_DYNAMIC[]">
+                    ${optionsHtml}
+                </select>
+            </div>
+            </div>
+
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                     <span class="label-fr">Précision</span>
+                        <span class="label-ar">توضيح </span>
+                </div>
+                <input type="text" id="TB_PRECISION_FRAIS{optionsHtml}" 
+                       name="TB_PRECISION_FRAIS_DYNAMIC[]" placeholder="Précision / توضيح"
+                       class="wide-form-control" />
+            </div>
+
+            <!-- Colonne 2 -->
+            <div class="wide-form-group">
+                <div class="dual-label-container">
+                    <span class="label-fr">Montant (DZD)</span>
+                    <span class="label-ar">المبلغ</span>
+                </div>
+            <div class="input-with-add">
+                <input type="number" class="wide-form-control" name="TB_MNT_FRAIS_DYNAMIC[]" />
+                <button type="button" class="btn-icon-remove" onclick="this.closest('.frais-execution-group').remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            </div>
+
+            
+            </div>
+            `;
+
+            container.appendChild(newField);
+        }
+
+        function addFraisExecFieldM(valueImpact = "", valueMontant = "", valuePrecision = "") {
+            var container = document.getElementById('FRAIS_EXEC_Container');
+
+            // Récupérer les options du DDL existant
+            var ddlOriginal = document.getElementById('<%= DDL_FRAIS_EXEC.ClientID %>');
+            var optionsHtml = ddlOriginal.innerHTML;
+
+            // Générer un identifiant unique pour éviter les doublons
+            var uniqueId = Date.now() + "_" + Math.floor(Math.random() * 1000);
+
+            // Créer un bloc identique au premier
+            var newField = document.createElement('div');
+            newField.className = 'frais-execution-group';
+
+            newField.innerHTML = `
+    <div class="wide-form-row">
+        <!-- Colonne 1 -->
+        <div class="search-group">
+            <div class="dual-label-container">
+                <span class="label-fr">Nature Frais execution</span>
+                            <span class="label-ar">مصاريف التنفيذ</span>
+            </div>
+            <select class="wide-form-control" name="DDL_FRAIS_EXEC_DYNAMIC[]">
+                ${optionsHtml}
+            </select>
+        </div>
+
+        <div class="wide-form-group">
+            <div class="dual-label-container">
+                <span class="label-fr">Précision</span>
+                <span class="label-ar">توضيح </span>
+            </div>
+            <div class="input-with-add">
+                <input type="text" 
+                       name="TB_PRECISION_FRAIS_DYNAMIC[]" 
+                       placeholder="Précision / توضيح"
+                       class="wide-form-control" 
+                       value="${valuePrecision}" />
+            </div>
+        </div>
+
+        <!-- Colonne 2 -->
+        <div class="wide-form-group">
+            <div class="dual-label-container">
+                <span class="label-fr">Montant (DZD)</span>
+                <span class="label-ar">المبلغ</span>
+            </div>
+            <div class="input-with-add">
+                <input type="number" class="wide-form-control" 
+                       name="TB_MNT_FRAIS_DYNAMIC[]" 
+                       value="${valueMontant}" />
+                <button type="button" class="btn-icon-remove" onclick="this.closest('.frais-execution-group').remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    `;
+
+            container.appendChild(newField);
+
+            // Appliquer la sélection après insertion
+            var newSelect = newField.querySelector("select");
+            if (valueImpact) {
+                newSelect.value = valueImpact;
+            }
+        }
 
         function showJuridictionFields() {
             // Masquer toutes les sections d'abord

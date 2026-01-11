@@ -4,7 +4,7 @@
 
      <div class="btn-group-inline">
                 <asp:Button ID="BTN_RETOUR" runat="server" Text="Retour a la liste"
-                    CssClass="btn-add" OnClick="BTN_RETOUR_Click"/>
+                    CssClass="btn-add" OnClick="BTN_RETOUR_Click" Visible="false" />
 
                
             </div>
@@ -106,19 +106,7 @@
             </div>
             <div class="wide-form-row">
                 <!-- Défendeurs - Section dynamique -->
-                <div class="wide-form-group">
-                    <div class="dual-label-container">
-                        <span class="label-fr">Date renvoie</span>
-                        <span class="label-ar">تاريخ الإرسال</span>
-                    </div>
-                    <div class="input-with-add" >
-                    <asp:TextBox ID="TB_DATE_ENVOIE" runat="server" TextMode="Date" CssClass="wide-form-control"></asp:TextBox>
-                        <button type="button" class="btn-icon-add" onclick="addDateEnvoiField()">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        </div> 
-                    <div id="dateEnvoiContainer"></div>
-                </div>
+              
                 <div class="wide-form-group">
                     <div class="dual-label-container">
                         <span class="label-fr">Défendeur(s)</span>
@@ -153,6 +141,39 @@
 
                 
             </div>
+
+
+            <div class="DateRenvoie-group">
+            <div class="wide-form-row">
+                 <div class="wide-form-group">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Date renvoie</span>
+                        <span class="label-ar">تاريخ الإرسال</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <asp:TextBox ID="TB_DATE_ENVOIE" runat="server" TextMode="Date" CssClass="wide-form-control"></asp:TextBox>
+                        
+                        </div> 
+                    
+                </div>
+                <div class="wide-form-group"  >
+                    <div class="dual-label-container">
+                        <span class="label-fr">Motif Date Renvoie</span>
+                        <span class="label-ar">سبب التأجيل</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <asp:TextBox ID="TB_MOTIF_DATE_RENVOI" runat="server"  CssClass="wide-form-control"
+                        placeholder="Motif / سبب"></asp:TextBox>
+                    <button type="button" class="btn-icon-add" onclick="addDateEnvoiField()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        </div>
+                    
+                </div>
+                
+                </div> 
+            <div id="dateEnvoiContainer"></div>
+                </div>
         </div>
 
         <!-- Troisième ligne - Juridiction -->
@@ -511,35 +532,79 @@
 
       
 
-        
-
         function addDateEnvoiField() {
             DateEnvoi++;
             var container = document.getElementById('dateEnvoiContainer');
             var newField = document.createElement('div');
-            newField.className = 'input-with-add';
+            newField.className = 'DateRenvoie-group';
             newField.innerHTML = `
-            <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_${DateEnvoi}" />
-            <button type="button" class="btn-icon-remove" onclick="this.parentNode.remove()">
+            <div class="wide-form-row">
+                 <div class="wide-form-group">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Date renvoie</span>
+                        <span class="label-ar">تاريخ الإرسال</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_DYNAMIC[]" />
+                        </div> 
+                    
+                </div>
+                <div class="wide-form-group"  >
+                    <div class="dual-label-container">
+                        <span class="label-fr">Motif Date Renvoie</span>
+                        <span class="label-ar">سبب التأجيل</span>
+                    </div>
+                    <div class="input-with-add" >
+                    <input type="text" class="wide-form-control" name="TB_MOTIF_DATE_RENVOI_DYNAMIC[]" />
+                    
+                    <button type="button" class="btn-icon-remove" onclick="this.closest('.DateRenvoie-group').remove()">
                 <i class="fas fa-times"></i>
             </button>
-        `;
+                        </div>
+                    
+                </div>
+                </div> `;
             container.appendChild(newField);
         }
 
-        function addDateEnvoiFieldM( value="") {
+        function addDateEnvoiFieldM(value = "", Motif = "") {
             DateEnvoiM++;
             var container = document.getElementById('dateEnvoiContainer');
             var newField = document.createElement('div');
-            newField.className = 'input-with-add';
+
+            newField.className = 'DateRenvoie-group';
             newField.innerHTML = `
-            <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_${DateEnvoiM}" value="${value}" />
-            <button type="button" class="btn-icon-remove" onclick="this.parentNode.remove()">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
+                <div class="wide-form-row">
+                    <div class="wide-form-group">
+                        <div class="dual-label-container">
+                            <span class="label-fr">Date renvoie</span>
+                            <span class="label-ar">تاريخ الإرسال</span>
+                        </div>
+                        <div class="input-with-add" >
+                            <input type="date" class="wide-form-control" name="TB_DATE_ENVOI_DYNAMIC[]" value="${value}" />
+                        </div>
+
+                    </div>
+                    <div class="wide-form-group"  >
+                        <div class="dual-label-container">
+                            <span class="label-fr">Motif Date Renvoie</span>
+                            <span class="label-ar">سبب التأجيل</span>
+                        </div>
+                        <div class="input-with-add" >
+                            <input type="text" class="wide-form-control" name="TB_MOTIF_DATE_RENVOI_DYNAMIC[]" value="${Motif}" />
+
+                            <button type="button" class="btn-icon-remove" onclick="this.closest('.DateRenvoie-group').remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div >
+`;
             container.appendChild(newField);
+
         }
+
 
         function addPartieMiseEnCauseField() {
             partieMiseEnCauseCount++;
