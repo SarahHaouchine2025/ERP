@@ -381,14 +381,14 @@
                 <span class="title-fr">Détails courier</span>
                 <span class="title-ar">تفاصيل الرسالة</span>
             </h5>
-            <div class="wide-form-row">
+            <div class="form-row">
                 <div class="search-group">
                     <div class="dual-label-container">
                         <span class="label-fr">Direction</span>
                         <span class="label-ar">الإدارة</span>
                     </div>
                     <div class="input-with-add">
-                    <asp:DropDownList ID="DDL_DIRECTION" runat="server" CssClass="wide-form-control">
+                    <asp:DropDownList ID="DDL_DIRECTION" runat="server" CssClass="form-control ">
                         <asp:ListItem Text="------" Value="" Selected="True" />
                         
                     </asp:DropDownList>
@@ -396,24 +396,24 @@
                 </div>
                 
 
-                <div class="wide-form-group">
+                <div class="form-group">
                     <div class="dual-label-container">
                         <span class="label-fr">Numéro Affaire</span>
                         <span class="label-ar">تاريخ التأسيس</span>
                     </div>
-                    <asp:TextBox ID="TextBox1" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                    <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control "></asp:TextBox>
                 </div>
 
                 
 
             </div>
             <div class="wide-form-row">
-                <div class="wide-form-group full-width">
+                <div class="form-group full-width">
                     <div class="dual-label-container">
                         <span class="label-fr">Courier</span>
                         <span class="label-ar">رسالة</span>
                     </div>
-                    <asp:TextBox ID="TB_COURIER" runat="server" TextMode="MultiLine" Rows="3" CssClass="wide-form-control"></asp:TextBox>
+                    <asp:TextBox ID="TB_COURIER" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control "></asp:TextBox>
                 </div>
             </div>
 
@@ -421,23 +421,23 @@
     <div class="document-item">
                             <div class="wide-form-row">
 
-                                <div class="wide-form-group">
+                                <div class="form-group">
                                     <div class="dual-label-container">
                                         <span class="label-fr">Titre Document</span>
                                         <span class="label-ar">اسم الوثيقة</span>
                                     </div>
-                                    <asp:TextBox ID="TB_NOM_DOCUMENT" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                                    <asp:TextBox ID="TB_NOM_DOCUMENT" runat="server" CssClass="form-control "></asp:TextBox>
                                 </div>
 
-                                <div class="wide-form-group">
+                                <div class="form-group">
                                     <div class="dual-label-container">
                                         <span class="label-fr">Pièce jointe </span>
                                         <span class="label-ar">المرفق</span>
                                     </div>
-                                    <asp:FileUpload ID="FU_AUTRE_DOC_" runat="server" CssClass="wide-form-control" />
+                                    <asp:FileUpload ID="FU_AUTRE_DOC_" runat="server" CssClass="form-control " />
                                 </div>
 
-                                <div class="wide-form-group" style="align-self: flex-end;" runat="server" visible="false" >
+                                <div class="form-group" style="align-self: flex-end;" runat="server" visible="false" >
                                     <button type="button" class="btn-icon-add" onclick="addOtherDocField()">
                                         <i class="fas fa-plus"></i>
                                     </button>
@@ -482,13 +482,13 @@
                 
 
             </div>
-            <div class="wide-form-row">
-                <div class="wide-form-group full-width">
+            <div class="form-row">
+                <div class=form-group full-width">
                     <div class="dual-label-container">
                         <span class="label-fr">Réponse Courier</span>
                         <span class="label-ar">رسالة</span>
                     </div>
-                    <asp:TextBox ID="TB_REPONSE_COURIER" runat="server" TextMode="MultiLine" Rows="3" CssClass="wide-form-control"></asp:TextBox>
+                    <asp:TextBox ID="TB_REPONSE_COURIER" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control "></asp:TextBox>
                 </div>
             </div>
 
@@ -496,20 +496,20 @@
     <div class="document-item">
                             <div class="wide-form-row">
 
-                                <div class="wide-form-group">
+                                <div class="form-group">
                                     <div class="dual-label-container">
                                         <span class="label-fr">Titre Document</span>
                                         <span class="label-ar">اسم الوثيقة</span>
                                     </div>
-                                    <asp:TextBox ID="TB_NOM_DOCUMENT_REP" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                                    <asp:TextBox ID="TB_NOM_DOCUMENT_REP" runat="server" CssClass="form-control "></asp:TextBox>
                                 </div>
 
-                                <div class="wide-form-group">
+                                <div class="form-group">
                                     <div class="dual-label-container">
                                         <span class="label-fr">Pièce jointe </span>
                                         <span class="label-ar">المرفق</span>
                                     </div>
-                                    <asp:FileUpload ID="FU_AUTRE_DOC_REP" runat="server" CssClass="wide-form-control" />
+                                    <asp:FileUpload ID="FU_AUTRE_DOC_REP" runat="server" CssClass="form-control " />
                                 </div>
 
                                 

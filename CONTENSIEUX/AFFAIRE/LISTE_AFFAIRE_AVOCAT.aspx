@@ -173,10 +173,10 @@
                             <Fields>
                                 <asp:NextPreviousPagerField 
                                     ButtonType="Link"
-                                    ShowFirstPageButton="True"
+                                    ShowFirstPageButton="False"
                                     FirstPageText="« Première"
                                     ShowPreviousPageButton="True"
-                                    PreviousPageText="‹ Précédente"
+                                    PreviousPageText="‹"
                                     ShowNextPageButton="False"
                                     ShowLastPageButton="False"
                                     RenderDisabledButtonsAsLabels="true"
@@ -194,8 +194,8 @@
                                     ShowFirstPageButton="False"
                                     ShowPreviousPageButton="False"
                                     ShowNextPageButton="True"
-                                    NextPageText="Suivante ›"
-                                    ShowLastPageButton="True"
+                                    NextPageText="›"
+                                    ShowLastPageButton="false"
                                     LastPageText="Dernière »"
                                     RenderDisabledButtonsAsLabels="true"
                                     ButtonCssClass="pager-button" />
@@ -306,6 +306,7 @@
                          <asp:ListItem Text="Réponse" Value="Réponse" />
                         <asp:ListItem Text="Documents Adversaire" Value="Documents Adversaire" />
                          <asp:ListItem Text="Jugement" Value="Jugement" />
+                         <asp:ListItem Text="Jugement final" Value="Jugement" />
                          <asp:ListItem Text="Notification" Value="Notification" />
                          <asp:ListItem Text="Autres Documents" Value="Autres Documents" />
                     </asp:DropDownList>
@@ -343,7 +344,7 @@
                                     <th>Catégorie</th>
                                     <th>Titre</th>
                                     <th>Document</th>
-                                    <th>Modifier</th>
+                                    <%--<th>Modifier</th>--%>
                                     
                                 </tr>
                             </thead>
@@ -409,7 +410,7 @@
                 Consulter
             </asp:LinkButton>
         </td>
-        <td>
+        <%--<td>
             <div class="d-flex align-items-center gap-2">
                 <!-- FileUpload avec largeur réduite et déclenchement JS -->
                 <asp:FileUpload ID="FU_DOC" runat="server"
@@ -424,7 +425,7 @@
                     Enabled="false"
                     CommandArgument='<%# Eval("ID_AFFAIRE") %>'
                     OnClick="btnSaveDoc_Click" />
-            </div>
+            </div>--%>
         </td>
     </tr>
 </ItemTemplate>

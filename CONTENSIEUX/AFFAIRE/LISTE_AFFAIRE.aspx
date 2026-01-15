@@ -19,8 +19,8 @@
                 <h3><i class="fas fa-search"></i>Critères de recherche / <span class="arabic-title">معايير البحث</span></h3>
                 <button type="button" class="toggle-btn" onclick="toggleSearchPanel()">
                     <i class="fas fa-chevron-down"></i>
-</button>
-    </div>
+                </button>
+            </div>
 
     <div class="search-grid" id="searchGrid" style="display: none;">
         <!-- Ligne 1 -->
@@ -52,7 +52,7 @@
             <div class="dual-label-container">
                 <span class="label-fr">Demandeur</span><span class="label-ar">الطالب</span>
             </div>
-            <asp:TextBox ID="TB_PARTIE" runat="server" CssClass="form-control tb-medium"
+            <asp:TextBox ID="TB_PARTIE" runat="server" CssClass="form-control tb-small"
                 placeholder="Nom de la partie"></asp:TextBox>
         </div>
 
@@ -60,7 +60,7 @@
             <div class="dual-label-container">
                 <span class="label-fr">Tribunal</span><span class="label-ar">المحكمة</span>
             </div>
-            <asp:DropDownList ID="DDL_TRIBUNAL" runat="server" CssClass="form-control"
+            <asp:DropDownList ID="DDL_TRIBUNAL" runat="server" CssClass="form-control tb-small"
                 onchange="handleTribunalChange()">
                 <asp:ListItem Text="------" Value="" Selected="True" />
             </asp:DropDownList>
@@ -70,7 +70,7 @@
             <div class="dual-label-container">
                 <span class="label-fr">Section</span><span class="label-ar">قسم</span>
             </div>
-            <asp:DropDownList ID="DDL_SECTION_TRIBUNAL" runat="server" CssClass="form-control" onchange="showCB_REFERE_Fields()">
+            <asp:DropDownList ID="DDL_SECTION_TRIBUNAL" runat="server" CssClass="form-control tb-small" onchange="showCB_REFERE_Fields()">
                 <asp:ListItem Text="------" Value="" Selected="True" />
             </asp:DropDownList>
         </div>
@@ -79,19 +79,16 @@
             <div class="dual-label-container">
                 <span class="label-fr">Nature</span><span class="label-ar">طبيعة</span>
             </div>
-            <asp:DropDownList ID="DDL_NATURE" runat="server" CssClass="form-control">
+            <asp:DropDownList ID="DDL_NATURE" runat="server" CssClass="form-control tb-small">
                 <asp:ListItem Text="------" Value="" Selected="True" />
             </asp:DropDownList>
         </div>
 
-         
-
-        <!-- Ligne 2 -->
         <div class="search-group">
             <div class="dual-label-container">
                 <span class="label-fr">Observation</span><span class="label-ar">ملاحظة</span>
             </div>
-            <asp:DropDownList ID="DDL_OBSERVATION" runat="server" CssClass="form-control">
+            <asp:DropDownList ID="DDL_OBSERVATION" runat="server" CssClass="form-control tb-small">
                 <asp:ListItem Text="------" Value="" Selected="True" />
                 <asp:ListItem Text="En faveur" Value="En faveur" />
                 <asp:ListItem Text="En défaveur" Value="En défaveur" />
@@ -103,7 +100,7 @@
             <div class="dual-label-container">
                 <span class="label-fr">Avocat</span><span class="label-ar">المحامي</span>
             </div>
-            <asp:DropDownList ID="DDL_AVOCAT" runat="server" CssClass="form-control">
+            <asp:DropDownList ID="DDL_AVOCAT" runat="server" CssClass="form-control tb-small">
                 <asp:ListItem Text="------" Value="" Selected="True" />
                 <asp:ListItem Text="Avocat 1" Value="1" />
                 <asp:ListItem Text="Avocat 2" Value="2" />
@@ -114,14 +111,13 @@
             <div class="dual-label-container">
                 <span class="label-fr">Jugement</span><span class="label-ar">الحكم</span>
             </div>
-            <asp:DropDownList ID="DDL_JUGEMENT" runat="server" CssClass="form-control">
+            <asp:DropDownList ID="DDL_JUGEMENT" runat="server" CssClass="form-control tb-small">
                 <asp:ListItem Text="------" Value="" Selected="True" />
                 <asp:ListItem Text="Oui" Value="true" />
                 <asp:ListItem Text="Non" Value="false" />
             </asp:DropDownList>
         </div>
         
-
         <div class="search-group">
             <div class="dual-label-container">
                 <span class="label-fr">Notification</span><span class="label-ar">تنبيه</span>
@@ -132,15 +128,15 @@
                 <asp:ListItem Text="Non" Value="false" />
             </asp:DropDownList>
         </div>
+
        <div class="search-group" >
             <div class="dual-label-container">
-                <span class="label-fr">Audience : Du</span>
+                <span class="label-fr">Audience: Du</span><span class="label-ar"></span>
             </div>
-            <div class="input-with-add">
                 <asp:TextBox ID="TB_DATE_AUDIANCE_DEB" runat="server" TextMode="Date" CssClass="form-control tb-small"></asp:TextBox>
-                <%--<asp:TextBox ID="TB_DATE_AUDIANCE_FIN" runat="server" TextMode="Date" CssClass="form-control tb-small"></asp:TextBox>--%>
-            </div>
+            
         </div>
+
         <div class="search-group" >
             <div class="dual-label-container">
                 <span class="label-fr">Au</span><span class="label-ar">تاريخ الجلسة</span>
@@ -153,19 +149,17 @@
             <div class="dual-label-container">
                 <span class="label-fr">Constitution : Du</span>
             </div>
-            <div class="input-with-add">
                 <asp:TextBox ID="TB_DATE_D_CONSTI" runat="server" TextMode="Date" CssClass="form-control tb-small"></asp:TextBox>
                 
-            </div>
         </div>
+
         <div class="search-group">
             <div class="dual-label-container">
                 <span class="label-fr">Au</span><span class="label-ar">تاريخ التأسيس</span>
             </div>
-            <div class="input-with-add">
                 <asp:TextBox ID="TB_DATE_F_CONSTI" runat="server" TextMode="Date" CssClass="form-control tb-small"></asp:TextBox>
-            </div>
         </div>
+
         <div class="search-group">
             <div class="dual-label-container">
                 <span class="label-fr">Impact </span><span class="label-ar">الأثر المالي</span>
@@ -178,6 +172,7 @@
                 <asp:ListItem Text="Paiement des situations" Value="Paiement des situations" />--%>
             </asp:DropDownList>
         </div>
+
         <div class="search-group">
                     <div class="dual-label-container">
                 <span class="label-fr">D.Régionale </span><span class="label-ar">مديرية جهوية</span>
@@ -186,7 +181,7 @@
 
                                     <!-- Bouton dropdown -->
                                     <asp:LinkButton ID="btnDr" runat="server"
-                                        CssClass="ddl-checkbox-btn"
+                                        CssClass="ddl-checkbox-btn tb-small"
                                         OnClientClick="toggleObsDDL(); return false;">
                                         ---/---
                                     </asp:LinkButton>
@@ -203,25 +198,17 @@
 
                                     </asp:Panel>
                                 </div>
-                    <%--<asp:DropDownList ID="DDL_DR" runat="server" CssClass="form-control">
-                        <asp:ListItem Value="">Tous</asp:ListItem>
-                    </asp:DropDownList>--%>
                 </div>
-
 
         <div class="search-group" runat="server" visible="false" id="div_User">
                     <div class="dual-label-container">
                 <span class="label-fr">Utilisateur </span><span class="label-ar">مستخدم</span>
             </div>
-                    <asp:DropDownList ID="DDL_USER" runat="server" CssClass="form-control">
+                    <asp:DropDownList ID="DDL_USER" runat="server" CssClass="form-control tb-small">
                         <asp:ListItem Value="">Tous</asp:ListItem>
                     </asp:DropDownList>
                 </div>
-        <%--<div class="search-group">
-    <label for="CBL_DR">DR</label>
-    <asp:CheckBoxList ID="CBL_DR" runat="server" CssClass="form-check">
-    </asp:CheckBoxList>
-</div>--%>
+        
     </div>
 
     <div class="modal-footer" id="FooterSearch" style="display: none;">
@@ -611,7 +598,7 @@
                              <asp:Label runat="server" ID="LB_PAYEMENT_EFFACTUER" Text=""></asp:Label>
                          </h2>
                      </div>--%>
-                     <div class="modal-grid-3" runat="server" id="partiePaiement">
+                     <div class="modal-grid-4" runat="server" id="partiePaiement">
                          <div class="form-group">
                              <label>Cause d'absence de paiement</label>
                              <asp:DropDownList ID="DDL_CND_NON_PAYER" runat="server" CssClass="form-control" ClientIDMode="Static">
@@ -621,7 +608,7 @@
                                      <asp:ListItem Value="Non Suivie">Non Suivie / غير متابَعة</asp:ListItem>
                                 </asp:DropDownList>
                              </div>
-                         <div class="modal-grid-2">
+                         
                              <div class="form-group">
                                  <label>Date Payement</label>
                                  <asp:TextBox ID="TB_DATE_PAYEMENT" runat="server" TextMode="Date" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
@@ -630,7 +617,7 @@
                                  <label>N° Facturation</label>
                                  <asp:TextBox ID="TB_NUM_FACTURATION" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
                              </div>
-                         </div>
+                         
 
                          <div class="form-group">
                              <label>Scan Facturation</label>
@@ -746,7 +733,7 @@
                 
                 <div class="modal-grid-3" runat="server" id="Div1">
                          
-                         <div class="modal-grid-2">
+                         
                              <div class="form-group">
                                  <label>Date Payement</label>
                                  <asp:TextBox ID="DATE_PAIEMENT_AFF" runat="server" TextMode="Date" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
@@ -755,10 +742,10 @@
                                  <label>N° Facturation</label>
                                  <asp:TextBox ID="NUM_FACTURATION_AFF" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
                              </div>
-                         </div>
+                         
 
                          <div class="form-group">
-                             <label>Scan Facturation</label>
+                             <label>Scan</label>
                              <asp:FileUpload ID="FU_PAIEMENT_AFF" runat="server" CssClass="form-control form-control-sm w-75" ClientIDMode="Static" />
                          </div>
                      </div>
@@ -979,7 +966,7 @@
                                 <span class="label-ar">الإدارة</span>
                             </div>
                             <div class="input-with-add">
-                                <asp:DropDownList ID="DDL_DIRECTION" runat="server" CssClass="wide-form-control">
+                                <asp:DropDownList ID="DDL_DIRECTION" runat="server" CssClass="form-control">
                                     <asp:ListItem Text="------" Value="" Selected="True" />
 
                                 </asp:DropDownList>
@@ -989,12 +976,12 @@
 
                     </div>
                     <div class="wide-form-row">
-                        <div class="wide-form-group full-width">
+                        <div class="form-group full-width">
                             <div class="dual-label-container">
                                 <span class="label-fr">Courier</span>
                                 <span class="label-ar">رسالة</span>
                             </div>
-                            <asp:TextBox ID="TB_COURIER" runat="server" TextMode="MultiLine" Rows="3" CssClass="wide-form-control"></asp:TextBox>
+                            <asp:TextBox ID="TB_COURIER" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control"></asp:TextBox>
                         </div>
                     </div>
 
@@ -1002,23 +989,23 @@
                         <div class="document-item">
                             <div class="wide-form-row">
 
-                                <div class="wide-form-group">
+                                <div class="orm-group">
                                     <div class="dual-label-container">
                                         <span class="label-fr">Titre Document</span>
                                         <span class="label-ar">اسم الوثيقة</span>
                                     </div>
-                                    <asp:TextBox ID="TB_NOM_DOCUMENT" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                                    <asp:TextBox ID="TB_NOM_DOCUMENT" runat="server" CssClass="form-control"></asp:TextBox>
                                 </div>
 
-                                <div class="wide-form-group">
+                                <div class="form-group">
                                     <div class="dual-label-container">
                                         <span class="label-fr">Pièce jointe </span>
                                         <span class="label-ar">المرفق</span>
                                     </div>
-                                    <asp:FileUpload ID="FU_AUTRE_DOC_" runat="server" CssClass="wide-form-control" />
+                                    <asp:FileUpload ID="FU_AUTRE_DOC_" runat="server" CssClass="form-control" />
                                 </div>
 
-                                <div class="wide-form-group" style="align-self: flex-end;" runat="server" visible="false" >
+                                <div class="form-group" style="align-self: flex-end;" runat="server" visible="false" >
                                     <button type="button" class="btn-icon-add" onclick="addOtherDocField()">
                                         <i class="fas fa-plus"></i>
                                     </button>
@@ -1125,7 +1112,7 @@
                     </div>
                 
                 <div class="wide-form-actions">
-                <asp:Button ID="BTN_RAPPORT" runat="server" Text="Télécharger" CssClass="wide-btn-submit"  OnClick="BTN_RAPPORT_Click"  />
+                <asp:Button ID="BTN_RAPPORT" runat="server" Text="Générer" CssClass="wide-btn-submit"  OnClick="BTN_RAPPORT_Click"  />
                 <asp:Label ID="Label4" runat="server" Visible="false" CssClass="wide-status-message"></asp:Label>
             </div>
                     
@@ -1332,6 +1319,19 @@
             icon.classList.add("fa-chevron-up");
         }
     }
+
+    //function toggleSearchPanel() {
+    //    const grid = document.getElementById('searchGrid');
+    //    const footer = document.getElementById('FooterSearch');
+
+    //    grid.classList.toggle('open');
+
+    //    if (grid.classList.contains('open')) {
+    //        footer.style.display = 'flex';
+    //    } else {
+    //        footer.style.display = 'none';
+    //    }
+    //}
 
     function openDetailAFFAIREModalWithData(id, num_affaire, defendeur, miseencause, date_dispositif, date_envoi, dispo_morale, avocat, non_juge, avocat_adversaire, impact_finance_demander, impact_finance_juger, frais_execution, object) {
         // Remplir le formulaire avec les données existantes

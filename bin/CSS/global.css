@@ -1200,7 +1200,14 @@ textarea.wide-form-control {
     border-radius: 6px;
     padding: 20px;
     margin-bottom: 30px;
+    /* S’adapte au contenu */
+    display: inline-block; /* ou block si tu veux 100% largeur parent */
+    width: 100%; /* garde largeur complète si nécessaire */
+    height: auto; /* auto pour s’adapter au contenu */
+    min-height: 0; /* supprime toute hauteur minimale */
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    /* Evite que le panel “débord” si contenu flexible */
+    overflow: visible;
 }
 
 .search-header {
@@ -1230,30 +1237,30 @@ textarea.wide-form-control {
     margin-left: 10px;
 }
 
-.search-grid {
-    transition: max-height 0.4s ease, opacity 0.4s ease;
-    overflow: hidden;
-    max-height: 1000px; /* assez grand pour ton contenu */
-    opacity: 1;
-}
-
-    .search-grid.collapsed {
-        max-height: 0;
-        opacity: 0;
-        padding: 0;
-    }
-
-.search-actions {
-    display: flex;
-    gap: 10px;
-    margin-left: 10px; /* pousse le bloc vers la droite */
-}
-
+/* GRID TOUJOURS VISIBLE */
 .search-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 15px;
+    transform-origin: top;
+    transition: transform 0.35s ease, opacity 0.3s ease;
 }
+
+    /* FERMÉ */
+    .search-grid.closed {
+        transform: scaleY(0);
+        opacity: 0;
+        height: 0;
+        pointer-events: none;
+    }
+
+    /* OUVERT */
+    .search-grid.open {
+        transform: scaleY(1);
+        opacity: 1;
+        display: inline-block;
+        height: auto;
+    }
 
 .search-group {
     margin-bottom: 10px;
@@ -1639,6 +1646,12 @@ a {
     padding-top: 15px;
 }
 
+.modal-body .form-control,
+.modal-body .wide-form-control {
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .btn {
     padding: 8px 15px;
     border-radius: 4px;
@@ -1725,20 +1738,23 @@ a {
 }
 
 .modal-grid-2 {
-    display: grid;
+    display: flex;
     grid-template-columns: 1fr 1fr;
+    flex-wrap: wrap;
     gap: 15px;
 }
 
 .modal-grid-3 {
-    display: grid;
+    display: flex;
     grid-template-columns: 1fr 1fr 1fr;
+    flex-wrap: wrap;
     gap: 15px;
 }
 
 .modal-grid-4 {
-    display: grid;
+    display: flex;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    flex-wrap: wrap;
     gap: 15px;
 }
 
@@ -1748,11 +1764,19 @@ a {
 }
 
 .full-width {
+    width: 100%;
     grid-column: 1 / -1; /* prend toute la ligne */
 }
 
 .impact-financier {
     grid-row: span 2; /* occupe 2 lignes */
+}
+
+/* Mobile : < 768px, une seule colonne */
+@media (max-width: 768px) {
+    .modal-grid-2 .form-group {
+        flex: 1 1 100%;
+    }
 }
 
 .section-title {
@@ -1765,6 +1789,7 @@ a {
 }
 
 /* ------------------------------------------------------ */
+/* PANEL GLOBAL */
 .search-panel {
     background: #fff;
     border-radius: 10px;
@@ -2066,9 +2091,13 @@ a {
 .tabs {
     display: flex;
     border-bottom: 2px solid #ddd;
+    flex-wrap: wrap; /* permet aux onglets de passer à la ligne si mobile */
+    margin-bottom: 15px;
 }
 
 .tab {
+    flex: 1 1 auto; /* largeur égale automatiquement */
+    text-align: center;
     padding: 10px 20px;
     cursor: pointer;
     border: 1px solid #ddd;
@@ -2094,6 +2123,18 @@ a {
     .tab-content.active {
         display: block;
     }
+
+/* Mobile : onglets empilés verticalement */
+@media (max-width: 768px) {
+    .tabs {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .tab {
+        margin-right: 0;
+    }
+}
 
 @keyframes fadeIn {
     from {
@@ -2367,5 +2408,5 @@ a {
         background-color: #f1f1f1;
     }
 
-
+   
 
