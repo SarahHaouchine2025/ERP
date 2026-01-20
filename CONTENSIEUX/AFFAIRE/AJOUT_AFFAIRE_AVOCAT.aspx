@@ -12,7 +12,10 @@
 
    <%-- <div class="wide-form-container bilingual-form">--%>
         <h2 class="wide-form-title">Ajout Affaire <span class="arabic-title">إضافة قضية</span></h2>
-
+            <div class="btn-group-inline">
+                    <asp:Button ID="SCAN_REQ" runat="server" Text="Scan Requette"
+                        CssClass="btn-add" OnClick="SCAN_REQ_Click" />
+                </div>
         <div runat="server" id="PARTIE01">
         <!-- Première ligne - Informations de base -->
         <div class="wide-form-section">

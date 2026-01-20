@@ -116,7 +116,8 @@
                     </div>
             <asp:ListView ID="LIST_AFFAIRE" runat="server" 
                 DataKeyNames="ID_AFFAIRE" 
-                OnSelectedIndexChanging="LIST_AFFAIRE_SelectedIndexChanging"
+                  OnSelectedIndexChanging ="LIST_AFFAIRE_SelectedIndexChanging"
+                
                 OnItemEditing="LIST_AFFAIRE_ItemEditing" 
                 
                 OnItemUpdating="LIST_AFFAIRE_ItemUpdating" 
@@ -252,6 +253,14 @@
                                 CommandName="Notif" CommandArgument='<%# Eval("ID_AFFAIRE") %>' ToolTip="Notification jugement non déclacher" OnClick="btnNotif_Click" >
                                 <i class="fas fa-bell"  ></i>
                             </asp:LinkButton>
+
+                            
+
+                            <asp:LinkButton ID="btnEdit" runat="server" CssClass="action-btn edit-btn"
+                                CommandName="Edit" CommandArgument='<%# Eval("ID_AFFAIRE") %>' ToolTip="Modifier cette affaire" >  <%--OnClick="btnEdit_Click"--%>
+                                <i class="fas fa-edit"></i>
+                            </asp:LinkButton>
+
                             
                             <asp:LinkButton ID="BTN_DOC_SCANER" runat="server" CssClass="action-btn doc-btn"
                                 CommandName="Select" CommandArgument='<%# Eval("ID_AFFAIRE") %>' ToolTip="Document Scanner" OnClick="BTN_DOC_SCANER_Click" 

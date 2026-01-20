@@ -55,7 +55,7 @@ namespace URP_AADL
                         Session["User"] = user_name;
                             Session["ID_User"] = utilisateur.ID_USER;
                         Session["DR"] = DR.DR;
-                        if(Session["DR"].ToString() == "DG")
+                        if (Session["DR"].ToString() == "DG")
                         {
                             Session["ID_DR"] = null;
                         }
@@ -63,7 +63,7 @@ namespace URP_AADL
                         {
                             Session["ID_DR"] = DR.ID_DR;
                         }
-                        
+
                         Session["Profil"] = utilisateur.PROFIL;
                         if (utilisateur.PROFIL == "Avocat")
                         {

@@ -398,14 +398,14 @@
                                                      + (Eval("PARTIE_MISE_EN_CAUSE") == DBNull.Value ? "" : Eval("PARTIE_MISE_EN_CAUSE")) + "\", \"" 
                                                        + (Eval("DATE_DISPOSITIF") == DBNull.Value ? "" : String.Format("{0:yyyy-MM-dd}", Eval("DATE_DISPOSITIF"))) + "\", \"" 
                                                         + (Eval("DATE_ENVOI") == DBNull.Value ? "" : String.Format("{0:yyyy-MM-dd}", Eval("DATE_ENVOI"))) + "\", \"" 
-                                                          + (Eval("DISPOSITIF") == DBNull.Value ? "" : Eval("DISPOSITIF")) + "\", \"" 
+                                                          + (Eval("DISPOSITIF") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("DISPOSITIF").ToString())) + "\", \""
                                                      + (Eval("AVOCAT") == DBNull.Value ? "" : Eval("AVOCAT")) + "\", \"" 
                                                       + (Eval("NOM_JUGE") == DBNull.Value ? "" : Eval("NOM_JUGE")) + "\", \"" 
                                                       + (Eval("AVOCAT_ADVERSAIRE") == DBNull.Value ? "" : Eval("AVOCAT_ADVERSAIRE")) + "\", \"" 
                                                       + (Eval("IMPACT_FINACIER_DEMANDER") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("IMPACT_FINACIER_DEMANDER").ToString())) + "\", \""
                                                          + (Eval("IMPACT_FINACIER_JUGER") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("IMPACT_FINACIER_JUGER").ToString())) + "\", \"" 
                                                          + (Eval("FRAIS_EXECUTION") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("FRAIS_EXECUTION").ToString())) + "\", \"" 
-                                                          + (Eval("OBJET") == DBNull.Value ? "" : Eval("OBJET")) 
+                                                         + (Eval("OBJET") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("OBJET").ToString()))
                                                          + "\"); return false;" %>'>
                                 <i class="fas fa-eye"></i>
                             </asp:LinkButton>
@@ -478,33 +478,32 @@
         <div class="modal-body">
 
     <!-- Ligne 1 : Défendeur / Partie mise en cause / Avocat / Impact Financier Demandé -->
-    <div class="modal-grid-2">
-        <div class="form-group">
+    <div class="modal-grid-3 ">
+        <div class="search-group ">
             <label>Défendeur</label>
             <asp:TextBox ID="TB_DEFENDEUR" runat="server" CssClass="form-control"
                 TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
         </div>
 
-        <div class="form-group">
+        <div class="search-group ">
             <label>Partie mise en cause</label>
             <asp:TextBox ID="TB_PARTIE_MISE_CAUSE" runat="server" CssClass="form-control"
                 TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
         </div>
-        </div>
-            <div class="modal-grid-2">
-        <div class="form-group">
+        <div class="search-group">
             <label>Avocat</label>
             <asp:TextBox ID="TB_AVOCAT" runat="server" CssClass="form-control"
                 TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
         </div>
+        </div>
+          
 
-        <div class="form-group impact-financier">
+        <div class="form-group full-width impact-financier">
             <label>Impact Financier Demandé</label>
             <asp:TextBox ID="TB_IMPACT_DEMANDER" runat="server" CssClass="form-control"
                 TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
         </div>
-    </div>
-
+    
     <!-- Ligne 2 : Objet -->
     <div class="form-group full-width">
         <label>Demandes de fond</label>
@@ -513,17 +512,22 @@
     </div>
 
     <!-- Ligne 3 : Date dispositif / Nom juge -->
-    <div class="modal-grid-2">
-        <div class="form-group">
+    <div class="modal-grid-3">
+        <div class="search-group">
             <label>Date Dispositif</label>
             <asp:TextBox ID="TB_DATE_DIPOSITIF" runat="server" TextMode="Date"
                 CssClass="form-control" Enabled="false"></asp:TextBox>
         </div>
 
-        <div class="form-group">
+        <div class="search-group">
             <label>Nom Juge</label>
             <asp:TextBox ID="TB_NOM_JUGE" runat="server" CssClass="form-control"
                 Enabled="false"></asp:TextBox>
+        </div>
+        <div class="search-group">
+            <label>Avocat Adversaire</label>
+            <asp:TextBox ID="TB_AVOCAT_ADVERSAIRE" runat="server"
+                CssClass="form-control" TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
         </div>
     </div>
             <div class="form-group full-width">
@@ -533,19 +537,14 @@
     </div>
 
     <!-- Ligne 4 : Avocat adversaire / Impact Financier Jugé -->
-    <div class="modal-grid-2">
-        <div class="form-group">
-            <label>Avocat Adversaire</label>
-            <asp:TextBox ID="TB_AVOCAT_ADVERSAIRE" runat="server"
-                CssClass="form-control" TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
-        </div>
+  
 
-        <div class="form-group impact-financier">
+        <div class="form-group full-width impact-financier">
             <label>Impact Financier Jugé</label>
             <asp:TextBox ID="TB_IMPACT_JUGER" runat="server" CssClass="form-control"
                 TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
         </div>
-    </div>
+    
 
     <!-- Ligne 5 : Dispositif (full width) -->
     <div class="form-group full-width">

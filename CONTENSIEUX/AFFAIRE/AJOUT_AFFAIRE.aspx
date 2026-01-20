@@ -13,6 +13,15 @@
             <div class="wide-form-row">
                 <div class="search-group">
                     <div class="dual-label-container">
+                        <span class="label-fr">D.Régionale </span>
+                        <span class="label-ar">مديرية جهوية</span>
+                    </div>
+                    <asp:DropDownList ID="DDL_DR" runat="server" CssClass="wide-form-control" OnSelectedIndexChanged="DDL_DR_SelectedIndexChanged" AutoPostBack="true">
+                        <asp:ListItem Text="------" Value="" Selected="True" />
+                    </asp:DropDownList>
+                </div>
+                <div class="search-group">
+                    <div class="dual-label-container">
                         <span class="label-fr">Wilaya </span>
                         <span class="label-ar">ولاية</span>
                     </div>

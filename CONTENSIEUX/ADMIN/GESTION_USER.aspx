@@ -58,6 +58,7 @@
                         <asp:ListItem Value="Admin">Admin</asp:ListItem>
                         <asp:ListItem Value="Directeur">Directeur</asp:ListItem>
                         <asp:ListItem Value="Sous Directeur">Sous Directeur</asp:ListItem>
+                        <asp:ListItem Value="Chef de service">Chef de service</asp:ListItem>
                         <asp:ListItem Value="Juriste">Juriste</asp:ListItem>
                         <asp:ListItem Value="Agent de saisie">Agent de saisie</asp:ListItem>
                          <asp:ListItem Value="Avocat">Avocat</asp:ListItem>

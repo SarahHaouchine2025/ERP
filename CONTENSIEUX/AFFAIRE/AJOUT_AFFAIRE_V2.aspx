@@ -13,6 +13,15 @@
             <div class="wide-form-row">
                 <div class="search-group">
                     <div class="dual-label-container">
+                        <span class="label-fr">D.Régionale </span>
+                        <span class="label-ar">مديرية جهوية</span>
+                    </div>
+                    <asp:DropDownList ID="DDL_DR" runat="server" CssClass="wide-form-control" OnSelectedIndexChanged="DDL_DR_SelectedIndexChanged" AutoPostBack="true">
+                        <asp:ListItem Text="------" Value="" Selected="True" />
+                    </asp:DropDownList>
+                </div>
+                <div class="search-group">
+                    <div class="dual-label-container">
                         <span class="label-fr">Wilaya </span>
                         <span class="label-ar">ولاية</span>
                     </div>
@@ -714,7 +723,7 @@
             </h5>
             <div id="documentsContainer_requette">
                 <div class="document-item">
-                    <div class="wide-form-row   " runat="server" id="TRI">
+                    <div class="wide-form-row" runat="server" id="TRI">
                         <div class="wide-form-group">
                             <div class="dual-label-container">
                                 <span class="label-fr">Requête Introductif</span>
@@ -730,7 +739,7 @@
                             <asp:FileUpload ID="FU_REQUETE" runat="server" CssClass="wide-form-control" />
                         </div>
                     </div>
-                    <div class="wide-form-row hidden" runat="server" id="CRS">
+                    <div class="wide-form-row" runat="server" id="CRS">
                         <div class="wide-form-group">
                             <div class="dual-label-container">
                                 <span class="label-fr">Requête d'appel</span>
@@ -756,7 +765,7 @@
                         </div>
 
                     </div>
-                    <div class="wide-form-row hidden" runat="server" id="CRSSUP">
+                    <div class="wide-form-row" runat="server" id="CRSSUP">
                         <div class="wide-form-group">
                             <div class="dual-label-container">
                                 <span class="label-fr">Requête pour voir en cassation</span>
