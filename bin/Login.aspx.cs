@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 using DAL;
+using URP_AADL.GLOBALE;
 
 namespace URP_AADL
 {
@@ -54,6 +55,7 @@ namespace URP_AADL
 
                         Session["User"] = user_name;
                             Session["ID_User"] = utilisateur.ID_USER;
+                         bd.ID_USER = utilisateur.ID_USER;
                         Session["DR"] = DR.DR;
                         if (Session["DR"].ToString() == "DG")
                         {
@@ -71,7 +73,7 @@ namespace URP_AADL
                         }
                         else if (utilisateur.PROFIL == "Direction")
                         {
-                            Response.Redirect("~/CONTENSIEUX/AFFAIRE/LISTE_COURIERS.aspx");
+                            Response.Redirect("~/CONTENSIEUX/AFFAIRE/LISTE_COURIER.aspx");
                         }
                         else
                         {

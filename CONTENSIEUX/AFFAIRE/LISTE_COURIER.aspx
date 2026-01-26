@@ -93,11 +93,14 @@
                         <table class="modern-data-table">
                             <thead>
                                 <tr>
+                                    <th>N° Dossier</th>
                                     <th>N° Affaire</th>
                                     <th>Direction</th>
                                     <th>Courier</th>
-                                    <th>Action</th>
+                                    <th>Réponse</th>
                                     
+                                    <th>Action</th>
+                                    <th runat="server" id="idAFF" visible="false" >affaire_id</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -151,9 +154,12 @@
 
                 <ItemTemplate>
     <tr>
+        <td><asp:Label ID="NUM_DOSSIER" runat="server" Text='<%# Eval("NUM_DOSSIER") %>' /></td>
         <td><asp:Label ID="NUMERO_AFFAIRE" runat="server" Text='<%# Eval("NUMERO_AFFAIRE") %>' /></td>
         <td><asp:Label ID="DIRECTION" runat="server" Text='<%# Eval("DIRECTION") %>' /></td>
         <td><asp:Label ID="DESCRIPTION_COURIER" runat="server" Text='<%# Eval("DESCRIPTION_COURIER") %>' /></td>
+         <td><asp:Label ID="DESCRIPTION_REPONSE" runat="server" Text='<%# Eval("DESCRIPTION_REPONSE") %>' /></td>
+        
         <td>
             <asp:LinkButton ID="BTN_DOC_COURIER"
                 runat="server"
@@ -164,11 +170,12 @@
             </asp:LinkButton>
 
             <asp:LinkButton ID="BTN_ENVOYER_REPONSE" runat="server" CssClass="action-btn courier-btn"
-                                CommandName="Repondre" CommandArgument='<%# Eval("ID_SCAN_COURIER") %>' ToolTip="Envoyer un courier" OnClick="BTN_ENVOYER_REPONSE_Click"  
+                                CommandName="Repondre" CommandArgument='<%# Eval("ID_SCAN_COURIER") + "|" + Eval("ID_AFFAIRE") + "|" + Eval("NUM_DOSSIER") %>' ToolTip="Envoyer un courier" OnClick="BTN_ENVOYER_REPONSE_Click"  
                                 >
                                 <i class="fas fa-envelope"></i>
                             </asp:LinkButton>
         </td>
+        <td><asp:Label ID="ID_AFFAIRE" runat="server" Visible="false" Text='<%# Eval("ID_AFFAIRE") %>' /></td>
       
     </tr>
 </ItemTemplate>
@@ -464,7 +471,7 @@
         <div class="modal-header">
             <h3>
                 <i class="fas fa-file-alt"></i> 
-                Courier pour Direction <asp:Label runat="server" ID="LB_NUM_AFFAIRE_REP" Text=""></asp:Label>
+                Réponse Courier pour Direction <asp:Label runat="server" ID="LB_NUM_AFFAIRE_REP" Text=""></asp:Label>
             </h3>
             <span class="close" onclick="closeReponseDirectionModal()">&times;</span>
         </div>

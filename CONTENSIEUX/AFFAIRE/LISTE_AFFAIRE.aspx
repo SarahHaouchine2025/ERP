@@ -417,7 +417,7 @@
                             </asp:LinkButton>
 
                             <asp:LinkButton ID="BTN_ENVOYER_COURIER" runat="server" CssClass="action-btn courier-btn"
-                                CommandName="Select" CommandArgument='<%# Eval("ID_AFFAIRE") %>' ToolTip="Envoyer un courier" OnClick="BTN_ENVOYER_COURIER_Click" 
+                                CommandName="Select" CommandArgument='<%# Eval("NUM_DOSSIER") + "|" + Eval("ID_AFFAIRE") %>' ToolTip="Envoyer un courier" OnClick="BTN_ENVOYER_COURIER_Click" 
                                 >
                                 <i class="fas fa-envelope"></i>
                             </asp:LinkButton>

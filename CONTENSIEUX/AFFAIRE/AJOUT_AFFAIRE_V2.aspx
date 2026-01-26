@@ -481,7 +481,7 @@
                             <span class="label-ar">المبلغ</span>
                         </div>
                         <div class="input-with-add">
-                        <asp:TextBox ID="TB_MONTANT_DEMANDE" runat="server" CssClass="wide-form-control" TextMode="Number"></asp:TextBox>
+                        <asp:TextBox ID="TB_MONTANT_DEMANDE" runat="server" CssClass="wide-form-control" onblur="formatMontant(this)"></asp:TextBox>
                             <button type="button" class="btn-icon-add" onclick="addIMPACT_FINANCIER_DEMANDE_Field()">
                             <i class="fas fa-plus"></i>
                         </button>
@@ -598,7 +598,7 @@
                             <span class="label-ar">المبلغ</span>
                         </div>
                         <div class="input-with-add">
-                        <asp:TextBox ID="TB_MONTANT_IMPACT" runat="server" CssClass="wide-form-control" TextMode="Number"></asp:TextBox>
+                        <asp:TextBox ID="TB_MONTANT_IMPACT" runat="server" CssClass="wide-form-control" onblur="formatMontant(this)"></asp:TextBox>
                             <button type="button" class="btn-icon-add" onclick="addIMPACT_FINANCIER_Field()">
                             <i class="fas fa-plus"></i>
                         </button>
@@ -941,7 +941,7 @@
                             <span class="label-ar">المبلغ</span>
                         </div>
                         <div class="input-with-add">
-                        <asp:TextBox ID="TB_MNT_FRAIS" runat="server" CssClass="wide-form-control" TextMode="Number"></asp:TextBox>
+                        <asp:TextBox ID="TB_MNT_FRAIS" runat="server" CssClass="wide-form-control" onblur="formatMontant(this)"></asp:TextBox>
                             <button type="button" class="btn-icon-add" onclick="addFRAIS_EXEC_Field()">
                             <i class="fas fa-plus"></i>
                         </button>
@@ -971,6 +971,17 @@
 </div>
 
     <script type="text/javascript">
+
+        function formatMontant(input) {
+            let value = input.value.replace(/\s/g, '').replace(',', '.');
+
+            if (!isNaN(value) && value !== '') {
+                input.value = Number(value).toLocaleString('fr-FR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+        }
 
         function openScanJugementeModal() {
             // Ouvrir le modal

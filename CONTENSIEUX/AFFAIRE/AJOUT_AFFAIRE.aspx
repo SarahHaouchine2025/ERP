@@ -485,7 +485,7 @@
                             <span class="label-ar">المبلغ</span>
                         </div>
                         <div class="input-with-add">
-                        <asp:TextBox ID="TB_MONTANT_DEMANDE" runat="server" CssClass="wide-form-control" TextMode="Number"></asp:TextBox>
+                        <asp:TextBox ID="TB_MONTANT_DEMANDE" runat="server" CssClass="wide-form-control" onblur="formatMontant(this)"></asp:TextBox>
                             <button type="button" class="btn-icon-add" onclick="addIMPACT_FINANCIER_DEMANDE_Field()">
                             <i class="fas fa-plus"></i>
                         </button>
@@ -687,7 +687,7 @@
                             <span class="label-ar">المبلغ</span>
                         </div>
                         <div class="input-with-add">
-                        <asp:TextBox ID="TB_MONTANT_IMPACT" runat="server" CssClass="wide-form-control" TextMode="Number"></asp:TextBox>
+                        <asp:TextBox ID="TB_MONTANT_IMPACT" runat="server" CssClass="wide-form-control" onblur="formatMontant(this)"></asp:TextBox>
                             <button type="button" class="btn-icon-add" onclick="addIMPACT_FINANCIER_Field()">
                             <i class="fas fa-plus"></i>
                         </button>
@@ -893,7 +893,7 @@
                             <span class="label-ar">المبلغ</span>
                         </div>
                         <div class="input-with-add">
-                        <asp:TextBox ID="TB_MNT_FRAIS" runat="server" CssClass="wide-form-control" TextMode="Number"></asp:TextBox>
+                        <asp:TextBox ID="TB_MNT_FRAIS" runat="server" CssClass="wide-form-control" onblur="formatMontant(this)"></asp:TextBox>
                             <button type="button" class="btn-icon-add" onclick="addFRAIS_EXEC_Field()">
                             <i class="fas fa-plus"></i>
                         </button>
@@ -953,6 +953,18 @@
 </div>--%>
 
     <script type="text/javascript">
+
+        function formatMontant(input) {
+            let value = input.value.replace(/\s/g, '').replace(',', '.');
+
+            if (!isNaN(value) && value !== '') {
+                input.value = Number(value).toLocaleString('fr-FR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+        }
+
         function openScanRequetteModal() {
             // Ouvrir le modal
             document.getElementById('ScanRequetteModal').style.display = 'block';
@@ -1538,7 +1550,7 @@
                     <span class="label-ar">المبلغ</span>
                 </div>
             <div class="input-with-add">
-                <input type="number" class="wide-form-control" name="TB_MONTANT_IMPACT_DYNAMIC[]" />
+                <input onblur="formatMontant(this)" class="wide-form-control" name="TB_MONTANT_IMPACT_DYNAMIC[]" />
                 <button type="button" class="btn-icon-remove" onclick="this.closest('.impact-financier-group').remove()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -1596,7 +1608,7 @@
                     <span class="label-ar">المبلغ</span>
                 </div>
             <div class="input-with-add">
-                <input type="number" class="wide-form-control" name="TB_MONTANT_DEMANDE_DYNAMIC[]" />
+                <input onblur="formatMontant(this)" class="wide-form-control" name="TB_MONTANT_DEMANDE_DYNAMIC[]" />
                 <button type="button" class="btn-icon-remove" onclick="this.closest('.impact-financier-Demande-group').remove()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -1655,7 +1667,7 @@
                     <span class="label-ar">المبلغ</span>
                 </div>
             <div class="input-with-add">
-                <input type="number" class="wide-form-control" name="TB_MNT_FRAIS_DYNAMIC[]" />
+                <input onblur="formatMontant(this)" class="wide-form-control" name="TB_MNT_FRAIS_DYNAMIC[]" />
                 <button type="button" class="btn-icon-remove" onclick="this.closest('.frais-execution-group').remove()">
                     <i class="fas fa-times"></i>
                 </button>
