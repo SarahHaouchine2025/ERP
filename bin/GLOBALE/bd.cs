@@ -93,10 +93,10 @@ namespace URP_AADL.GLOBALE
             }
         }
 
-        public static String PATH_ARCHIVE = @"E:\ARCHIVE\";
+        //public static String PATH_ARCHIVE = @"E:\ARCHIVE\";
 
         public static Guid ID_USER = Guid.Empty;
 
-        //public static String PATH_ARCHIVE = @"C:\Users\Administrator\Desktop\ARCHIVE";
+        public static String PATH_ARCHIVE = @"C:\Users\Administrator\Desktop\ARCHIVE";
     }
 }
