@@ -118,7 +118,7 @@
                         <th>Direction </th>
                         <th>Nom</th>
                         <th>Prénom</th>
-                        <th>Date de naissance</th>
+                        
                         <th>Email</th>
                         <th>Mot de passe</th>
                         <th>Profil</th>
@@ -184,7 +184,7 @@
             <td><asp:Label ID="Label2" runat="server" Text='<%# Eval("DIRECTION") %>' CssClass="table-data" /></td>
             <td><asp:Label ID="USER_NOM" runat="server" Text='<%# Eval("USER_NOM") %>' CssClass="table-data" /></td>
             <td><asp:Label ID="USER_PRENOM" runat="server" Text='<%# Eval("USER_PRENOM") %>' CssClass="table-data" /></td>
-            <td><asp:Label ID="USER_DDN" runat="server" Text='<%# Eval("USER_DDN", "{0:d}") %>' CssClass="table-data" /></td>
+            
             <td>
                 <asp:Label ID="USER_NAME" runat="server" Text='<%# Eval("USER_NAME") %>' CssClass="table-data email" /></td>
             <%--<td>
