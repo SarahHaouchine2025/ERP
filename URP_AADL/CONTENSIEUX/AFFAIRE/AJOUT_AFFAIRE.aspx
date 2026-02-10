@@ -954,16 +954,36 @@
 
     <script type="text/javascript">
 
-        function formatMontant(input) {
-            let value = input.value.replace(/\s/g, '').replace(',', '.');
+        //function formatMontant(input) {
+        //    let value = input.value.replace(/\s/g, '').replace(',', '.');
 
-            if (!isNaN(value) && value !== '') {
-                input.value = Number(value).toLocaleString('fr-FR', {
+        //    if (!isNaN(value) && value !== '') {
+        //        input.value = Number(value).toLocaleString('fr-FR', {
+        //            minimumFractionDigits: 2,
+        //            maximumFractionDigits: 2
+        //        });
+        //    }
+        //}
+
+        function formatMontant(input) {
+
+            let rawValue = input.value
+                .replace(/\s/g, '')
+                .replace(',', '.');
+
+            if (!isNaN(rawValue) && rawValue !== '') {
+
+                // valeur affichée (format FR)
+                input.value = Number(rawValue).toLocaleString('fr-FR', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 });
+
+                // valeur réelle envoyée au serveur
+                input.setAttribute("data-value", rawValue);
             }
         }
+
 
         function openScanRequetteModal() {
             // Ouvrir le modal
