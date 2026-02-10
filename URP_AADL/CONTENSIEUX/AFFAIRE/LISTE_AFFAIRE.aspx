@@ -382,7 +382,7 @@
                                 <i class="fas fa-bell"  ></i>
                             </asp:LinkButton>
                             <asp:LinkButton ID="btnPayer" runat="server" CssClass="action-btn payy-btn"
-                                CommandName="PAYER" CommandArgument='<%# Eval("ID_AFFAIRE") %>' OnClick="btnPayer_Click1">
+                                CommandName="PAYER" CommandArgument='<%# Eval("NUM_DOSSIER") + "|" + Eval("ID_AFFAIRE") %>' OnClick="btnPayer_Click1">
                                 <i class="fas fa-dollar-sign"  ></i>
                             </asp:LinkButton>
                             <asp:LinkButton ID="btnEdit" runat="server" CssClass="action-btn edit-btn"
