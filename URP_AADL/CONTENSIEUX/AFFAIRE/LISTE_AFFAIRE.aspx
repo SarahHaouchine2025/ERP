@@ -411,7 +411,7 @@
                             </asp:LinkButton>
 
                             <asp:LinkButton ID="BTN_DOC_SCANER" runat="server" CssClass="action-btn doc-btn"
-                                CommandName="Select" CommandArgument='<%# Eval("ID_AFFAIRE") %>' ToolTip="Document Scanner" OnClick="BTN_DOC_SCANER_Click" 
+                                CommandName="Select" CommandArgument='<%# Eval("NUM_DOSSIER") + "|" + Eval("ID_AFFAIRE") %>' ToolTip="Document Scanner" OnClick="BTN_DOC_SCANER_Click" 
                                 >
                                 <i class="fas fa-folder-open"></i>
                             </asp:LinkButton>
@@ -794,6 +794,8 @@
                          <asp:ListItem Text="Jugement" Value="Jugement" />
                          <asp:ListItem Text="Jugement final" Value="Jugement" />
                          <asp:ListItem Text="Notification" Value="Notification" />
+                         <asp:ListItem Text="Facture Affaire" Value="Facture Affaire" />
+                         <asp:ListItem Text="Facture Avocat" Value="Facture Avocat" />
                          <asp:ListItem Text="Autres Documents" Value="Autres Documents" />
                     </asp:DropDownList>
                 </div>
