@@ -991,11 +991,9 @@
 
             if (!isNaN(rawValue) && rawValue !== '') {
 
-                // valeur affichée (format FR)
-                input.value = Number(rawValue).toLocaleString('fr-FR', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                });
+                // format sans espace, avec 2 décimales
+                let number = Number(rawValue);
+                input.value = number.toFixed(2).replace('.', ',');
 
                 // valeur réelle envoyée au serveur
                 input.setAttribute("data-value", rawValue);
