@@ -1,0 +1,184 @@
+﻿<%--<%@ Master Language="C#" AutoEventWireup="true"
+    CodeBehind="Site.mobile.master.cs"
+    Inherits="URP_AADL.SiteMobileMaster" %>--%>
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Mobile.master.cs" Inherits="URP_AADL.Site_Mobile" %>
+<%@ Register Src="~/ViewSwitcher.ascx" TagPrefix="friendlyUrls" TagName="ViewSwitcher" %>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> URP Contencieux</title>
+   <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="CSS/global.css?v=1.0" rel="stylesheet" type="text/css" runat="server"  />
+    <link href="CSS/global_Mobile.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    
+    
+</head>
+
+<body>
+<form runat="server">
+
+    <!-- ================= NO NAV (LOGIN) ================= -->
+    <asp:ContentPlaceHolder ID="NoNavContent" runat="server" Visible="true">
+        <div class="login-container">
+            <asp:ContentPlaceHolder ID="LoginContent" runat="server" />
+        </div>
+    </asp:ContentPlaceHolder>
+
+    <!-- ================= WITH NAV ================= -->
+    <asp:ContentPlaceHolder ID="WithNavContent" runat="server" Visible="true">
+
+        <!-- ========== HEADER ========== -->
+        <header>
+            <nav class="navbar navbar-dark fixed-top mobile-navbar">
+                <div class="container-fluid">
+
+                    <button class="btn btn-outline-light"
+                            type="button"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <a class="navbar-brand mx-auto" href="~/">
+                        <img src="<%= ResolveUrl("~/Images/LOGOAADL.png") %>" height="32" />
+                    </a>
+
+                    <asp:LinkButton ID="btnLogout"
+                        runat="server"
+                        CssClass="btn btn-outline-light"
+                        OnClick="btnLogout_Click">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </asp:LinkButton>
+
+                </div>
+            </nav>
+        </header>
+
+        <!-- ========== SIDEBAR (ID IDENTIQUE) ========== -->
+        <div class="offcanvas offcanvas-start" id="sidebar">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+
+            <div class="offcanvas-body p-0">
+                <div class="sidebar-content">
+                    <h6 class="text-uppercase text-muted fw-bold fs-6 px-3 mt-3">Menu</h6>
+                    <hr class="mt-2 mb-3">
+
+                    <ul class="nav flex-column">
+
+                        <li class="nav-item" runat="server" id="ListeAffaire">
+                            <a class="nav-link" href="~/../../AFFAIRE/LISTE_AFFAIRE.aspx">
+                                <i class="fas fa-folder-open me-2"></i> Liste Affaires
+                            </a>
+                        </li>
+
+                        <li class="nav-item" runat="server" id="ListeAffaireAppel">
+                            <a class="nav-link" href="~/../../AFFAIRE/LISTE_AFFAIRE_EnAppel.aspx">
+                                <i class="fas fa-scale-balanced me-2"></i> Appel
+                            </a>
+                        </li>
+
+                        <li class="nav-item" runat="server" id="EspaceAvocat">
+                            <a class="nav-link" href="~/../../AFFAIRE/LISTE_AFFAIRE_AVOCAT.aspx">
+                                <i class="fas fa-user-tie me-2"></i> Avocats
+                            </a>
+                        </li>
+
+                        <li class="nav-item" runat="server" id="EspaceDirection">
+                            <a class="nav-link" href="~/../../AFFAIRE/LISTE_COURIER.aspx">
+                                <i class="fas fa-envelope me-2"></i> Direction
+                            </a>
+                        </li>
+
+                        <li class="nav-item" runat="server" id="liGestionUser">
+                            <a class="nav-link" href="~/../../ADMIN/GESTION_USER.aspx">
+                                <i class="fas fa-users me-2"></i> Gestion Utilisateurs
+                            </a>
+                        </li>
+
+                        <li class="nav-item" runat="server" id="liGestionAvocats">
+                            <a class="nav-link" href="~/../../ADMIN/GESTION_AVOCATS_V2.aspx">
+                                <i class="fas fa-gavel me-2"></i> Gestion Avocats
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== MAIN CONTENT ========== -->
+        <main class="main-content pt-5" id="mainContent">
+            <div class="container-fluid">
+                <div class="content-container">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                </div>
+            </div>
+        </main>
+
+        <!-- ========== FOOTER ========== -->
+        <footer class="footer text-center">
+            <p class="mb-0">
+                AADL © <%: DateTime.Now.Year %> - Tous droits réservés
+            </p>
+        </footer>
+
+    </asp:ContentPlaceHolder>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
+
+</form>
+</body>
+
+
+
+</html>
+
+
+
+
+<%--<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Mobile.master.cs" Inherits="URP_AADL.Site_Mobile" %>
+<%@ Register Src="~/ViewSwitcher.ascx" TagPrefix="friendlyUrls" TagName="ViewSwitcher" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <h1>Mobile Master Page</h1>
+        <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+        <section class="content-wrapper main-content clear-fix">
+            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+        </section>
+        <friendlyUrls:ViewSwitcher runat="server" />
+    </div>
+    </form>
+</body>
+</html>--%>

@@ -1,0 +1,87 @@
+﻿/* ===== SIDEBAR MOBILE ===== */
+#sidebar.offcanvas {
+    background-color: #9298AD; /* fond sombre */
+    color: #ffffff;
+}
+
+/* Titre du menu */
+#sidebar .offcanvas-title {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Bouton fermer */
+#sidebar .btn-close {
+    filter: invert(1);
+}
+
+/* Contenu */
+#sidebar .sidebar-content {
+    padding-bottom: 20px;
+}
+
+/* Liste des liens */
+#sidebar .nav-link {
+    color: #e5e7eb;
+    padding: 12px 20px;
+    font-size: 15px;
+    border-radius: 6px;
+    margin: 2px 10px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+    /* Icônes */
+    #sidebar .nav-link i {
+        width: 22px;
+    }
+
+    /* Hover */
+    #sidebar .nav-link:hover {
+        background-color: #1F2933;
+        color: #ffffff;
+    }
+
+    /* Lien actif */
+    #sidebar .nav-link.active {
+        background-color: #2563eb;
+        color: #ffffff;
+    }
+
+/* Séparateur */
+#sidebar hr {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Mobile spacing */
+.main-content {
+    padding-top: 70px; /* hauteur navbar */
+}
+
+/* ===== HEADER MOBILE ===== */
+.mobile-navbar {
+    background-color: #9298AD !important; /* fond foncé */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1055; /* au-dessus du offcanvas */
+}
+
+    /* Boutons du header */
+    .mobile-navbar .btn {
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+        .mobile-navbar .btn:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+    /* Logo */
+    .mobile-navbar .navbar-brand img {
+        filter: brightness(1.2);
+    }
+
+    /* Icônes */
+    .mobile-navbar i {
+        color: #ffffff;
+        font-size: 18px;
+    }
+
