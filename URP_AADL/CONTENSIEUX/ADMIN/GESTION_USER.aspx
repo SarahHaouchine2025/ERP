@@ -5,7 +5,7 @@
     <div class="container">
         <div class="page-header">
             <h2 class="page-title"><i class="fas fa-users-cog"></i> Gestion des utilisateurs</h2>
-            <button type="button" Class="btn-add"  onclick="openUserModal()">
+            <button type="button" Class="btn-add"  onclick="openUserModal()" runat="server" id="btnAddUser">
     <i class="fas fa-user-plus"></i> Ajouter utilisateur
 </button>
         </div>
