@@ -17,6 +17,13 @@ body {
     transition: all 0.3s;
 }
 
+.required::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+}
+
+
 /* Navigation Bar */
 .navbar-urp {
     background-color: var(--primary-color);

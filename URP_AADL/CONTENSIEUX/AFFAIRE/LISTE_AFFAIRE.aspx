@@ -268,8 +268,8 @@
                                     <th runat="server" id="th6" visible="false">ID_TRIBUNAL_APPEL</th>
                                     <th runat="server" id="th3" visible="false">ID_COURS_SUP</th>
                                     <th runat="server" id="th7" visible="false">ID_CONSIEL_ETAT</th>
-                                    <%--<th runat="server" id="th8" visible="false">ID_COURIER</th>
-                                    <th runat="server" id="th11" visible="false">PATH_COURIER</th>--%>
+                                    <%--<th runat="server" id="th8" visible="false">ID_COURIER</th>--%>
+                                    <th runat="server" id="th11" visible="false">OBS_AFFAIRE_DR</th>
                                     <th runat="server" id="th9" visible="false">ID_JUGEMENT</th>
                                     <th runat="server" id="th10" visible="false">PATH_JUGEMENT</th>
                                     <th runat="server" id="thflagNOTIF" visible="false">FLAG NOTIF</th>
@@ -358,8 +358,8 @@
                         <td runat="server" id="td14" visible="false" ><%# Eval("ID_TRIBUNAL_APPEL") %>'</td>
                         <td runat="server" id="td10" visible="false" ><%# Eval("ID_COURS_SUP") %>'</td>
                         <td runat="server" id="td15" visible="false" ><%# Eval("ID_CONSIEL_ETAT") %>'</td>
-                        <%--<td runat="server" id="td16" visible="false" ><%# Eval("ID_COURIER") %>'</td>
-                        <td runat="server" id="td19" visible="false" ><%# Eval("PATH_COURIER") %>'</td>--%>
+                        <%--<td runat="server" id="td16" visible="false" ><%# Eval("ID_COURIER") %>'</td>--%>
+                        <td runat="server" id="td19" visible="false" ><%# Eval("OBS_AFFAIRE_DR") %>'</td>
                         <td runat="server" id="td17" visible="false" ><%# Eval("ID_JUGEMENT") %>'</td>
                         <td runat="server" id="td18" visible="false" ><%# Eval("PATH_JUGEMENT") %>'</td>
                         <td runat="server" id="td8" visible="false" ><%# Eval("FLAG_NOTIFICATION") %>'</td>
@@ -405,7 +405,8 @@
                                                       + (Eval("IMPACT_FINACIER_DEMANDER") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("IMPACT_FINACIER_DEMANDER").ToString())) + "\", \""
                                                          + (Eval("IMPACT_FINACIER_JUGER") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("IMPACT_FINACIER_JUGER").ToString())) + "\", \"" 
                                                          + (Eval("FRAIS_EXECUTION") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("FRAIS_EXECUTION").ToString())) + "\", \"" 
-                                                         + (Eval("OBJET") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("OBJET").ToString()))
+                                                         + (Eval("OBJET") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("OBJET").ToString())) + "\", \"" 
+                                                         + (Eval("OBS_AFFAIRE_DR") == DBNull.Value ? "" : HttpUtility.JavaScriptStringEncode(Eval("OBS_AFFAIRE_DR").ToString()))
                                                          + "\"); return false;" %>'>
                                 <i class="fas fa-eye"></i>
                             </asp:LinkButton>
@@ -496,7 +497,11 @@
                 TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
         </div>
         </div>
-          
+          <div class="form-group full-width impact-financier" runat="server" id="DivobsDr">
+            <label>Observation pour DR</label>
+            <asp:TextBox ID="TB_OBS_DR" runat="server" CssClass="form-control"
+                TextMode="MultiLine" Rows="2" Enabled="false"></asp:TextBox>
+        </div>
 
         <div class="form-group full-width impact-financier">
             <label>Impact Financier Demandé</label>
@@ -1334,7 +1339,7 @@
     //    }
     //}
 
-    function openDetailAFFAIREModalWithData(id, num_affaire, defendeur, miseencause, date_dispositif, date_envoi, dispo_morale, avocat, non_juge, avocat_adversaire, impact_finance_demander, impact_finance_juger, frais_execution, object) {
+    function openDetailAFFAIREModalWithData(id, num_affaire, defendeur, miseencause, date_dispositif, date_envoi, dispo_morale, avocat, non_juge, avocat_adversaire, impact_finance_demander, impact_finance_juger, frais_execution, object, obsDr) {
         // Remplir le formulaire avec les données existantes
         document.getElementById('<%= HF_ID_AFFAIRE.ClientID %>').value = id;
         document.getElementById('<%= TB_DEFENDEUR.ClientID %>').value = defendeur;
@@ -1349,7 +1354,18 @@
         document.getElementById('<%= TB_IMPACT_JUGER.ClientID %>').value = impact_finance_juger;
         document.getElementById('<%= TB_FRAIS_EXECUTION.ClientID %>').value = frais_execution;
         document.getElementById('<%= TB_OBJET.ClientID %>').value = object;
+        document.getElementById('<%= TB_OBS_DR.ClientID %>').value = obsDr;
         document.getElementById('<%= LB_NUM_AFFAIRE.ClientID %>').innerText = num_affaire;
+
+        // Condition sur obsDr
+        var tbObs = document.getElementById('<%= DivobsDr.ClientID %>');
+
+        if (!obsDr || obsDr.trim() === "") {
+            tbObs.style.display = "none";   // invisible
+        } else {
+            tbObs.style.display = "block";  // visible
+        }
+
 
     // Ouvrir le modal
         document.getElementById('DetailAffaireModal').style.display = 'block';

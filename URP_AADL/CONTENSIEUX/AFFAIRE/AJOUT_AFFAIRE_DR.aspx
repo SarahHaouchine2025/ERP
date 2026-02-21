@@ -12,12 +12,12 @@
         <div class="wide-form-section">
             <div class="wide-form-row">
                 <div class="search-group">
-                    <label for="DDL_SEARCH_CNV">DR</label>
+                    <label for="DDL_SEARCH_CNV" >DR<span style="color:red;">*</span></label>
                     <asp:DropDownList ID="DDL_DR" runat="server" CssClass="form-control" OnSelectedIndexChanged="DDL_DR_SelectedIndexChanged" AutoPostBack="true"  >
                         <asp:ListItem Value="">Tous</asp:ListItem>
                     </asp:DropDownList>
                 </div>
-                <div class="search-group">
+                <div class="search-group" runat="server" visible="false" >
                     <div class="dual-label-container">
                         <span class="label-fr">Wilaya </span>
                         <span class="label-ar">ولاية</span>
@@ -27,9 +27,9 @@
                     </asp:DropDownList>
                 </div>
               
-                <div class="search-group">
+                <div class="search-group" runat="server" visible="false">
                     <div class="dual-label-container">
-                        <span class="label-fr">Nature</span>
+                        <span class="label-fr " >Nature<span style="color:red;">*</span></span>
                         <span class="label-ar">طبيعة</span>
                     </div>
 
@@ -39,7 +39,7 @@
                         <asp:ListItem Text="------" Value="" Selected="True" />
                     </asp:DropDownList>
                 </div>
-                <div class="wide-form-group" id="precisionNatureGroup" >
+                <div class="wide-form-group" id="precisionNatureGroup"  runat="server" visible="false" >
                     <div class="dual-label-container">
                         <span class="label-fr">Précision nature</span>
                         <span class="label-ar">توضيح الطبيعة</span>
@@ -50,23 +50,23 @@
                 
                 </div>
             <div class="wide-form-row">
-                <div class="wide-form-group">
+                <div class="wide-form-group"  runat="server" >
                     <div class="dual-label-container">
                         <span class="label-fr">N° Dossier</span>
                         <span class="label-ar">رقم الملف</span>
                     </div>
-                    <asp:TextBox ID="TB_NUM_DOSSIER" runat="server" CssClass="wide-form-control" OnTextChanged="TB_NUM_DOSSIER_TextChanged" AutoPostBack="true"  ></asp:TextBox>
+                    <asp:TextBox ID="TB_NUM_DOSSIER" runat="server" CssClass="wide-form-control" OnTextChanged="TB_NUM_DOSSIER_TextChanged" AutoPostBack="true" Enabled="false"   ></asp:TextBox>
                 </div>
                 <div class="wide-form-group">
                     <div class="dual-label-container">
-                        <span class="label-fr">N° Affaire</span>
+                        <span class="label-fr">N° Affaire <span style="color:red;">*</span></span>
                         <span class="label-ar">رقم القضية</span>
                     </div>
                     <asp:TextBox ID="TB_NUM_AFFAIRE" runat="server" CssClass="wide-form-control" ClientIDMode="Static" onkeyup="genererNumeroJugement()" onchange="genererNumeroJugement()"></asp:TextBox>
                 </div>
                 <div class="wide-form-group">
                     <div class="dual-label-container">
-                        <span class="label-fr">Date audience</span>
+                        <span class="label-fr">Date audience <span style="color:red;"> *</span></span>
                         <span class="label-ar">تاريخ الجلسة</span>
                     </div>
                     <asp:TextBox ID="TB_DATE_AUDIANCE" runat="server" TextMode="Date" CssClass="wide-form-control"></asp:TextBox>
@@ -89,12 +89,12 @@
                 
                 <div class="wide-form-group">
                     <div class="dual-label-container">
-                        <span class="label-fr">Demandeur</span>
+                        <span class="label-fr">Demandeur <span style="color:red;"> *</span></span>
                         <span class="label-ar">المدعي</span>
                     </div>
                     <asp:TextBox ID="TB_PARTIE_DEMANDEUR" runat="server" CssClass="wide-form-control" OnTextChanged="TB_PARTIE_DEMANDEUR_TextChanged" AutoPostBack="true" ></asp:TextBox>
                 </div>
-                <div class="wide-form-group" id="SOUSCRIPTION_GROUP">
+                <div class="wide-form-group" id="SOUSCRIPTION_GROUP"  runat="server" visible="false" >
                     <div class="dual-label-container">
                         <span class="label-fr">N° Souscripteur</span>
                         <span class="label-ar">رقم المكتتب</span>
@@ -104,7 +104,7 @@
             </div>
             <div class="wide-form-row">
                 <!-- Défendeurs - Section dynamique -->
-                <div class="wide-form-group">
+                <div class="wide-form-group"  runat="server" visible="false" >
                     <div class="dual-label-container">
                         <span class="label-fr">Date renvoie</span>
                         <span class="label-ar">تاريخ الإرسال</span>
@@ -117,9 +117,9 @@
                         </div> 
                     <div id="dateEnvoiContainer"></div>
                 </div>
-                <div class="wide-form-group">
+                <div class="wide-form-group"  runat="server" visible="false" >
                     <div class="dual-label-container">
-                        <span class="label-fr">Défendeur(s)</span>
+                        <span class="label-fr required">Défendeur(s)</span>
                         <span class="label-ar">المدعى عليه(م)</span>
                     </div>
                     <div class="input-with-add">
@@ -133,7 +133,7 @@
                 </div>
 
                 <!-- Parties mises en cause - Section dynamique -->
-                <div class="wide-form-group">
+                <div class="wide-form-group"  runat="server" visible="false" >
                     <div class="dual-label-container">
                         <span class="label-fr">Partie(s) mise(s) en cause</span>
                         <span class="label-ar">مدخل في الخصام</span>
@@ -147,7 +147,17 @@
                     <div id="partiesMiseEnCauseContainer"></div>
                 </div>
 
-                
+                <div class="wide-form-group"  >
+                    <div class="dual-label-container">
+                        <span class="label-fr">Observation</span>
+                        <span class="label-ar">ملاحظة</span>
+                    </div>
+                    <div class="input-with-add">
+                        <asp:TextBox ID="TB_OBS_DR" Text="" runat="server" CssClass="wide-form-control"></asp:TextBox>
+                       
+                    </div>
+                   
+                </div>
 
                 
             </div>
@@ -158,7 +168,7 @@
 
 
         <!-- Troisième ligne - Juridiction -->
-        <div class="wide-form-section">
+        <div class="wide-form-section"  runat="server" visible="false" >
             <%--<h5 class="wide-section-title">Juridiction</h5>--%>
             <h5 class="wide-section-title">
                 <span class="title-fr">Juridiction</span>

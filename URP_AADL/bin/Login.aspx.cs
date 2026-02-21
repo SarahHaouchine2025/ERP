@@ -57,14 +57,14 @@ namespace URP_AADL
                             Session["ID_User"] = utilisateur.ID_USER;
                          bd.ID_USER = utilisateur.ID_USER;
                         Session["DR"] = DR.DR;
-                        if (Session["DR"].ToString() == "DG")
-                        {
-                            Session["ID_DR"] = null;
-                        }
-                        else
-                        {
+                        //if (Session["DR"].ToString() == "DG")
+                        //{
+                        //    Session["ID_DR"] = null;
+                        //}
+                        //else
+                        //{
                             Session["ID_DR"] = DR.ID_DR;
-                        }
+                        //}
 
                         Session["Profil"] = utilisateur.PROFIL;
                         if (utilisateur.PROFIL == "Avocat")
