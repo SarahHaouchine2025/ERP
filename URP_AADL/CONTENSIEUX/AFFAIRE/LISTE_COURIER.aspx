@@ -28,7 +28,7 @@
                 placeholder="N° dossier"></asp:TextBox>
         </div>
 
-        <div class="search-group">
+        <div class="search-group" runat="server" visible="false" id="div_num_aff">
             <div class="dual-label-container">
                 <span class="label-fr">N° Affaire</span><span class="label-ar">رقم القضية</span>
             </div>
@@ -44,7 +44,7 @@
                 placeholder="N° de la partie"></asp:TextBox>
         </div>
 
-        <div class="search-group">
+        <div class="search-group" runat="server" visible="false" id="div_demandeur">
             <div class="dual-label-container">
                 <span class="label-fr">Demandeur</span><span class="label-ar">الطالب</span>
             </div>
@@ -57,7 +57,7 @@
                         <asp:ListItem Value="">Tous</asp:ListItem>
                     </asp:DropDownList>
                 </div>
-        <div class="search-group">
+        <div class="search-group" runat="server"  visible="false" id="div_dr">
                     <label for="DDL_SEARCH_CNV">DR</label>
                     <asp:DropDownList ID="DDL_DR" runat="server" CssClass="form-control">
                         <asp:ListItem Value="">Tous</asp:ListItem>
@@ -154,7 +154,7 @@
 
                 <ItemTemplate>
     <tr>
-        <td><asp:Label ID="NUM_DOSSIER" runat="server" Text='<%# Eval("NUM_DOSSIER") %>' /></td>
+        <td><asp:Label ID="NUM_DOSSIER" runat="server" Text='<%# Eval("NUM_DOSSIER_DR") %>' /></td>
         <td><asp:Label ID="NUMERO_AFFAIRE" runat="server" Text='<%# Eval("NUMERO_AFFAIRE") %>' /></td>
         <td><asp:Label ID="DIRECTION" runat="server" Text='<%# Eval("DIRECTION") %>' /></td>
         <td><asp:Label ID="DESCRIPTION_COURIER" runat="server" Text='<%# Eval("DESCRIPTION_COURIER") %>' /></td>
@@ -170,7 +170,7 @@
             </asp:LinkButton>
 
             <asp:LinkButton ID="BTN_ENVOYER_REPONSE" runat="server" CssClass="action-btn courier-btn"
-                                CommandName="Repondre" CommandArgument='<%# Eval("ID_SCAN_COURIER") + "|" + Eval("ID_AFFAIRE") + "|" + Eval("NUM_DOSSIER") %>' ToolTip="Envoyer un courier" OnClick="BTN_ENVOYER_REPONSE_Click"  
+                                CommandName="Repondre" CommandArgument='<%# Eval("ID_SCAN_COURIER") + "|" + Eval("ID_AFFAIRE") + "|" + Eval("NUM_DOSSIER_DR") %>' ToolTip="Envoyer un courier" OnClick="BTN_ENVOYER_REPONSE_Click"  
                                 >
                                 <i class="fas fa-envelope"></i>
                             </asp:LinkButton>
@@ -216,16 +216,9 @@
                     <label>Catégorie</label>
                      <asp:DropDownList ID="DDL_CATEGORIE" runat="server" CssClass="form-control">
                         <asp:ListItem Text="------" Value="" Selected="True" />
-                        <asp:ListItem Text="Requette" Value="Requette" />
-                        <asp:ListItem Text="Requette Appel" Value="Requette Appel" />
-                         <asp:ListItem Text="Requette Cassation" Value="Requette Cassation" />
+                        
                          <asp:ListItem Text="Courier" Value="Courier" />
                          <asp:ListItem Text="Réponse" Value="Réponse" />
-                        <asp:ListItem Text="Documents Adversaire" Value="Documents Adversaire" />
-                         <asp:ListItem Text="Jugement" Value="Jugement" />
-                         <asp:ListItem Text="Jugement final" Value="Jugement" />
-                         <asp:ListItem Text="Notification" Value="Notification" />
-                         <asp:ListItem Text="Autres Documents" Value="Autres Documents" />
                     </asp:DropDownList>
                 </div>
                 <div class="form-group">
@@ -273,7 +266,7 @@
                     
                     <div class="pagination-container">
                         <asp:DataPager ID="DataPager1" runat="server"
-                            PagedControlID="LIST_AFFAIRE"
+                            PagedControlID="LIST_DOC_AFFAIRE"
                             PageSize="10"
                             QueryStringField="page">
                             <Fields>
@@ -403,12 +396,20 @@
                 </div>
                 
 
-                <div class="form-group">
+                <%--<div class="form-group">
+                    <div class="dual-label-container">
+                        <span class="label-fr">Numéro Dossier</span>
+                        <span class="label-ar"></span>
+                    </div>
+                    <asp:TextBox ID="TB_NUM_DOSSIER_ADD" runat="server" CssClass="form-control "></asp:TextBox>
+                </div>--%>
+
+                 <div class="form-group">
                     <div class="dual-label-container">
                         <span class="label-fr">Numéro Affaire</span>
-                        <span class="label-ar">تاريخ التأسيس</span>
+                        <span class="label-ar"></span>
                     </div>
-                    <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control "></asp:TextBox>
+                    <asp:TextBox ID="TB_NUM_AFFAIRE_ADD" runat="server" CssClass="form-control "></asp:TextBox>
                 </div>
 
                 
@@ -460,7 +461,7 @@
         
         <!-- Boutons -->
         <div class="wide-form-actions">
-            <asp:Button ID="Button1" runat="server" Text="Envoyer" CssClass="wide-btn-submit" OnClick="btnSubmit_Click" />
+            <asp:Button ID="BTN_ADD_NEW_courier" runat="server" Text="Envoyer" CssClass="wide-btn-submit" OnClick="BTN_ADD_NEW_courier_Click" />
             <asp:Label ID="Label2" runat="server" Visible="false" CssClass="wide-status-message"></asp:Label>
         </div>
     </div>
