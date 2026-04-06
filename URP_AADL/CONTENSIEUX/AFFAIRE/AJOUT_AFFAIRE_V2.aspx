@@ -390,7 +390,7 @@
             <h5 class="wide-section-title">
                 <%--<span class="title-fr">Détails affaire</span>
                 <span class="title-ar">تفاصيل الصفقة</span>--%>
-                <span class="title-fr"><asp:Label runat="server" ID="Label3" Text="Détails affaire"></asp:Label> / <asp:Label runat="server" class="title-ar" ID="Label4" Text="تفاصيل الصفقة"></asp:Label></span>
+                <span class="title-fr"><asp:Label runat="server" ID="Label3" Text="Détails affaire"></asp:Label> / <asp:Label runat="server" class="title-ar" ID="Label4" Text="تفاصيل القضية"></asp:Label></span>
                 <div class="btn-group-inline">
                     <asp:Button ID="SCAN_REQ" runat="server" Text="Scan Requette"
                         CssClass="btn-add" OnClick="SCAN_REQ_Click" />
